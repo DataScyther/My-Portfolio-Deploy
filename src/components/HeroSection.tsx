@@ -89,8 +89,8 @@ const HeroSection = () => {
         
         {/* Scroll Indicator */}
         <div className="absolute bottom-8 left-1/2 transform -translate-x-1/2 slide-in-up" style={{ animationDelay: '0.8s' }}>
-          <div className="w-6 h-10 border-2 border-gradient-purple/50 rounded-full flex justify-center">
-            <div className="w-1 h-3 bg-gradient-purple rounded-full mt-2 animate-bounce"></div>
+          <div className="w-6 h-10 border-2 border-gradient-purple/50 rounded-full flex justify-center hover:border-gradient-purple hover:scale-110 hover:shadow-lg hover:shadow-gradient-purple/30 transition-all duration-300 cursor-pointer group">
+            <div className="w-1 h-3 bg-gradient-purple rounded-full mt-2 animate-bounce group-hover:animate-pulse group-hover:bg-gradient-pink"></div>
           </div>
         </div>
       </div>
