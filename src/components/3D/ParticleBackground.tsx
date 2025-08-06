@@ -1,43 +1,13 @@
-import { useEffect, useRef } from 'react';
+const ParticleBackground = () => {
+  return (
+    <div className="absolute inset-0 pointer-events-none">
+      {/* Simple CSS particle effect */}
+      <div className="absolute top-10 left-10 w-1 h-1 bg-gradient-purple rounded-full animate-ping"></div>
+      <div className="absolute top-32 right-20 w-1 h-1 bg-gradient-pink rounded-full animate-ping delay-300"></div>
+      <div className="absolute bottom-20 left-32 w-1 h-1 bg-gradient-orange rounded-full animate-ping delay-700"></div>
+      <div className="absolute bottom-40 right-40 w-1 h-1 bg-gradient-purple rounded-full animate-ping delay-1000"></div>
+    </div>
+  );
+};
 
-export default function ParticleBackground() {
-  const containerRef = useRef<HTMLDivElement>(null);
-
-  useEffect(() => {
-    if (!containerRef.current) return;
-
-    const container = containerRef.current;
-    const particleCount = 50;
-
-    // Create particles
-    for (let i = 0; i < particleCount; i++) {
-      const particle = document.createElement('div');
-      particle.className = 'particle';
-      
-      // Random position
-      particle.style.left = `${Math.random() * 100}%`;
-      particle.style.top = `${Math.random() * 100}%`;
-      
-      // Random animation delay
-      particle.style.animationDelay = `${Math.random() * 6}s`;
-      
-      // Random size variation
-      const size = Math.random() * 3 + 1;
-      particle.style.width = `${size}px`;
-      particle.style.height = `${size}px`;
-      
-      // Random color variation
-      const hue = Math.random() * 60 + 270; // Purple to pink range
-      particle.style.background = `hsl(${hue}, 100%, 70%)`;
-      
-      container.appendChild(particle);
-    }
-
-    return () => {
-      // Cleanup particles
-      container.innerHTML = '';
-    };
-  }, []);
-
-  return <div ref={containerRef} className="particle-bg" />;
-}
+export default ParticleBackground;
