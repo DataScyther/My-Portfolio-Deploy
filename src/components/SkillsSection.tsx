@@ -1,5 +1,6 @@
 import { Card } from "@/components/ui/card";
 import { Code, Database, Cloud, BarChart3, Brain, GitBranch } from "lucide-react";
+import { motion } from "framer-motion";
 
 const SkillsSection = () => {
   const skillCategories = [
@@ -56,45 +57,127 @@ const SkillsSection = () => {
 
   return (
     <section id="skills" className="py-20 px-4 relative">
-      <div className="max-w-6xl mx-auto">
+      {/* Background Effects */}
+      <div className="absolute inset-0 data-grid opacity-5"></div>
+      
+      <div className="max-w-6xl mx-auto relative">
         {/* Section Header */}
-        <div className="text-center mb-16">
+        <motion.div 
+          className="text-center mb-16"
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8 }}
+          viewport={{ once: true }}
+        >
           <h2 className="text-4xl md:text-5xl font-bold mb-4">
-            Technical <span className="gradient-text">Skills</span>
+            Technical <span className="holographic-text">Skills & Services</span>
           </h2>
           <p className="text-xl text-secondary max-w-3xl mx-auto">
-            A comprehensive toolkit for building intelligent solutions and data-driven applications
+            Four glassmorphism cards showcasing specialized AI/ML solutions and data science expertise
           </p>
-        </div>
+        </motion.div>
         
-        {/* Skills Grid */}
-        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-          {skillCategories.map((category, index) => (
-            <Card 
-              key={index} 
-              className="card-glow p-6 slide-in-up group"
-              style={{ animationDelay: `${index * 0.1}s` }}
+        {/* Four Main Service Cards */}
+        <div className="grid md:grid-cols-2 gap-8 mb-16">
+          {[
+            {
+              title: "Data Science & AI Solutions",
+              description: "Predictive modeling, ML, DL, LLMs",
+              icon: <Brain className="h-8 w-8" />,
+              skills: ["Machine Learning", "Deep Learning", "Predictive Analytics", "LLM Integration"]
+            },
+            {
+              title: "Generative AI & Cloud Integration",
+              description: "AWS, GCP, Azure deployments",
+              icon: <Cloud className="h-8 w-8" />,
+              skills: ["AWS", "GCP", "Azure", "MLOps", "Model Deployment"]
+            },
+            {
+              title: "Data Analytics & Visualization",
+              description: "Power BI, Tableau, advanced analytics",
+              icon: <BarChart3 className="h-8 w-8" />,
+              skills: ["Tableau", "Power BI", "Advanced Analytics", "Statistical Modeling"]
+            },
+            {
+              title: "Tech Content Creation",
+              description: "AI/ML-focused educational videos",
+              icon: <Code className="h-8 w-8" />,
+              skills: ["Technical Writing", "Video Production", "AI Education", "Community Building"]
+            }
+          ].map((service, index) => (
+            <motion.div
+              key={index}
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, delay: index * 0.1 }}
+              viewport={{ once: true }}
             >
-              <div className="flex items-center mb-4">
-                <div className={`p-3 rounded-lg ${getColorClass(category.color)} mr-4 group-hover:scale-110 transition-transform duration-300`}>
-                  {category.icon}
+              <Card className="glass-card magnetic-hover p-8 h-full metallic-border">
+                <div className="flex items-start mb-6">
+                  <div className="p-3 rounded-lg bg-gradient-purple/10 mr-4 text-gradient-purple">
+                    {service.icon}
+                  </div>
+                  <div>
+                    <h3 className="text-2xl font-bold gradient-text mb-2">{service.title}</h3>
+                    <p className="text-secondary">{service.description}</p>
+                  </div>
                 </div>
-                <h3 className="text-xl font-semibold">{category.title}</h3>
-              </div>
-              
-              <div className="flex flex-wrap gap-2">
-                {category.skills.map((skill, skillIndex) => (
-                  <span
-                    key={skillIndex}
-                    className="px-3 py-1 text-sm rounded-full bg-muted/50 border border-border hover:border-accent/30 transition-colors duration-300 cursor-default"
-                  >
-                    {skill}
-                  </span>
-                ))}
-              </div>
-            </Card>
+                
+                <div className="grid grid-cols-2 gap-3">
+                  {service.skills.map((skill, skillIndex) => (
+                    <div
+                      key={skillIndex}
+                      className="px-4 py-2 text-sm rounded-lg glass-card text-center font-medium"
+                    >
+                      {skill}
+                    </div>
+                  ))}
+                </div>
+              </Card>
+            </motion.div>
           ))}
         </div>
+        
+        {/* Technical Skills Grid */}
+        <motion.div
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8 }}
+          viewport={{ once: true }}
+        >
+          <h3 className="text-2xl font-bold text-center mb-8 gradient-text">Technical Stack</h3>
+          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+            {skillCategories.map((category, index) => (
+              <motion.div
+                key={index}
+                initial={{ opacity: 0, scale: 0.9 }}
+                whileInView={{ opacity: 1, scale: 1 }}
+                transition={{ duration: 0.5, delay: index * 0.1 }}
+                viewport={{ once: true }}
+              >
+                <Card className="glass-card p-6 magnetic-hover">
+                  <div className="flex items-center mb-4">
+                    <div className={`p-2 rounded-lg ${getColorClass(category.color)} mr-3`}>
+                      {category.icon}
+                    </div>
+                    <h4 className="text-lg font-semibold">{category.title}</h4>
+                  </div>
+                  
+                  <div className="flex flex-wrap gap-2">
+                    {category.skills.map((skill, skillIndex) => (
+                      <span
+                        key={skillIndex}
+                        className="px-3 py-1 text-xs rounded-full bg-muted/30 border border-gradient-purple/20 hover:border-gradient-purple/40 transition-all duration-300"
+                      >
+                        {skill}
+                      </span>
+                    ))}
+                  </div>
+                </Card>
+              </motion.div>
+            ))}
+          </div>
+        </motion.div>
         
         {/* Proficiency Bars */}
         <div className="mt-16">
