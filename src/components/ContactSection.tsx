@@ -2,9 +2,26 @@ import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
-import { Mail, Linkedin, Github, Youtube, MapPin, Phone, Send } from "lucide-react";
+import { Mail, Linkedin, Github, Youtube, MapPin, Phone, Send, CheckCircle } from "lucide-react";
+import { useFormValidation } from "@/hooks/useFormValidation";
+import { useScrollReveal } from "@/hooks/useScrollReveal";
+import { toast } from "sonner";
 
 const ContactSection = () => {
+  const ref = useScrollReveal();
+  const { formData, errors, isSubmitting, handleChange, handleBlur, handleSubmit } = useFormValidation();
+  
+  const onSubmit = async () => {
+    const success = await handleSubmit();
+    if (success) {
+      toast.success("Message sent successfully! I'll get back to you soon.", {
+        icon: <CheckCircle className="h-5 w-5" />,
+      });
+    } else {
+      toast.error("Failed to send message. Please try again.");
+    }
+  };
+  
   const contactInfo = [
     {
       icon: <Mail className="h-6 w-6" />,
@@ -50,7 +67,7 @@ const ContactSection = () => {
   };
 
   return (
-    <section id="contact" className="py-20 px-4 relative">
+    <section id="contact" ref={ref} className="py-20 px-4 relative scroll-reveal">
       <div className="max-w-6xl mx-auto">
         {/* Section Header */}
         <div className="text-center mb-16">
@@ -121,45 +138,90 @@ const ContactSection = () => {
                 Send Me a <span className="gradient-text">Message</span>
               </h3>
               
-              <form className="space-y-6">
+              <form className="space-y-6" onSubmit={(e) => { e.preventDefault(); onSubmit(); }}>
                 <div className="grid md:grid-cols-2 gap-4">
                   <div>
                     <label className="block text-sm font-medium mb-2">Name</label>
                     <Input 
+                      value={formData.name}
+                      onChange={(e) => handleChange('name', e.target.value)}
+                      onBlur={() => handleBlur('name')}
                       placeholder="Your Name" 
-                      className="bg-muted/20 border-border focus:border-accent/50 transition-colors duration-300"
+                      className={`bg-muted/20 border-border focus:border-accent/50 transition-colors duration-300 ${
+                        errors.name ? 'border-destructive' : ''
+                      }`}
                     />
+                    {errors.name && (
+                      <p className="text-destructive text-sm mt-1">{errors.name}</p>
+                    )}
                   </div>
                   <div>
                     <label className="block text-sm font-medium mb-2">Email</label>
                     <Input 
-                      type="email" 
+                      type="email"
+                      value={formData.email}
+                      onChange={(e) => handleChange('email', e.target.value)}
+                      onBlur={() => handleBlur('email')}
                       placeholder="your.email@example.com" 
-                      className="bg-muted/20 border-border focus:border-accent/50 transition-colors duration-300"
+                      className={`bg-muted/20 border-border focus:border-accent/50 transition-colors duration-300 ${
+                        errors.email ? 'border-destructive' : ''
+                      }`}
                     />
+                    {errors.email && (
+                      <p className="text-destructive text-sm mt-1">{errors.email}</p>
+                    )}
                   </div>
                 </div>
                 
                 <div>
                   <label className="block text-sm font-medium mb-2">Subject</label>
                   <Input 
+                    value={formData.subject}
+                    onChange={(e) => handleChange('subject', e.target.value)}
+                    onBlur={() => handleBlur('subject')}
                     placeholder="What would you like to discuss?" 
-                    className="bg-muted/20 border-border focus:border-accent/50 transition-colors duration-300"
+                    className={`bg-muted/20 border-border focus:border-accent/50 transition-colors duration-300 ${
+                      errors.subject ? 'border-destructive' : ''
+                    }`}
                   />
+                  {errors.subject && (
+                    <p className="text-destructive text-sm mt-1">{errors.subject}</p>
+                  )}
                 </div>
                 
                 <div>
                   <label className="block text-sm font-medium mb-2">Message</label>
                   <Textarea 
+                    value={formData.message}
+                    onChange={(e) => handleChange('message', e.target.value)}
+                    onBlur={() => handleBlur('message')}
                     placeholder="Tell me about your project, collaboration ideas, or just say hello!"
                     rows={5}
-                    className="bg-muted/20 border-border focus:border-accent/50 transition-colors duration-300 resize-none"
+                    className={`bg-muted/20 border-border focus:border-accent/50 transition-colors duration-300 resize-none ${
+                      errors.message ? 'border-destructive' : ''
+                    }`}
                   />
+                  {errors.message && (
+                    <p className="text-destructive text-sm mt-1">{errors.message}</p>
+                  )}
                 </div>
                 
-                <Button className="w-full gradient-button text-lg py-6">
-                  <Send className="mr-2 h-5 w-5" />
-                  Send Message
+                <Button 
+                  type="submit"
+                  disabled={isSubmitting}
+                  className="w-full gradient-button text-lg py-6"
+                >
+                  {isSubmitting ? (
+                    <>
+                      <div className="animate-spin rounded-full h-5 w-5 border-b-2 border-white mr-2"></div>
+                      Sending...
+                    </>
+                  ) : (
+                    <>
+                      <Send className="mr-2 h-5 w-5" />
+                      Send Message
+                    </>
+                  )}
                 </Button>
               </form>
               

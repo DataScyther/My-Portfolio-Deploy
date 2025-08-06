@@ -1,7 +1,10 @@
 import { Card } from "@/components/ui/card";
 import { GraduationCap, User, Target, TrendingUp } from "lucide-react";
+import { useScrollReveal } from "@/hooks/useScrollReveal";
 
 const AboutSection = () => {
+  const ref = useScrollReveal();
+  
   const timeline = [
     {
       year: "2022",
@@ -24,7 +27,7 @@ const AboutSection = () => {
   ];
 
   return (
-    <section id="about" className="py-20 px-4 relative">
+    <section id="about" ref={ref} className="py-20 px-4 relative scroll-reveal">
       <div className="max-w-6xl mx-auto">
         {/* Section Header */}
         <div className="text-center mb-16">

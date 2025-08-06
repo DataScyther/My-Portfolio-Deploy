@@ -1,8 +1,11 @@
 import { Card } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Building2, Calendar, MapPin } from "lucide-react";
+import { useScrollReveal } from "@/hooks/useScrollReveal";
 
 const ExperienceSection = () => {
+  const ref = useScrollReveal();
+  
   const experiences = [
     {
       title: "YouTube Content Creator",
@@ -95,7 +98,7 @@ const ExperienceSection = () => {
   };
 
   return (
-    <section id="experience" className="py-20 px-4 relative">
+    <section id="experience" ref={ref} className="py-20 px-4 relative scroll-reveal">
       <div className="max-w-6xl mx-auto">
         {/* Section Header */}
         <div className="text-center mb-16">

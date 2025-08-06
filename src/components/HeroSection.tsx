@@ -1,9 +1,36 @@
 import { Button } from "@/components/ui/button";
 import { Github, Linkedin, Youtube, Mail, Download, ArrowRight } from "lucide-react";
+import { useTypingAnimation } from "@/hooks/useTypingAnimation";
+import { useScrollReveal } from "@/hooks/useScrollReveal";
+import { useEffect, useState } from "react";
 
 const HeroSection = () => {
+  const [scrollY, setScrollY] = useState(0);
+  const ref = useScrollReveal();
+  
+  const roles = [
+    "Future Data Scientist",
+    "AI/ML Engineer", 
+    "Cloud Enthusiast",
+    "Python Developer"
+  ];
+  
+  const { currentText } = useTypingAnimation(roles, 150, 100, 2000);
+  
+  useEffect(() => {
+    const handleScroll = () => setScrollY(window.scrollY);
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
+
   return (
-    <section className="relative min-h-screen flex items-center justify-center px-4 overflow-hidden">
+    <section 
+      ref={ref}
+      className="relative min-h-screen flex items-center justify-center px-4 overflow-hidden scroll-reveal"
+      style={{
+        transform: `translateY(${scrollY * 0.5}px)`, // Parallax effect
+      }}
+    >
       {/* Background Effects */}
       <div className="absolute inset-0 bg-gradient-to-br from-background via-muted/20 to-background"></div>
       <div className="absolute top-1/4 left-1/4 w-64 h-64 bg-gradient-purple/20 rounded-full blur-3xl animate-pulse"></div>
@@ -32,7 +59,10 @@ const HeroSection = () => {
         {/* Animated Tagline */}
         <div className="mb-8 slide-in-up" style={{ animationDelay: '0.2s' }}>
           <h2 className="text-4xl md:text-6xl lg:text-7xl font-bold mb-4">
-            <span className="gradient-text">Future Data Scientist</span>
+            <span className="gradient-text">
+              {currentText}
+              <span className="animate-pulse">|</span>
+            </span>
           </h2>
           <p className="text-xl md:text-2xl text-secondary max-w-4xl mx-auto leading-relaxed">
             Generative AI & Cloud (AWS | GCP) | Python • AI/ML • LLMs • MLOps

@@ -253,4 +253,42 @@ All colors MUST be HSL.
     opacity: 1;
     transform: translateY(0);
   }
+  
+  /* Navigation active state */
+  .nav-link.nav-active {
+    color: hsl(var(--foreground));
+  }
+  
+  .nav-link.nav-active .absolute {
+    transform: scaleX(1);
+  }
+  
+  /* Enhanced micro-interactions */
+  .hover-lift {
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+  
+  .hover-lift:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 20px 60px -20px hsl(270 100% 70% / 0.3);
+  }
+  
+  /* Parallax sections */
+  .parallax-bg {
+    background-attachment: fixed;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+  }
+  
+  /* Form focus effects */
+  .form-input:focus {
+    box-shadow: 0 0 0 3px hsl(270 100% 70% / 0.1);
+    border-color: hsl(270 100% 70%);
+  }
+  
+  /* Stagger animation for children */
+  .stagger-children > * {
+    animation-delay: calc(var(--stagger-delay, 0) * 0.1s);
+  }
 }

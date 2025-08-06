@@ -2,10 +2,12 @@ import { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import { Menu, X, Download } from "lucide-react";
 import { ThemeToggle } from "@/components/ThemeToggle";
+import { useActiveSection } from "@/hooks/useScrollReveal";
 
 const Navigation = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
+  const { activeSection } = useActiveSection();
 
   useEffect(() => {
     const handleScroll = () => {
@@ -56,10 +58,11 @@ const Navigation = () => {
               <button
                 key={item.label}
                 onClick={() => scrollToSection(item.href)}
-                className="text-secondary hover:text-foreground transition-colors duration-300 relative group"
+                data-nav-link={item.href}
+                className="text-secondary hover:text-foreground transition-colors duration-300 relative group nav-link"
               >
                 {item.label}
-                <div className="absolute inset-x-0 bottom-0 h-0.5 bg-gradient-to-r from-gradient-purple to-gradient-pink scale-x-0 group-hover:scale-x-100 transition-transform duration-300 origin-left"></div>
+                <div className="absolute inset-x-0 bottom-0 h-0.5 bg-gradient-to-r from-gradient-purple to-gradient-pink scale-x-0 group-hover:scale-x-100 nav-active:scale-x-100 transition-transform duration-300 origin-left"></div>
               </button>
             ))}
             
@@ -88,7 +91,8 @@ const Navigation = () => {
                 <button
                   key={item.label}
                   onClick={() => scrollToSection(item.href)}
-                  className="block w-full text-left text-secondary hover:text-foreground transition-colors duration-300 py-2"
+                  data-nav-link={item.href}
+                  className="block w-full text-left text-secondary hover:text-foreground transition-colors duration-300 py-2 nav-link"
                 >
                   {item.label}
                 </button>

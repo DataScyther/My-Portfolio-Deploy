@@ -1,8 +1,11 @@
 import { Card } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Award, ExternalLink, Cloud, Brain, Code, BarChart3 } from "lucide-react";
+import { useScrollReveal } from "@/hooks/useScrollReveal";
 
 const CertificationsSection = () => {
+  const ref = useScrollReveal();
+  
   const certifications = [
     {
       title: "AWS APAC Solutions Architecture Job Simulation",
@@ -92,7 +95,7 @@ const CertificationsSection = () => {
   const categories = [...new Set(certifications.map(cert => cert.category))];
 
   return (
-    <section id="certifications" className="py-20 px-4 relative">
+    <section id="certifications" ref={ref} className="py-20 px-4 relative scroll-reveal">
       <div className="max-w-6xl mx-auto">
         {/* Section Header */}
         <div className="text-center mb-16">

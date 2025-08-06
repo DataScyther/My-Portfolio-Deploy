@@ -2,8 +2,11 @@ import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { ExternalLink, Github, BarChart3, Brain, Monitor, Music } from "lucide-react";
+import { useScrollReveal } from "@/hooks/useScrollReveal";
 
 const ProjectsSection = () => {
+  const ref = useScrollReveal();
+  
   const projects = [
     {
       title: "Business Sales Dashboard",
@@ -91,7 +94,7 @@ const ProjectsSection = () => {
   };
 
   return (
-    <section id="projects" className="py-20 px-4 relative">
+    <section id="projects" ref={ref} className="py-20 px-4 relative scroll-reveal">
       <div className="max-w-6xl mx-auto">
         {/* Section Header */}
         <div className="text-center mb-16">
