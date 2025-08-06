@@ -8,6 +8,46 @@ All colors MUST be HSL.
 
 @layer base {
   :root {
+    /* Light Theme */
+    --background: 0 0% 100%;
+    --foreground: 240 10% 3.9%;
+    
+    /* Portfolio Brand Colors */
+    --primary: 270 100% 70%;
+    --primary-foreground: 0 0% 100%;
+    --secondary: 240 4.8% 46%;
+    --secondary-foreground: 0 0% 100%;
+    
+    /* Gradient Colors */
+    --gradient-purple: 270 100% 70%;
+    --gradient-pink: 320 100% 70%;
+    --gradient-orange: 30 100% 70%;
+    
+    /* Portfolio Accents */
+    --accent: 240 4.8% 95.9%;
+    --accent-foreground: 240 5.9% 10%;
+    --muted: 240 4.8% 95.9%;
+    --muted-foreground: 240 3.8% 46.1%;
+    
+    /* Card & Surface Colors */
+    --card: 0 0% 100%;
+    --card-foreground: 240 10% 3.9%;
+    --popover: 0 0% 100%;
+    --popover-foreground: 240 10% 3.9%;
+    
+    /* Interactive Elements */
+    --border: 240 5.9% 90%;
+    --input: 240 5.9% 90%;
+    --ring: 270 100% 70%;
+    
+    /* Destructive */
+    --destructive: 0 84.2% 60.2%;
+    --destructive-foreground: 210 40% 98%;
+    
+    --radius: 0.75rem;
+  }
+  
+  .dark {
     /* Dark Portfolio Theme */
     --background: 240 16% 4%;
     --foreground: 0 0% 100%;
@@ -43,8 +83,6 @@ All colors MUST be HSL.
     /* Destructive */
     --destructive: 0 84.2% 60.2%;
     --destructive-foreground: 210 40% 98%;
-    
-    --radius: 0.75rem;
   }
 }
 
@@ -55,8 +93,9 @@ All colors MUST be HSL.
 
   body {
     @apply bg-background text-foreground font-sans;
-    background: linear-gradient(135deg, hsl(240 16% 4%), hsl(240 20% 6%));
+    background: linear-gradient(135deg, hsl(var(--background)), hsl(var(--muted)));
     min-height: 100vh;
+    transition: background-color 0.3s ease, color 0.3s ease;
   }
 
   html {
@@ -187,5 +226,31 @@ All colors MUST be HSL.
     to {
       transform: scaleX(1);
     }
+  }
+  
+  /* Glass morphism effects */
+  .glass-card {
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(20px);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+  
+  .glass-card:hover {
+    background: rgba(255, 255, 255, 0.15);
+    border-color: rgba(255, 255, 255, 0.3);
+    transform: translateY(-2px);
+  }
+  
+  /* Scroll animations */
+  .scroll-reveal {
+    opacity: 0;
+    transform: translateY(30px);
+    transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+  
+  .scroll-reveal.visible {
+    opacity: 1;
+    transform: translateY(0);
   }
 }

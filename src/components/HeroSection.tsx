@@ -13,9 +13,11 @@ const HeroSection = () => {
         {/* Avatar */}
         <div className="mb-8 floating">
           <div className="w-32 h-32 mx-auto rounded-full bg-gradient-to-br from-gradient-purple to-gradient-pink p-1 pulse-glow">
-            <div className="w-full h-full rounded-full bg-muted flex items-center justify-center text-4xl font-bold gradient-text">
-              NK
-            </div>
+            <img 
+              src="/lovable-uploads/fc694a1f-d7e9-49ac-abd8-75a1e40a77e8.png" 
+              alt="Nishant Kumar - Profile Photo" 
+              className="w-full h-full rounded-full object-cover"
+            />
           </div>
         </div>
         

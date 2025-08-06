@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import { Menu, X, Download } from "lucide-react";
+import { ThemeToggle } from "@/components/ThemeToggle";
 
 const Navigation = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -33,9 +34,9 @@ const Navigation = () => {
   };
 
   return (
-    <nav className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
+    <nav className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${
       scrolled 
-        ? 'bg-background/80 backdrop-blur-md border-b border-border/50' 
+        ? 'bg-background/60 backdrop-blur-xl border-b border-border/30 shadow-lg shadow-primary/5' 
         : 'bg-transparent'
     }`}>
       <div className="max-w-6xl mx-auto px-4">
@@ -50,7 +51,7 @@ const Navigation = () => {
           </a>
           
           {/* Desktop Navigation */}
-          <div className="hidden md:flex items-center space-x-8">
+          <div className="hidden md:flex items-center space-x-6">
             {navItems.map((item) => (
               <button
                 key={item.label}
@@ -61,6 +62,8 @@ const Navigation = () => {
                 <div className="absolute inset-x-0 bottom-0 h-0.5 bg-gradient-to-r from-gradient-purple to-gradient-pink scale-x-0 group-hover:scale-x-100 transition-transform duration-300 origin-left"></div>
               </button>
             ))}
+            
+            <ThemeToggle />
             
             <Button size="sm" className="gradient-button">
               <Download className="h-4 w-4 mr-2" />
@@ -79,7 +82,7 @@ const Navigation = () => {
         
         {/* Mobile Navigation */}
         {isOpen && (
-          <div className="md:hidden absolute top-full left-0 right-0 bg-background/95 backdrop-blur-md border-b border-border/50">
+          <div className="md:hidden absolute top-full left-0 right-0 bg-background/80 backdrop-blur-xl border-b border-border/30 shadow-xl">
             <div className="px-4 py-6 space-y-4">
               {navItems.map((item) => (
                 <button
@@ -91,10 +94,13 @@ const Navigation = () => {
                 </button>
               ))}
               
-              <Button size="sm" className="gradient-button w-full mt-4">
-                <Download className="h-4 w-4 mr-2" />
-                Download Resume
-              </Button>
+              <div className="flex items-center gap-4 mt-4">
+                <ThemeToggle />
+                <Button size="sm" className="gradient-button flex-1">
+                  <Download className="h-4 w-4 mr-2" />
+                  Download Resume
+                </Button>
+              </div>
             </div>
           </div>
         )}
