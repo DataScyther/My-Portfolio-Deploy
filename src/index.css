@@ -97,6 +97,14 @@ All colors MUST be HSL.
     min-height: 100vh;
     transition: background-color 0.3s ease, color 0.3s ease;
   }
+  
+  .bg-gradient-radial {
+    background: radial-gradient(circle at center, var(--tw-gradient-stops));
+  }
+  
+  .border-gradient-to-r {
+    border-image: linear-gradient(to right, hsl(var(--primary)), hsl(var(--accent))) 1;
+  }
 
   html {
     scroll-behavior: smooth;
