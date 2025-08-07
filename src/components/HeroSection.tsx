@@ -3,10 +3,11 @@ import { Github, Linkedin, Youtube, Mail, Download, ArrowRight } from "lucide-re
 import { useTypingAnimation } from "@/hooks/useTypingAnimation";
 import { useScrollReveal } from "@/hooks/useScrollReveal";
 import { useEffect, useState } from "react";
+import DotGrid from "./DotGrid";
 const HeroSection = () => {
   const [scrollY, setScrollY] = useState(0);
   const ref = useScrollReveal();
-  const roles = ["Future Data Scientist", "AI/ML Engineer", "Cloud Enthusiast", "Python Developer"];
+  const roles = ["Future Data Scientist", "AI/ML Specialist", "Cloud Enthusiast"];
   const {
     currentText
   } = useTypingAnimation(roles, 150, 100, 2000);
@@ -18,8 +19,23 @@ const HeroSection = () => {
   return <section ref={ref} className="relative min-h-screen flex items-center justify-center px-4 overflow-hidden scroll-reveal" style={{
     transform: `translateY(${scrollY * 0.5}px)` // Parallax effect
   }}>
+      {/* Interactive Grid Background */}
+      <div className="absolute inset-0 w-full h-full">
+        <DotGrid
+          dotSize={8}
+          gap={20}
+          baseColor="hsl(var(--muted-foreground) / 0.3)"
+          activeColor="hsl(var(--primary))"
+          proximity={100}
+          shockRadius={200}
+          shockStrength={3}
+          resistance={600}
+          returnDuration={1.2}
+        />
+      </div>
+      
       {/* Background Effects */}
-      <div className="absolute inset-0 bg-gradient-to-br from-background via-muted/20 to-background"></div>
+      <div className="absolute inset-0 bg-gradient-to-br from-background/80 via-background/40 to-background/80"></div>
       <div className="absolute top-1/4 left-1/4 w-64 h-64 bg-gradient-purple/20 rounded-full blur-3xl animate-pulse"></div>
       <div className="absolute bottom-1/4 right-1/4 w-96 h-96 bg-gradient-pink/20 rounded-full blur-3xl animate-pulse delay-1000"></div>
       
