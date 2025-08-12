@@ -7,7 +7,7 @@ const AboutSection = () => {
   
   const timeline = [
     {
-      year: "2022",
+      year: "2020",
       title: "YouTube Content Creator",
       description: "Started Mighty-TechShorts channel focusing on technology education",
       icon: <TrendingUp className="h-5 w-5" />
@@ -19,8 +19,8 @@ const AboutSection = () => {
       icon: <GraduationCap className="h-5 w-5" />
     },
     {
-      year: "2024",
-      title: "AI/ML Specialization",
+      year: "2023",
+      title: "Data Science & AI/ML Specialization",
       description: "Deep dive into Generative AI, LLMs, and MLOps",
       icon: <Target className="h-5 w-5" />
     }
@@ -64,9 +64,9 @@ const AboutSection = () => {
                 </p>
                 
                 <p>
-                  My expertise spans across multiple domains including Python programming, machine learning, 
-                  cloud computing (AWS, GCP), and the latest in generative AI and large language models. 
-                  I'm passionate about MLOps and building scalable AI solutions that can make a real impact.
+                  My expertise lies in data science, machine learning, and AI/ML technologies. I have a keen 
+                  interest in generative AI, large language models (LLMs), and MLOps, and I'm always eager to 
+                  explore new advancements in these fields.
                 </p>
               </div>
             </Card>

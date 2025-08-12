@@ -1,15 +1,40 @@
 import { Card } from "@/components/ui/card";
 import { Code, Database, Cloud, BarChart3, Brain, GitBranch } from "lucide-react";
 import { useScrollReveal } from "@/hooks/useScrollReveal";
+import { useEffect } from "react";
+import anime from "animejs";
 
 const SkillsSection = () => {
   const ref = useScrollReveal();
   
+  useEffect(() => {
+    const section = document.getElementById('skills');
+    if (!section) return;
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          const cards = section.querySelectorAll('.skill-card');
+          anime({
+            targets: cards,
+            opacity: [0, 1],
+            translateY: [16, 0],
+            delay: anime.stagger(80),
+            duration: 600,
+            easing: 'easeOutQuad',
+          });
+          observer.unobserve(entry.target as Element);
+        }
+      });
+    }, { threshold: 0.3 });
+    observer.observe(section);
+    return () => observer.disconnect();
+  }, []);
+
   const skillCategories = [
     {
       icon: <Code className="h-8 w-8" />,
       title: "Programming Languages",
-      skills: ["Python", "R", "SQL", "Java", "JavaScript"],
+      skills: ["Python", "R", "SQL", "HTML", "CSS", "Java"],
       color: "gradient-purple"
     },
     {
@@ -27,19 +52,19 @@ const SkillsSection = () => {
     {
       icon: <Cloud className="h-8 w-8" />,
       title: "Cloud Platforms",
-      skills: ["AWS", "GCP", "Azure", "Docker", "Kubernetes"],
+      skills: ["AWS", "GCP", "Azure", "Docker"],
       color: "gradient-purple"
     },
     {
       icon: <Database className="h-8 w-8" />,
       title: "Databases",
-      skills: ["MySQL", "PostgreSQL", "MongoDB", "Redis", "Elasticsearch"],
+      skills: ["SQL", "MySQL", "PostgreSQL", "MongoDB",],
       color: "gradient-pink"
     },
     {
       icon: <GitBranch className="h-8 w-8" />,
       title: "Tools & Technologies",
-      skills: ["Git", "Jupyter", "MLflow", "Apache Spark", "Kafka"],
+      skills: ["Git" , "GitHub", "Jupyter", "VS Code", "Docker"],
       color: "gradient-orange"
     }
   ];
@@ -75,8 +100,7 @@ const SkillsSection = () => {
           {skillCategories.map((category, index) => (
             <Card 
               key={index} 
-              className="card-glow p-6 slide-in-up group"
-              style={{ animationDelay: `${index * 0.1}s` }}
+              className="card-glow p-6 group hover-lift skill-card opacity-0"
             >
               <div className="flex items-center mb-4">
                 <div className={`p-3 rounded-lg ${getColorClass(category.color)} mr-4 group-hover:scale-110 transition-transform duration-300`}>
@@ -111,7 +135,7 @@ const SkillsSection = () => {
               { skill: "Machine Learning & AI", level: 90 },
               { skill: "Cloud Computing (AWS/GCP)", level: 85 },
               { skill: "Data Visualization", level: 88 },
-              { skill: "MLOps & Deployment", level: 82 },
+              { skill: "MLOps & Deployment", level: 80 },
               { skill: "Generative AI & LLMs", level: 87 }
             ].map((item, index) => (
               <div key={index} className="slide-in-up" style={{ animationDelay: `${index * 0.1 + 0.5}s` }}>
@@ -121,11 +145,8 @@ const SkillsSection = () => {
                 </div>
                 <div className="h-2 bg-muted/30 rounded-full overflow-hidden">
                   <div 
-                    className="h-full skill-bar rounded-full"
-                    style={{ 
-                      width: `${item.level}%`,
-                      animationDelay: `${index * 0.1 + 1}s`
-                    }}
+                    className="h-full skill-bar rounded-full transition-[width] duration-1000 ease-out"
+                    style={{ width: `${item.level}%`, animationDelay: `${index * 0.1 + 1}s` }}
                   ></div>
                 </div>
               </div>
@@ -136,5 +157,4 @@ const SkillsSection = () => {
     </section>
   );
 };
-
 export default SkillsSection;

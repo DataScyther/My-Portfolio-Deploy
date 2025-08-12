@@ -27,7 +27,21 @@ const Navigation = () => {
     { label: "Contact", href: "#contact" }
   ];
 
+  const setActiveLink = (targetHref: string) => {
+    const navLinks = document.querySelectorAll<HTMLElement>('[data-nav-link]');
+    navLinks.forEach((link) => {
+      const dataHref = link.getAttribute('data-nav-link');
+      if (!dataHref) return;
+      if (dataHref === targetHref) {
+        link.classList.add('nav-active');
+      } else {
+        link.classList.remove('nav-active');
+      }
+    });
+  };
+
   const scrollToSection = (href: string) => {
+    setActiveLink(href);
     const element = document.querySelector(href);
     if (element) {
       element.scrollIntoView({ behavior: 'smooth' });
@@ -62,7 +76,7 @@ const Navigation = () => {
                 className="text-secondary hover:text-foreground transition-colors duration-300 relative group nav-link"
               >
                 {item.label}
-                <div className="absolute inset-x-0 bottom-0 h-0.5 bg-gradient-to-r from-gradient-purple to-gradient-pink scale-x-0 group-hover:scale-x-100 nav-active:scale-x-100 transition-transform duration-300 origin-left"></div>
+                <div className="absolute inset-x-0 bottom-0 h-0.5 bg-gradient-to-r from-gradient-purple to-gradient-pink scale-x-0 group-hover:scale-x-100 transition-transform duration-300 origin-left"></div>
               </button>
             ))}
             

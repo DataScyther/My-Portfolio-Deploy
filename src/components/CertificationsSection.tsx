@@ -1,58 +1,140 @@
 import { Card } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
-import { Award, ExternalLink, Cloud, Brain, Code, BarChart3 } from "lucide-react";
+import { Award, ExternalLink, Cloud, Brain, Code, Code2, BrainCircuit, Bot, BarChart3, Building2, GraduationCap, PieChart, Plane, CloudCog, AreaChart, LineChart, Sparkles } from "lucide-react";
 import { useScrollReveal } from "@/hooks/useScrollReveal";
+import { useEffect } from "react";
+import anime from "animejs";
 
 const CertificationsSection = () => {
   const ref = useScrollReveal();
-  
   const certifications = [
     {
-      title: "AWS APAC Solutions Architecture Job Simulation",
-      issuer: "Amazon Web Services",
-      date: "2024",
-      category: "Cloud Computing",
-      icon: <Cloud className="h-6 w-6" />,
+      title: "Generative AI",
+      issuer: "BCG",
+      date: "2025",
+      category: "Generative AI",
+      icon: <BrainCircuit className="h-6 w-6" />,
+      color: "gradient-green",
+      description: "Generative AI is a type of artificial intelligence that uses machine learning to create new content, such as images, text, and audio.",
+      skills: ["Generative AI", "Machine Learning", "Artificial Intelligence"]
+    },
+    
+    {
+      title: "Generative AI in Action",
+      issuer: "AWS Training and Certification",
+      date: "2025",
+      category: "Generative AI",
+      icon: <Bot className="h-6 w-6" />,
       color: "gradient-orange",
       description: "Hands-on experience with AWS architecture design and cloud solutions implementation",
       skills: ["AWS Architecture", "Cloud Design", "Solutions Engineering"]
     },
+  
+    {
+      title: "Data Science & Analytics",
+      issuer: "Future Interns",
+      date: "2025",
+      category: "Data Science & Analytics",
+      icon: <BarChart3 className="h-6 w-6" />,
+      color: "gradient-green",
+      description: "Data science and analytics are the study of data to extract meaningful insights and knowledge.",
+      skills: ["Data Science", "Analytics", "SQL", "Power BI", "Tableau", "Excel"]
+    },
+
+     {
+      title: "Lloyds Banking Group Data Science Simulation",
+      issuer: "Lloyds Banking Group",
+      date: "2025",
+      category: "Financial Analytics",
+      icon: <Building2 className="h-6 w-6" />,
+      color: "gradient-green",
+      description: "Financial data science and risk analytics in banking sector",
+      skills: ["Financial Modeling", "Risk Analysis", "Banking Analytics"]
+    },
+
+    {
+      title: "Microsoft Azure AI Fundamentals",
+      issuer: "Microsoft",
+      date: "2025",
+      category: "Artificial Intelligence",
+      icon: <GraduationCap className="h-6 w-6" />,
+      color: "gradient-blue",
+      description: "Hands-on experience with AWS architecture design and cloud solutions implementation",
+      skills: ["AWS Architecture", "Cloud Design", "Solutions Engineering"]
+    },
+
     {
       title: "Microsoft Azure AI Essentials",
       issuer: "Microsoft",
-      date: "2024",
+      date: "2025",
       category: "Artificial Intelligence",
       icon: <Brain className="h-6 w-6" />,
-      color: "gradient-purple",
+      color: "gradient-blue",
       description: "Comprehensive understanding of Azure AI services and machine learning capabilities",
       skills: ["Azure AI", "Machine Learning", "Cognitive Services"]
     },
+
+
+    {
+      title: "Data Analytics",
+      issuer: "Tata Group",
+      date: "2025",
+      category: "Data Analytics",
+      icon: <PieChart className="h-6 w-6" />,
+      color: "gradient-sky",
+      description: "Data analytics is the process of examining data to gain insights and make decisions.",
+      skills: ["Data Analytics", "SQL", "Power BI", "Tableau", "Excel", "Python", "Data Visualization"]
+    },
+
+
     {
       title: "British Airways Data Science Job Simulation",
       issuer: "British Airways",
-      date: "2024",
+      date: "2025",
       category: "Data Science",
-      icon: <BarChart3 className="h-6 w-6" />,
-      color: "gradient-pink",
+      icon: <Plane className="h-6 w-6" />,
+      color: "gradient-red",
       description: "Real-world data science project simulation in the aviation industry",
       skills: ["Data Analysis", "Predictive Modeling", "Business Intelligence"]
     },
-    {
-      title: "Lloyds Banking Group Data Science Simulation",
-      issuer: "Lloyds Banking Group",
-      date: "2024",
-      category: "Financial Analytics",
-      icon: <BarChart3 className="h-6 w-6" />,
+
+      {
+      title: "AWS Solutions Architect",
+      issuer: "Amazon Web Services",
+      date: "2025",
+      category: "Cloud",
+      icon: <CloudCog className="h-6 w-6" />,
       color: "gradient-orange",
-      description: "Financial data science and risk analytics in banking sector",
-      skills: ["Financial Modeling", "Risk Analysis", "Banking Analytics"]
+      description: "Designing and deploying scalable cloud solutions",
+      skills: ["Cloud Architecture", "AWS", "DevOps"]
+    },
+
+    {
+      title: "Data Analytics and Visualization",
+      issuer: "Accenture",
+      date: "2025",
+      category: "Data Analytics",
+      icon: <AreaChart className="h-6 w-6" />,
+      color: "gradient-purple",
+      description: "Data analytics and visualization using Power BI and Tableau",
+      skills: ["Data Analytics", "Power BI", "Tableau", "Excel", "Python", "Data Visualization"]
+    },
+    {
+      title: "Data Analytics",
+      issuer: "Deloitte",
+      date: "2025",
+      category: "Data Analytics",
+      icon: <LineChart className="h-6 w-6" />,
+      color: "gradient-green",
+      description: "Data analytics is the process of examining data to gain insights and make decisions.",
+      skills: ["Data Analytics", "SQL", "Power BI", "Tableau", "Excel", "Python", "Data Visualization"]
     },
     {
       title: "Google Cloud Generative AI Studio",
       issuer: "Google Cloud",
-      date: "2024",
+      date: "2025",
       category: "Generative AI",
-      icon: <Brain className="h-6 w-6" />,
+      icon: <Sparkles className="h-6 w-6" />,
       color: "gradient-purple",
       description: "Advanced training in generative AI technologies and implementation",
       skills: ["Generative AI", "LLMs", "Google Cloud AI"]
@@ -60,20 +142,20 @@ const CertificationsSection = () => {
     {
       title: "IBM Python for Data Science",
       issuer: "IBM",
-      date: "2023",
+      date: "2024",
       category: "Programming",
-      icon: <Code className="h-6 w-6" />,
-      color: "gradient-pink",
+      icon: <Code2 className="h-6 w-6" />,
+      color: "gradient-blue",
       description: "Comprehensive Python programming for data science applications",
       skills: ["Python", "Data Science", "Programming"]
     },
     {
       title: "HackerRank Python Programming Certificate",
       issuer: "HackerRank",
-      date: "2023",
+      date: "2024",
       category: "Programming",
       icon: <Code className="h-6 w-6" />,
-      color: "gradient-orange",
+      color: "gradient-green",
       description: "Advanced Python programming skills certification",
       skills: ["Python", "Algorithms", "Problem Solving"]
     }
@@ -81,28 +163,61 @@ const CertificationsSection = () => {
 
   const getColorClass = (color: string) => {
     switch (color) {
+      case "gradient-red":
+        return "dark:text-red-400 text-red-600 border-red-200 dark:border-red-900/20 bg-red-50 dark:bg-red-900/10";
+      case "gradient-green":
+        return "dark:text-green-400 text-green-600 border-green-200 dark:border-green-900/20 bg-green-50 dark:bg-green-900/10";
+      case "gradient-blue":
+        return "dark:text-blue-400 text-blue-600 border-blue-200 dark:border-blue-900/20 bg-blue-50 dark:bg-blue-900/10";
+      case "gradient-sky":
+        return "dark:text-sky-400 text-sky-600 border-sky-200 dark:border-sky-900/20 bg-sky-50 dark:bg-sky-900/10";
       case "gradient-purple":
-        return "text-gradient-purple border-gradient-purple/20 bg-gradient-purple/5";
+        return "dark:text-purple-400 text-purple-600 border-purple-200 dark:border-purple-900/20 bg-purple-50 dark:bg-purple-900/10";
       case "gradient-pink":
-        return "text-gradient-pink border-gradient-pink/20 bg-gradient-pink/5";
+        return "dark:text-pink-400 text-pink-600 border-pink-200 dark:border-pink-900/20 bg-pink-50 dark:bg-pink-900/10";
       case "gradient-orange":
-        return "text-gradient-orange border-gradient-orange/20 bg-gradient-orange/5";
+        return "dark:text-orange-400 text-orange-600 border-orange-200 dark:border-orange-900/20 bg-orange-50 dark:bg-orange-900/10";
       default:
-        return "text-gradient-purple border-gradient-purple/20 bg-gradient-purple/5";
+        return "dark:text-purple-400 text-purple-600 border-purple-200 dark:border-purple-900/20 bg-purple-50 dark:bg-purple-900/10";
     }
   };
 
   const categories = [...new Set(certifications.map(cert => cert.category))];
 
+  // Animate certifications on reveal
+  useEffect(() => {
+    const section = document.getElementById('certifications');
+    const grid = document.getElementById('certs-grid');
+    if (!section || !grid) return;
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          const cards = grid.querySelectorAll('.cert-card');
+          anime({
+            targets: cards,
+            opacity: [0, 1],
+            translateY: [20, 0],
+            delay: anime.stagger(80),
+            duration: 650,
+            easing: 'easeOutQuad',
+          });
+          observer.unobserve(entry.target as Element);
+        }
+      });
+    }, { threshold: 0.25 });
+    observer.observe(section);
+    return () => observer.disconnect();
+  }, []);
+
   return (
-    <section id="certifications" ref={ref} className="py-20 px-4 relative scroll-reveal">
+    <section id="certifications" ref={ref} className="py-20 px-4 relative scroll-reveal bg-background">
       <div className="max-w-6xl mx-auto">
         {/* Section Header */}
         <div className="text-center mb-16">
           <h2 className="text-4xl md:text-5xl font-bold mb-4">
-            <span className="gradient-text">Certifications</span> & Achievements
+            <span className="text-primary">Certifications</span> & Achievements
           </h2>
-          <p className="text-xl text-secondary max-w-3xl mx-auto">
+          <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
             Continuous learning and professional development in cutting-edge technologies
           </p>
         </div>
@@ -112,7 +227,8 @@ const CertificationsSection = () => {
           {categories.map((category, index) => (
             <Badge 
               key={index}
-              className="px-4 py-2 bg-muted/30 hover:bg-accent/10 border border-border hover:border-accent/30 transition-all duration-300 cursor-pointer"
+              variant="outline"
+              className="px-4 py-2 bg-background dark:bg-card/80 hover:bg-accent/10 border-border hover:border-accent/30 transition-all duration-300 cursor-pointer"
             >
               {category}
             </Badge>
@@ -120,11 +236,11 @@ const CertificationsSection = () => {
         </div>
         
         {/* Certifications Grid */}
-        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6" id="certs-grid">
           {certifications.map((cert, index) => (
             <Card 
               key={index} 
-              className="card-glow p-6 slide-in-up group cursor-pointer"
+              className="card-glow p-6 group cursor-pointer bg-card dark:bg-card/80 border-border cert-card opacity-0"
               style={{ animationDelay: `${index * 0.1}s` }}
             >
               {/* Certificate Header */}
@@ -132,7 +248,15 @@ const CertificationsSection = () => {
                 <div className={`p-3 rounded-lg ${getColorClass(cert.color)} group-hover:scale-110 transition-transform duration-300`}>
                   {cert.icon}
                 </div>
-                <ExternalLink className="h-4 w-4 text-secondary group-hover:text-accent transition-colors duration-300" />
+                <a
+                  href="https://www.linkedin.com/in/datascyther/"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  aria-label="View all certifications on LinkedIn"
+                  onClick={(e) => e.stopPropagation()}
+                >
+                  <ExternalLink className="h-4 w-4 text-secondary group-hover:text-accent transition-colors duration-300" />
+                </a>
               </div>
               
               {/* Certificate Info */}
@@ -163,7 +287,7 @@ const CertificationsSection = () => {
                   {cert.skills.map((skill, skillIndex) => (
                     <span
                       key={skillIndex}
-                      className="px-2 py-1 text-xs rounded-md bg-muted/20 border border-border"
+                      className="px-2 py-1 text-xs rounded-md bg-muted dark:bg-muted/20 border border-border text-muted-foreground"
                     >
                       {skill}
                     </span>
@@ -177,14 +301,14 @@ const CertificationsSection = () => {
         {/* Stats Section */}
         <div className="mt-16 grid grid-cols-2 md:grid-cols-4 gap-8">
           {[
-            { number: "7+", label: "Certifications", color: "gradient-purple" },
+            { number: "15+", label: "Certifications", color: "gradient-purple" },
             { number: "5", label: "Major Platforms", color: "gradient-pink" },
             { number: "3+", label: "Years Learning", color: "gradient-orange" },
             { number: "4", label: "Key Domains", color: "gradient-purple" }
           ].map((stat, index) => (
             <div key={index} className="text-center slide-in-up" style={{ animationDelay: `${index * 0.1}s` }}>
-              <div className="text-4xl font-bold gradient-text mb-2">{stat.number}</div>
-              <div className="text-secondary">{stat.label}</div>
+              <div className={`text-4xl font-bold mb-2 ${getColorClass(stat.color)}`}>{stat.number}</div>
+              <div className="text-muted-foreground">{stat.label}</div>
             </div>
           ))}
         </div>

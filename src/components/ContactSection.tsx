@@ -33,8 +33,8 @@ const ContactSection = () => {
     {
       icon: <Linkedin className="h-6 w-6" />,
       label: "LinkedIn",
-      value: "nishantkumarakadatascyther",
-      link: "https://linkedin.com/in/nishantkumarakadatascyther",
+      value: "datascyther",
+      link: "https://www.linkedin.com/in/datascyther/",
       color: "gradient-pink"
     },
     {
@@ -124,7 +124,7 @@ const ContactSection = () => {
                   <div className="text-sm text-secondary">Technical Skills</div>
                 </div>
                 <div>
-                  <div className="text-2xl font-bold gradient-text">7+</div>
+                  <div className="text-2xl font-bold gradient-text">15+</div>
                   <div className="text-sm text-secondary">Certifications</div>
                 </div>
               </div>
@@ -251,13 +251,17 @@ const ContactSection = () => {
               or want to collaborate on innovative solutions, I'm here to help bring your ideas to life.
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <Button className="gradient-button px-8">
-                <Mail className="mr-2 h-5 w-5" />
-                Start a Conversation
+              <Button asChild className="gradient-button px-8">
+                <a href="mailto:ishantkumaryts@gmail.com">
+                  <Mail className="mr-2 h-5 w-5" />
+                  Start a Conversation
+                </a>
               </Button>
-              <Button variant="outline" className="border-accent/20 hover:border-accent/40 px-8">
-                <Github className="mr-2 h-5 w-5" />
-                View My Work
+              <Button asChild variant="outline" className="border-accent/20 hover:border-accent/40 px-8">
+                <a href="https://github.com/DataScyther" target="_blank" rel="noopener noreferrer">
+                  <Github className="mr-2 h-5 w-5" />
+                  View My Work
+                </a>
               </Button>
             </div>
           </Card>

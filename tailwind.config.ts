@@ -17,11 +17,12 @@ export default {
 				'2xl': '1400px'
 			}
 		},
-		extend: {
-			fontFamily: {
-				sans: ['Inter', 'sans-serif'],
-				mono: ['JetBrains Mono', 'monospace'],
-			},
+			extend: {
+				fontFamily: {
+					// System SF Pro stack for Apple platforms with robust fallbacks
+					sans: ['-apple-system', 'BlinkMacSystemFont', 'SF Pro Display', 'SF Pro Text', 'SF Pro', 'Segoe UI', 'Roboto', 'Helvetica Neue', 'Arial', 'system-ui', 'sans-serif'],
+					mono: ['JetBrains Mono', 'monospace'],
+				},
 			colors: {
 				border: 'hsl(var(--border))',
 				input: 'hsl(var(--input))',

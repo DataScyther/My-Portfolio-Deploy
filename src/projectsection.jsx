@@ -2,10 +2,10 @@
 import { useEffect } from "react";
 
 const projects = [
-  { title: "Business Sales Dashboard", tech: "Power BI, DAX" },
-  { title: "College Event Feedback Analysis", tech: "Python, Seaborn" },
-  { title: "Social Media Campaign Tracker", tech: "Power BI, DAX" },
-  { title: "Matrix-Themed UPI Payment System", tech: "HTML, CSS, Three.js" },
+  { title: "E-commerce Business Sales Dashboard", tech: "Power BI, DAX, SQL" },
+  { title: "College Event Feedback Analysis", tech: "Python, Seaborn, SQL" },
+  { title: "Social Media Campaign Tracker", tech: "Power BI, DAX, SQL" },
+  { title: "Matrix-Themed UPI Payment System", tech: "HTML, CSS, Three.js, SQL" },
   { title: "4D Musical Spheres", tech: "HTML, JS, Audio API" },
 ];
 

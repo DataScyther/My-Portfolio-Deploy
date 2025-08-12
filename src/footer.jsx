@@ -5,7 +5,7 @@ export default function Footer() {
     <footer className="py-8 bg-background text-center border-t border-muted">
       <div className="flex justify-center gap-6 mb-4">
         <a href="#" className="gradient-button p-3 rounded-full"><FaGithub /></a>
-        <a href="#" className="gradient-button p-3 rounded-full"><FaLinkedin /></a>
+        <a href="https://www.linkedin.com/in/datascyther/" className="gradient-button p-3 rounded-full" target="_blank" rel="noopener noreferrer"><FaLinkedin /></a>
         <a href="#" className="gradient-button p-3 rounded-full"><FaYoutube /></a>
       </div>
       <p className="text-muted-foreground text-sm">
