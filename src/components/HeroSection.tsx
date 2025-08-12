@@ -4,10 +4,12 @@ import { useTypingAnimation } from "@/hooks/useTypingAnimation";
 import { useScrollReveal } from "@/hooks/useScrollReveal";
 import { useEffect, useState } from "react";
 import anime from "animejs";
+import { useEffect as useEffectReact } from "react";
+import { useMagneticHover } from "@/hooks/useInteractiveEffects";
 const HeroSection = () => {
   const ref = useScrollReveal();
   const roles = ["Future Data Scientist", "AI/ML Expert", "Cloud Enthusiast"];
-  const { currentText } = useTypingAnimation(roles, 150, 100, 500);
+  const { currentText } = useTypingAnimation(roles, 150, 100, 900);
 
   const scrollToSection = (sectionId: string) => {
     const section = document.getElementById(sectionId);
@@ -38,6 +40,16 @@ const HeroSection = () => {
       .add({ targets: '#hero-tagline', opacity: [0, 1], translateY: [20, 0] }, '-=250')
       .add({ targets: '#hero-ctas', opacity: [0, 1], translateY: [20, 0] }, '-=250')
       .add({ targets: '#hero-socials', opacity: [0, 1], translateY: [20, 0] }, '-=250');
+  }, []);
+
+  // Magnetic hover for primary CTA buttons
+  useEffect(() => {
+    // delay to ensure buttons are in DOM
+    const id = window.setTimeout(() => {
+      // target both Hero CTAs
+      useMagneticHover('.gradient-button', { maxTranslatePx: 5 });
+    }, 0);
+    return () => window.clearTimeout(id);
   }, []);
 
   return (
