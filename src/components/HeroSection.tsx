@@ -42,11 +42,9 @@ const HeroSection = () => {
       .add({ targets: '#hero-socials', opacity: [0, 1], translateY: [20, 0] }, '-=250');
   }, []);
 
-  // Magnetic hover for primary CTA buttons
+  // Restore magnetic hover effect for CTAs per user request
   useEffect(() => {
-    // delay to ensure buttons are in DOM
     const id = window.setTimeout(() => {
-      // target both Hero CTAs
       useMagneticHover('.gradient-button', { maxTranslatePx: 5 });
     }, 0);
     return () => window.clearTimeout(id);

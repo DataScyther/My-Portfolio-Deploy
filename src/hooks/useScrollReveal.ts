@@ -21,6 +21,7 @@ export const useScrollReveal = () => {
             // Count-up animation for elements with data-countup
             const counters = entry.target.querySelectorAll<HTMLElement>('[data-countup]');
             counters.forEach((counter) => {
+              if (counter.getAttribute('data-counted') === 'true') return;
               const targetAttr = counter.getAttribute('data-target');
               if (!targetAttr) return;
               const target = Number(targetAttr);
@@ -31,11 +32,11 @@ export const useScrollReveal = () => {
               const startVal = 0;
               const step = (now: number) => {
                 const t = Math.min(1, (now - start) / duration);
-                // easeOutQuad
-                const eased = 1 - Math.pow(1 - t, 2);
+                const eased = 1 - Math.pow(1 - t, 2); // easeOutQuad
                 const value = Math.round(startVal + (target - startVal) * eased);
                 counter.textContent = `${value}${suffix}`;
                 if (t < 1) requestAnimationFrame(step);
+                else counter.setAttribute('data-counted', 'true');
               };
               requestAnimationFrame(step);
             });

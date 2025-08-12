@@ -3,14 +3,11 @@ import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { ExternalLink, Github, BarChart3, Brain, Monitor, Music, ChartNoAxesCombinedIcon,} from "lucide-react";
 import { useScrollReveal } from "@/hooks/useScrollReveal";
-import { useTiltCards } from "@/hooks/useInteractiveEffects";
 import { useEffect } from "react";
 import anime from "animejs";
 
 const ProjectsSection = () => {
   const ref = useScrollReveal();
-  // Enable tilt on cards
-  useTiltCards('.project-card');
   
   const projects = [
     {

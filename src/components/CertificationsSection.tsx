@@ -3,13 +3,10 @@ import { Badge } from "@/components/ui/badge";
 import { Award, ExternalLink, Cloud, Brain, Code, Code2, BrainCircuit, Bot, BarChart3, Building2, GraduationCap, PieChart, Plane, CloudCog, AreaChart, LineChart, Sparkles } from "lucide-react";
 import { useScrollReveal } from "@/hooks/useScrollReveal";
 import { useEffect } from "react";
-import { useTiltCards } from "@/hooks/useInteractiveEffects";
 import anime from "animejs";
 
 const CertificationsSection = () => {
   const ref = useScrollReveal();
-  // Enable tilt on certification cards
-  useTiltCards('.cert-card');
   const certifications = [
     {
       title: "Generative AI",
