@@ -304,13 +304,15 @@ const CertificationsSection = () => {
         {/* Stats Section */}
         <div className="mt-16 grid grid-cols-2 md:grid-cols-4 gap-8">
           {[
-            { number: "15+", label: "Certifications", color: "gradient-purple" },
-            { number: "5", label: "Major Platforms", color: "gradient-pink" },
-            { number: "3+", label: "Years Learning", color: "gradient-orange" },
-            { number: "4", label: "Key Domains", color: "gradient-purple" }
+            { number: 15, suffix: "+", label: "Certifications", color: "gradient-purple" },
+            { number: 5, suffix: "", label: "Major Platforms", color: "gradient-pink" },
+            { number: 3, suffix: "+", label: "Years Learning", color: "gradient-orange" },
+            { number: 4, suffix: "", label: "Key Domains", color: "gradient-purple" }
           ].map((stat, index) => (
             <div key={index} className="text-center slide-in-up" style={{ animationDelay: `${index * 0.1}s` }}>
-              <div className={`text-4xl font-bold mb-2 ${getColorClass(stat.color)}`}>{stat.number}</div>
+              <div className={`text-4xl font-bold mb-2 ${getColorClass(stat.color)}`} data-countup data-target={stat.number} data-suffix={stat.suffix}>
+                0
+              </div>
               <div className="text-muted-foreground">{stat.label}</div>
             </div>
           ))}

@@ -18,6 +18,27 @@ export const useScrollReveal = () => {
         entries.forEach((entry) => {
           if (entry.isIntersecting) {
             entry.target.classList.add('visible');
+            // Count-up animation for elements with data-countup
+            const counters = entry.target.querySelectorAll<HTMLElement>('[data-countup]');
+            counters.forEach((counter) => {
+              const targetAttr = counter.getAttribute('data-target');
+              if (!targetAttr) return;
+              const target = Number(targetAttr);
+              const suffix = counter.getAttribute('data-suffix') || '';
+              if (!Number.isFinite(target)) return;
+              const duration = 900;
+              const start = performance.now();
+              const startVal = 0;
+              const step = (now: number) => {
+                const t = Math.min(1, (now - start) / duration);
+                // easeOutQuad
+                const eased = 1 - Math.pow(1 - t, 2);
+                const value = Math.round(startVal + (target - startVal) * eased);
+                counter.textContent = `${value}${suffix}`;
+                if (t < 1) requestAnimationFrame(step);
+              };
+              requestAnimationFrame(step);
+            });
           }
         });
       },
