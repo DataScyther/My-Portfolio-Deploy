@@ -28,21 +28,29 @@ export const useFormValidation = () => {
   const validateField = (name: string, value: string): string | undefined => {
     switch (name) {
       case 'name':
-        if (!value.trim()) return 'Name is required';
-        if (value.trim().length < 2) return 'Name must be at least 2 characters';
+        {
+          if (!value.trim()) return 'Name is required';
+          if (value.trim().length < 2) return 'Name must be at least 2 characters';
+        }
         break;
       case 'email':
-        if (!value.trim()) return 'Email is required';
-        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-        if (!emailRegex.test(value)) return 'Please enter a valid email';
+        {
+          if (!value.trim()) return 'Email is required';
+          const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+          if (!emailRegex.test(value)) return 'Please enter a valid email';
+        }
         break;
       case 'subject':
-        if (!value.trim()) return 'Subject is required';
-        if (value.trim().length < 5) return 'Subject must be at least 5 characters';
+        {
+          if (!value.trim()) return 'Subject is required';
+          if (value.trim().length < 5) return 'Subject must be at least 5 characters';
+        }
         break;
       case 'message':
-        if (!value.trim()) return 'Message is required';
-        if (value.trim().length < 10) return 'Message must be at least 10 characters';
+        {
+          if (!value.trim()) return 'Message is required';
+          if (value.trim().length < 10) return 'Message must be at least 10 characters';
+        }
         break;
     }
   };
