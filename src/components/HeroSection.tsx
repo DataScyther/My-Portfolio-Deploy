@@ -91,7 +91,7 @@ const HeroSection = () => {
         </div>
         
         {/* CTA Buttons */}
-        <div className="flex flex-col sm:flex-row gap-4 justify-center mb-12" id="hero-ctas">
+        <div className="flex flex-col sm:flex-row gap-4 justify-center mb-16" id="hero-ctas">
           <Button 
             size="lg" 
             className="gradient-button text-lg px-8 py-6 rounded-full"
@@ -110,32 +110,35 @@ const HeroSection = () => {
           </Button>
         </div>
         
-        {/* Social Links */}
-        <div className="flex justify-center gap-6 slide-in-up" id="hero-socials" style={{
-        animationDelay: '0.6s'
-      }}>
-          <a href="https://www.linkedin.com/in/datascyther/" className="w-12 h-12 rounded-full bg-muted/50 flex items-center justify-center hover:bg-gradient-purple/20 transition-all duration-300 hover:scale-110" target="_blank" rel="noopener noreferrer">
-            <Linkedin className="h-5 w-5" />
-          </a>
-          <a href="https://github.com/DataScyther" className="w-12 h-12 rounded-full bg-muted/50 flex items-center justify-center hover:bg-gradient-purple/20 transition-all duration-300 hover:scale-110" target="_blank" rel="noopener noreferrer">
-            <Github className="h-5 w-5" />
-          </a>
-          <a href="https://www.youtube.com/@Mighty-TechShorts" className="w-12 h-12 rounded-full bg-muted/50 flex items-center justify-center hover:bg-gradient-purple/20 transition-all duration-300 hover:scale-110" target="_blank" rel="noopener noreferrer">
-            <Youtube className="h-5 w-5" />
-          </a>
-          <a href="mailto:ishantkumaryts@gmail.com" className="w-12 h-12 rounded-full bg-muted/50 flex items-center justify-center hover:bg-gradient-purple/20 transition-all duration-300 hover:scale-110">
-            <Mail className="h-5 w-5" />
-          </a>
-        </div>
-        
-        {/* Scroll Indicator */}
-        <div 
-          className="absolute bottom-8 left-1/2 transform -translate-x-1/2 slide-in-up cursor-pointer" 
-          onClick={handleScrollClick}
-          style={{ animationDelay: '0.8s' }}
-        >
-          <div className="w-6 h-10 border-2 border-gradient-purple/50 rounded-full flex justify-center hover:border-gradient-purple hover:scale-110 hover:shadow-lg hover:shadow-gradient-purple/30 transition-all duration-300 group">
-            <div className="w-1 h-3 bg-gradient-purple rounded-full mt-2 animate-bounce group-hover:animate-pulse group-hover:bg-gradient-pink"></div>
+        {/* Bottom Section - Social Links and Scroll Indicator */}
+        <div className="flex flex-col items-center justify-center space-y-8">
+          {/* Social Links */}
+          <div className="flex justify-center gap-6 slide-in-up" id="hero-socials" style={{
+            animationDelay: '0.6s'
+          }}>
+            <a href="https://www.linkedin.com/in/datascyther/" className="w-12 h-12 rounded-full bg-muted/50 flex items-center justify-center hover:bg-gradient-purple/20 transition-all duration-300 hover:scale-110" target="_blank" rel="noopener noreferrer">
+              <Linkedin className="h-5 w-5" />
+            </a>
+            <a href="https://github.com/DataScyther" className="w-12 h-12 rounded-full bg-muted/50 flex items-center justify-center hover:bg-gradient-purple/20 transition-all duration-300 hover:scale-110" target="_blank" rel="noopener noreferrer">
+              <Github className="h-5 w-5" />
+            </a>
+            <a href="https://www.youtube.com/@Mighty-TechShorts" className="w-12 h-12 rounded-full bg-muted/50 flex items-center justify-center hover:bg-gradient-purple/20 transition-all duration-300 hover:scale-110" target="_blank" rel="noopener noreferrer">
+              <Youtube className="h-5 w-5" />
+            </a>
+            <a href="mailto:ishantkumaryts@gmail.com" className="w-12 h-12 rounded-full bg-muted/50 flex items-center justify-center hover:bg-gradient-purple/20 transition-all duration-300 hover:scale-110">
+              <Mail className="h-5 w-5" />
+            </a>
+          </div>
+          
+          {/* Scroll Indicator */}
+          <div 
+            className="slide-in-up cursor-pointer" 
+            onClick={handleScrollClick}
+            style={{ animationDelay: '0.8s' }}
+          >
+            <div className="w-6 h-10 border-2 border-gradient-purple/50 rounded-full flex justify-center hover:border-gradient-purple hover:scale-110 hover:shadow-lg hover:shadow-gradient-purple/30 transition-all duration-300 group">
+              <div className="w-1 h-3 bg-gradient-purple rounded-full mt-2 animate-bounce group-hover:animate-pulse group-hover:bg-gradient-pink"></div>
+            </div>
           </div>
         </div>
       </div>
