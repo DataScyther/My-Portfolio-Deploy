@@ -1,11 +1,10 @@
 import { Button } from "@/components/ui/button";
-import { Github, Linkedin, Youtube, Mail, Download, ArrowRight } from "lucide-react";
+import { Download, ArrowRight } from "lucide-react";
 import { useTypingAnimation } from "@/hooks/useTypingAnimation";
 import { useScrollReveal } from "@/hooks/useScrollReveal";
-import { useEffect, useState } from "react";
-import anime from "animejs";
-import { useEffect as useEffectReact } from "react";
+import { useEffect } from "react";
 import { useMagneticHover } from "@/hooks/useInteractiveEffects";
+
 const HeroSection = () => {
   const ref = useScrollReveal();
   const roles = ["Future Data Scientist", "AI/ML Expert", "Cloud Enthusiast"];
@@ -18,40 +17,11 @@ const HeroSection = () => {
     }
   };
 
-  const handleScrollClick = () => {
-    const nextSection = document.getElementById('about');
-    if (nextSection) {
-      nextSection.scrollIntoView({ behavior: 'smooth' });
-    } else {
-      window.scrollBy({
-        top: window.innerHeight,
-        behavior: 'smooth'
-      });
-    }
-  };
-
-  // Hero entrance timeline
-  useEffect(() => {
-    const anchor = document.getElementById('hero-anim-anchor');
-    if (!anchor) return;
-    anime
-      .timeline({ easing: 'easeOutQuad', duration: 500 })
-      .add({ targets: '#hero-title', opacity: [0, 1], translateY: [20, 0] })
-      .add({ targets: '#hero-tagline', opacity: [0, 1], translateY: [20, 0] }, '-=250')
-      .add({ targets: '#hero-ctas', opacity: [0, 1], translateY: [20, 0] }, '-=250')
-      .add({ targets: '#hero-socials', opacity: [0, 1], translateY: [20, 0] }, '-=250');
-  }, []);
-
-  // Restore magnetic hover effect for CTAs per user request
-  useEffect(() => {
-    const id = window.setTimeout(() => {
-      useMagneticHover('.gradient-button', { maxTranslatePx: 5 });
-    }, 0);
-    return () => window.clearTimeout(id);
-  }, []);
+  useMagneticHover('.gradient-button', { maxTranslatePx: 5 });
 
   return (
     <section 
+      id="hero"
       ref={ref} 
       className="relative min-h-screen flex items-center justify-center px-4 scroll-reveal"
     >
@@ -108,38 +78,6 @@ const HeroSection = () => {
             <Download className="mr-2 h-5 w-5" />
             Download Resume
           </Button>
-        </div>
-        
-        {/* Bottom Section - Social Links and Scroll Indicator */}
-        <div className="flex flex-col items-center justify-center space-y-8">
-          {/* Social Links */}
-          <div className="flex justify-center gap-6 slide-in-up" id="hero-socials" style={{
-            animationDelay: '0.6s'
-          }}>
-            <a href="https://www.linkedin.com/in/datascyther/" className="w-12 h-12 rounded-full bg-muted/50 flex items-center justify-center hover:bg-gradient-purple/20 transition-all duration-300 hover:scale-110" target="_blank" rel="noopener noreferrer">
-              <Linkedin className="h-5 w-5" />
-            </a>
-            <a href="https://github.com/DataScyther" className="w-12 h-12 rounded-full bg-muted/50 flex items-center justify-center hover:bg-gradient-purple/20 transition-all duration-300 hover:scale-110" target="_blank" rel="noopener noreferrer">
-              <Github className="h-5 w-5" />
-            </a>
-            <a href="https://www.youtube.com/@Mighty-TechShorts" className="w-12 h-12 rounded-full bg-muted/50 flex items-center justify-center hover:bg-gradient-purple/20 transition-all duration-300 hover:scale-110" target="_blank" rel="noopener noreferrer">
-              <Youtube className="h-5 w-5" />
-            </a>
-            <a href="mailto:ishantkumaryts@gmail.com" className="w-12 h-12 rounded-full bg-muted/50 flex items-center justify-center hover:bg-gradient-purple/20 transition-all duration-300 hover:scale-110">
-              <Mail className="h-5 w-5" />
-            </a>
-          </div>
-          
-          {/* Scroll Indicator */}
-          <div 
-            className="slide-in-up cursor-pointer" 
-            onClick={handleScrollClick}
-            style={{ animationDelay: '0.8s' }}
-          >
-            <div className="w-6 h-10 border-2 border-gradient-purple/50 rounded-full flex justify-center hover:border-gradient-purple hover:scale-110 hover:shadow-lg hover:shadow-gradient-purple/30 transition-all duration-300 group">
-              <div className="w-1 h-3 bg-gradient-purple rounded-full mt-2 animate-bounce group-hover:animate-pulse group-hover:bg-gradient-pink"></div>
-            </div>
-          </div>
         </div>
       </div>
     </section>

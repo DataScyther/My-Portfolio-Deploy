@@ -1,0 +1,11 @@
+.certCard {
+  --animation-delay: 0s;
+  animation-delay: var(--animation-delay);
+}
+
+.statItem {
+  --animation-delay: 0s;
+  animation-delay: var(--animation-delay);
+}
+
+

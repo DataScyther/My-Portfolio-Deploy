@@ -1,0 +1,20 @@
+.skillItem {
+  --animation-delay: 0s;
+  animation-delay: var(--animation-delay);
+}
+
+.skillBar {
+  width: var(--skill-level, 0%);
+  height: 0.5rem;
+  border-radius: 9999px;
+  transition: width 1000ms ease-out;
+  animation-delay: calc(var(--animation-delay) + 0.5s);
+  background-color: var(--skill-color, hsl(210, 40%, 96.1%));
+}
+
+.skillBarContainer {
+  height: 0.5rem;
+  background-color: rgba(0, 0, 0, 0.05);
+  border-radius: 9999px;
+  overflow: hidden;
+}

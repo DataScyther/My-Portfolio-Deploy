@@ -58,7 +58,7 @@ const AboutSection = () => {
                 
                 <p>
                   For the past 3+ years, I've been sharing my knowledge through my YouTube channel 
-                  <span className="gradient-text font-semibold"> Mighty-TechShorts</span>, where I create 
+                <span className="gradient-text font-semibold"> Mighty-TechShorts</span>, where I create
                   educational content about emerging technologies, helping thousands of learners understand 
                   complex concepts in simple terms.
                 </p>

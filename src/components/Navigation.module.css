@@ -1,0 +1,7 @@
+.scrollProgress {
+  --scroll-progress: 0%;
+  width: var(--scroll-progress);
+  transition: width 120ms linear;
+}
+
+

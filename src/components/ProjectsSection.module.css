@@ -1,0 +1,4 @@
+.projectCard {
+  --animation-delay: 0s;
+  animation-delay: var(--animation-delay);
+}
