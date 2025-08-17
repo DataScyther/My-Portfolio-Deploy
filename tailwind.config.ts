@@ -18,7 +18,7 @@ export default {
 				'2xl': '1400px'
 			}
 		},
-			extend: {
+		extend: {
 				fontFamily: {
 					// System SF Pro stack for Apple platforms with robust fallbacks
 					sans: ['-apple-system', 'BlinkMacSystemFont', 'SF Pro Display', 'SF Pro Text', 'SF Pro', 'Segoe UI', 'Roboto', 'Helvetica Neue', 'Arial', 'system-ui', 'sans-serif'],
@@ -35,6 +35,17 @@ export default {
 				'gradient-purple': 'hsl(var(--gradient-purple))',
 				'gradient-pink': 'hsl(var(--gradient-pink))',
 				'gradient-orange': 'hsl(var(--gradient-orange))',
+				'gradient-text': {
+					background: 'linear-gradient(90deg, #8B5CF6, #EC4899, #F59E0B, #EC4899, #8B5CF6)',
+					backgroundSize: '300% 100%',
+					WebkitBackgroundClip: 'text',
+					WebkitTextFillColor: 'transparent',
+					animation: 'gradientFlow 8s ease-in-out infinite',
+					backgroundClip: 'text',
+					textFillColor: 'transparent',
+					willChange: 'background-position',
+					backgroundPosition: '0% 50%',
+				},
 				primary: {
 					DEFAULT: 'hsl(var(--primary))',
 					foreground: 'hsl(var(--primary-foreground))'
@@ -80,6 +91,11 @@ export default {
 				sm: 'calc(var(--radius) - 4px)'
 			},
 			keyframes: {
+				'gradient-flow': {
+					'0%': { 'background-position': '0% 50%' },
+					'50%': { 'background-position': '100% 50%' },
+					'100%': { 'background-position': '0% 50%' },
+				},
 				'accordion-down': {
 					from: {
 						height: '0'
@@ -98,6 +114,7 @@ export default {
 				}
 			},
 			animation: {
+				'gradient-flow': 'gradientFlow 8s ease infinite',
 				'accordion-down': 'accordion-down 0.2s ease-out',
 				'accordion-up': 'accordion-up 0.2s ease-out'
 			}

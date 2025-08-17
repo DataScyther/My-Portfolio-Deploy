@@ -114,7 +114,42 @@ All colors MUST be HSL.
 
 
 @layer components {
-  
+  /* =========================================
+  120Hz+ ProMotion Animation Optimization
+  ========================================= */
+
+  /* Always hint browser for GPU acceleration */
+  .smooth-transform {
+    will-change: transform, opacity;
+    transform: translateZ(0);
+  }
+
+  /* Ultra-smooth hover transitions */
+  .smooth-hover {
+    transition: transform 0.2s cubic-bezier(0.25, 0.1, 0.25, 1),
+                opacity 0.2s ease-out;
+    will-change: transform, opacity;
+  }
+
+  .smooth-hover:hover {
+    transform: scale(1.01) translateZ(0); /* Subtle, high-Hz safe */
+    opacity: 0.95;
+  }
+
+  /* Frame-sync fade-in */
+  .smooth-fade-in {
+    opacity: 0;
+    transform: translateY(10px);
+    animation: fadeInHighHz 0.25s ease-out forwards;
+    will-change: transform, opacity;
+  }
+
+  @keyframes fadeInHighHz {
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
 
   /* Skeleton shimmer */
   .skeleton {

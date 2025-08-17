@@ -216,7 +216,7 @@ const CertificationsSection = () => {
         {/* Section Header */}
         <div className="text-center mb-16">
           <h2 className="text-4xl md:text-5xl font-bold mb-4">
-            <span className="bg-gradient-to-r from-purple-500 to-pink-500 bg-clip-text text-transparent">Certifications</span> & Achievements
+            <span className="gradient-text">Certifications</span> & Achievements
           </h2>
           <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
             Continuous learning and professional development in cutting-edge technologies
