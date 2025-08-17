@@ -1,20 +1,67 @@
-.skillItem {
-  --animation-delay: 0s;
-  animation-delay: var(--animation-delay);
-}
-
-.skillBar {
-  width: var(--skill-level, 0%);
-  height: 0.5rem;
-  border-radius: 9999px;
-  transition: width 1000ms ease-out;
-  animation-delay: calc(var(--animation-delay) + 0.5s);
-  background-color: var(--skill-color, hsl(210, 40%, 96.1%));
-}
-
-.skillBarContainer {
-  height: 0.5rem;
-  background-color: rgba(0, 0, 0, 0.05);
-  border-radius: 9999px;
+/* Progress Bar Container */
+.progressContainer {
+  height: 8px;
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 4px;
   overflow: hidden;
+  position: relative;
+  margin: 0.5rem 0;
 }
+
+/* Progress Bar */
+.progressBar {
+  height: 100%;
+  width: 0;
+  border-radius: 4px;
+  background: linear-gradient(90deg, 
+    hsl(270 100% 70%) 0%, 
+    hsl(295 100% 70%) 50%, 
+    hsl(320 100% 70%) 100%);
+  background-size: 200% 100%;
+  box-shadow: 0 0 15px hsla(270, 100%, 70%, 0.3);
+  transition: width 1s ease-out, transform 0.3s ease, box-shadow 0.3s ease;
+  animation: gradientShift 3s ease-in-out infinite;
+}
+
+/* Hover effect */
+.progressBar:hover {
+  box-shadow: 0 0 20px hsla(270, 100%, 70%, 0.5);
+  transform: scaleY(1.1);
+}
+
+/* Animation Keyframes */
+@keyframes gradientShift {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+/* Slide In Animation */
+.slideIn {
+  opacity: 0;
+  transform: translateY(20px);
+  animation: slideIn 0.6s ease-out forwards;
+}
+
+@keyframes slideIn {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Animation Delays */
+.delay-0 { animation-delay: 0s; }
+.delay-100 { animation-delay: 0.1s; }
+.delay-200 { animation-delay: 0.2s; }
+.delay-300 { animation-delay: 0.3s; }
+.delay-400 { animation-delay: 0.4s; }
+.delay-500 { animation-delay: 0.5s; }
+
+/* Skill level classes */
+.level-80 { width: 80%; }
+.level-85 { width: 85%; }
+.level-87 { width: 87%; }
+.level-88 { width: 88%; }
+.level-90 { width: 90%; }
+.level-95 { width: 95%; }

@@ -1,7 +1,10 @@
-import { Card } from "@/components/ui/card";
+import { Briefcase, Calendar, MapPin } from 'lucide-react';
 import { Badge } from "@/components/ui/badge";
-import { Building2, Calendar, MapPin } from "lucide-react";
+import { Card } from "@/components/ui/card";
 import { useScrollReveal } from "@/hooks/useScrollReveal";
+import { useEffect } from "react";
+import { cn } from "@/lib/utils";
+import styles from "./ExperienceSection.module.css";
 
 const ExperienceSection = () => {
   const ref = useScrollReveal();
@@ -97,8 +100,25 @@ const ExperienceSection = () => {
     }
   };
 
+  useEffect(() => {
+    const section = document.getElementById('experience');
+    if (!section) return;
+
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          section.classList.add('animate-in');
+          observer.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.1 });
+
+    observer.observe(section);
+    return () => observer.disconnect();
+  }, []);
+
   return (
-    <section id="experience" ref={ref} className="py-20 px-4 relative scroll-reveal">
+    <section id="experience" ref={ref} className={cn(styles.section, "py-20 px-4 relative scroll-reveal")}>
       <div className="max-w-6xl mx-auto">
         {/* Section Header */}
         <div className="text-center mb-16">
@@ -115,14 +135,13 @@ const ExperienceSection = () => {
           {experiences.map((exp, index) => (
             <Card 
               key={index} 
-              className="card-glow p-6 slide-in-up"
-              style={{ animationDelay: `${index * 0.1}s` }}
+              className={cn(styles.card, "card-glow p-6")}
             >
               <div className="flex flex-col lg:flex-row lg:items-start gap-6">
                 {/* Company Info */}
                 <div className="lg:w-1/3 flex-shrink-0">
                   <div className="flex items-center mb-2">
-                    <Building2 className="h-5 w-5 text-accent mr-2" />
+                    <Briefcase className="h-5 w-5 text-accent mr-2" />
                     <h3 className="text-xl font-semibold">{exp.company}</h3>
                   </div>
                   

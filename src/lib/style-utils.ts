@@ -3,6 +3,10 @@
  */
 
 type CSSVariable = `--${string}`
+type CSSPropertiesWithVars = React.CSSProperties & {
+  [key: CSSVariable]: string | number | undefined;
+  [key: string]: string | number | undefined;
+}
 
 export function createStyleObject(
   styles: Partial<Record<keyof React.CSSProperties, string | number>>
@@ -12,12 +16,12 @@ export function createStyleObject(
 
 export function createCSSVariables(
   variables: Record<string, string | number>
-): React.CSSProperties {
-  return Object.entries(variables).reduce<React.CSSProperties>((acc, [key, value]) => {
-    const cssVar = key.startsWith('--') ? key : `--${key}`
-    acc[cssVar as CSSVariable] = value
+): CSSPropertiesWithVars {
+  return Object.entries(variables).reduce<CSSPropertiesWithVars>((acc, [key, value]) => {
+    const cssVar = (key.startsWith('--') ? key : `--${key}`) as CSSVariable
+    acc[cssVar] = value
     return acc
-  }, {})
+  }, {} as CSSPropertiesWithVars)
 }
 
 /**

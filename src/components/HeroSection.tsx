@@ -2,7 +2,6 @@ import { Button } from "@/components/ui/button";
 import { Download, ArrowRight } from "lucide-react";
 import { useTypingAnimation } from "@/hooks/useTypingAnimation";
 import { useScrollReveal } from "@/hooks/useScrollReveal";
-import { useEffect } from "react";
 import { useMagneticHover } from "@/hooks/useInteractiveEffects";
 
 const HeroSection = () => {

@@ -2,7 +2,7 @@ import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
-import { Mail, Linkedin, Github, Youtube, MapPin, Phone, Send, CheckCircle } from "lucide-react";
+import { Mail, Linkedin, Github, Youtube, Send, CheckCircle } from "lucide-react";
 import { useFormValidation } from "@/hooks/useFormValidation";
 import { useScrollReveal } from "@/hooks/useScrollReveal";
 import { toast } from "sonner";

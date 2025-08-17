@@ -1,9 +1,10 @@
 import { Card } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
-import { Award, ExternalLink, Cloud, Brain, Code, Code2, BrainCircuit, Bot, BarChart3, Building2, GraduationCap, PieChart, Plane, CloudCog, AreaChart, LineChart, Sparkles } from "lucide-react";
+import { Award, ExternalLink, Brain, Code, Code2, BrainCircuit, Bot, BarChart3, Building2, GraduationCap, PieChart, Plane, CloudCog, AreaChart, LineChart, Sparkles } from "lucide-react";
 import { useScrollReveal } from "@/hooks/useScrollReveal";
 import { useEffect } from "react";
 import anime from "animejs";
+import styles from "./CertificationsSection.module.css";
 
 const CertificationsSection = () => {
   const ref = useScrollReveal();
@@ -215,7 +216,7 @@ const CertificationsSection = () => {
         {/* Section Header */}
         <div className="text-center mb-16">
           <h2 className="text-4xl md:text-5xl font-bold mb-4">
-            <span className="gradient-text">Certifications</span> & Achievements
+            <span className="bg-gradient-to-r from-purple-500 to-pink-500 bg-clip-text text-transparent">Certifications</span> & Achievements
           </h2>
           <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
             Continuous learning and professional development in cutting-edge technologies
@@ -306,7 +307,7 @@ const CertificationsSection = () => {
             { number: 3, suffix: "+", label: "Years Learning", color: "gradient-orange" },
             { number: 4, suffix: "", label: "Key Domains", color: "gradient-purple" }
           ].map((stat, index) => (
-            <div key={index} className="text-center slide-in-up" style={{ animationDelay: `${index * 0.1}s` }}>
+            <div key={index} className={`${styles.statItem} text-center`} data-index={index}>
               <div className={`text-4xl font-bold mb-2 ${getColorClass(stat.color)}`} data-countup data-target={stat.number} data-suffix={stat.suffix}>
                 0
               </div>

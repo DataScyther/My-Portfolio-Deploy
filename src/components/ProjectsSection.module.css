@@ -1,4 +1,37 @@
-.projectCard {
-  --animation-delay: 0s;
-  animation-delay: var(--animation-delay);
+/* Animation for projects grid */
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Grid animation */
+.animate-fade-in {
+  animation: fadeInUp 0.7s ease-out forwards;
+}
+
+/* Project card animation delays */
+.projectCard1 {
+  animation: fadeInUp 0.7s ease-out 0.1s forwards;
+}
+
+.projectCard2 {
+  animation: fadeInUp 0.7s ease-out 0.2s forwards;
+}
+
+.projectCard3 {
+  animation: fadeInUp 0.7s ease-out 0.3s forwards;
+}
+
+.projectCard4 {
+  animation: fadeInUp 0.7s ease-out 0.4s forwards;
+}
+
+.projectCard5 {
+  animation: fadeInUp 0.7s ease-out 0.5s forwards;
 }

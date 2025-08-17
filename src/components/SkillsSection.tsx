@@ -3,6 +3,7 @@ import { Code, Database, Cloud, BarChart3, Brain, GitBranch } from "lucide-react
 import { useScrollReveal } from "@/hooks/useScrollReveal";
 import { useEffect } from "react";
 import anime from "animejs";
+import styles from "./SkillsSection.module.css";
 
 const SkillsSection = () => {
   const ref = useScrollReveal();
@@ -138,15 +139,14 @@ const SkillsSection = () => {
               { skill: "MLOps & Deployment", level: 80 },
               { skill: "Generative AI & LLMs", level: 87 }
             ].map((item, index) => (
-              <div key={index} className="slide-in-up" style={{ animationDelay: `${index * 0.1 + 0.5}s` }}>
+              <div key={index} className={`${styles.slideIn} delay-${index}00`}>
                 <div className="flex justify-between items-center mb-2">
                   <span className="font-medium">{item.skill}</span>
                   <span className="text-sm font-mono text-secondary">{item.level}%</span>
                 </div>
-                <div className="h-2 bg-muted/30 rounded-full overflow-hidden">
+                <div className={styles.progressContainer}>
                   <div 
-                    className="h-full skill-bar rounded-full transition-[width] duration-1000 ease-out"
-                    style={{ width: `${item.level}%`, animationDelay: `${index * 0.1 + 1}s` }}
+                    className={`${styles.progressBar} ${styles[`level-${item.level}`]}`}
                   ></div>
                 </div>
               </div>

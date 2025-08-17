@@ -1,4 +1,3 @@
-/* stylelint-disable */
 @import "tailwindcss/base";
 @import "tailwindcss/components";
 @import "tailwindcss/utilities";
@@ -112,41 +111,10 @@ All colors MUST be HSL.
     scroll-behavior: smooth;
   }
 }
-/* stylelint-enable */
+
 
 @layer components {
-  /* Motion system utilities */
-  @keyframes fade-in {
-    from { opacity: 0 }
-    to { opacity: 1 }
-  }
-
-  @keyframes lift-in {
-    from { opacity: 0; transform: translateY(16px) }
-    to { opacity: 1; transform: translateY(0) }
-  }
-
-  @keyframes scale-in {
-    from { opacity: 0; transform: scale(0.96) }
-    to { opacity: 1; transform: scale(1) }
-  }
-
-  .motion-fade-in {
-    animation: fade-in var(--duration-standard) var(--ease-standard) both;
-  }
-
-  .motion-lift {
-    animation: lift-in var(--duration-standard) var(--ease-standard) both;
-  }
-
-  .motion-scale-in {
-    animation: scale-in var(--duration-standard) var(--ease-emphasized) both;
-  }
-
-  /* Stagger container: applies incremental delays to children */
-  .motion-stagger > * {
-    animation-delay: calc(var(--motion-index, 0) * 80ms);
-  }
+  
 
   /* Skeleton shimmer */
   .skeleton {
@@ -313,19 +281,7 @@ All colors MUST be HSL.
     background: linear-gradient(90deg, hsl(270 100% 70%), hsl(320 100% 70%));
   }
   
-  /* Glass morphism effects */
-  .glass-card {
-    background: rgba(255, 255, 255, 0.1);
-    backdrop-filter: blur(20px);
-    border: 1px solid rgba(255, 255, 255, 0.2);
-    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-  }
   
-  .glass-card:hover {
-    background: rgba(255, 255, 255, 0.15);
-    border-color: rgba(255, 255, 255, 0.3);
-    transform: translateY(-2px);
-  }
   
   /* Scroll animations */
   .scroll-reveal {
@@ -386,22 +342,9 @@ All colors MUST be HSL.
     box-shadow: 0 20px 60px -20px hsl(270 100% 70% / 0.3);
   }
   
-  /* Parallax sections */
-  .parallax-bg {
-    background-attachment: fixed;
-    background-position: center;
-    background-repeat: no-repeat;
-    background-size: cover;
-  }
   
-  /* Form focus effects */
-  .form-input:focus {
-    box-shadow: 0 0 0 3px hsl(270 100% 70% / 0.1);
-    border-color: hsl(270 100% 70%);
-  }
   
-  /* Stagger animation for children */
-  .stagger-children > * {
-    animation-delay: calc(var(--stagger-delay, 0) * 0.1s);
-  }
+  
+  
+ 
 }

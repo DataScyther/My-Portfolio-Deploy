@@ -1,13 +1,12 @@
-import { Card } from "@/components/ui/card";
-import { Button } from "@/components/ui/button";
+import { ExternalLink, Github, BarChart3, Brain, Monitor, Music } from 'lucide-react';
 import { Badge } from "@/components/ui/badge";
-import { ExternalLink, Github, BarChart3, Brain, Monitor, Music, ChartNoAxesCombinedIcon,} from "lucide-react";
-import { useScrollReveal } from "@/hooks/useScrollReveal";
-import { useEffect } from "react";
-import anime from "animejs";
+import { Card } from "@/components/ui/card";
+import { Button } from "./ui/button";
+import { useEffect, useRef } from "react";
+import styles from "./ProjectsSection.module.css";
 
 const ProjectsSection = () => {
-  const ref = useScrollReveal();
+  const ref = useRef<HTMLElement>(null);
   
   const projects = [
     {
@@ -46,7 +45,7 @@ const ProjectsSection = () => {
       title: "Social Media Campaign Tracker",
       description: "Advanced analytics platform for tracking social media campaign performance with Power BI dashboards, featuring cross-platform data integration and ROI optimization insights.",
       technologies: ["Power BI", "DAX", "Python", "API Integration", "Social Analytics"],
-      icon: <ChartNoAxesCombinedIcon className="h-8 w-8" />,
+      icon: <BarChart3 className="h-8 w-8" />,
       color: "gradient-orange",
       category: "Analytics Platform",
       url: "https://github.com/DataScyther/Social-Media-Campaign-Tracker/blob/main/Screenshot%202025-06-20%20052837.png",
@@ -105,33 +104,16 @@ const ProjectsSection = () => {
     }
   };
 
-  // Staggered reveal for project cards
+  // Make grid visible immediately on mount
   useEffect(() => {
-    const section = document.getElementById('projects');
     const grid = document.getElementById('projects-grid');
-    if (!section || !grid) return;
-    const observer = new IntersectionObserver((entries) => {
-      entries.forEach((entry) => {
-        if (entry.isIntersecting) {
-          const cards = grid.querySelectorAll('.project-card');
-          anime({
-            targets: cards,
-            opacity: [0, 1],
-            translateY: [20, 0],
-            delay: anime.stagger(100),
-            duration: 700,
-            easing: 'easeOutQuad',
-          });
-          observer.unobserve(entry.target as Element);
-        }
-      });
-    }, { threshold: 0.2 });
-    observer.observe(section);
-    return () => observer.disconnect();
+    if (grid) {
+      grid.classList.remove('opacity-0');
+    }
   }, []);
 
   return (
-    <section id="projects" ref={ref} className="py-20 px-4 relative scroll-reveal">
+    <section id="projects" ref={ref} className="py-20 px-4 relative">
       <div className="max-w-6xl mx-auto">
         {/* Section Header */}
         <div className="text-center mb-16">
@@ -148,8 +130,7 @@ const ProjectsSection = () => {
           {projects.map((project, index) => (
             <Card 
               key={index} 
-              className="card-glow p-6 group cursor-pointer project-card opacity-0"
-              style={{ animationDelay: `${index * 0.1}s` }}
+              className={`card-glow p-6 group cursor-pointer ${styles[`projectCard${index + 1}`]}`}
               onClick={() => window.open(project.url, "_blank", "noopener,noreferrer")}
             >
               {/* Project Header */}

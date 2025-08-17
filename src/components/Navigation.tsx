@@ -1,14 +1,15 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { Button } from "@/components/ui/button";
 import { Menu, X, Download } from "lucide-react";
 import { ThemeToggle } from "@/components/ThemeToggle";
 import { useActiveSection } from "@/hooks/useScrollReveal";
+import styles from './Navigation.module.css';
 
 const Navigation = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
-  const [scrollProgress, setScrollProgress] = useState(0);
   const { activeSection } = useActiveSection();
+  const progressBarRef = useRef<HTMLDivElement>(null);
 
   // Update navigation active states when activeSection changes
   useEffect(() => {
@@ -36,25 +37,35 @@ const Navigation = () => {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
-  // Top scroll progress bar (respects reduced motion by updating without animation)
+  // Update progress bar width on scroll
   useEffect(() => {
-    const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    const updateProgress = () => {
+      if (!progressBarRef.current) return;
+      
+      const doc = document.documentElement;
+      const scrollTop = doc.scrollTop || document.body.scrollTop;
+      const scrollHeight = doc.scrollHeight - doc.clientHeight;
+      const progress = scrollHeight > 0 ? (scrollTop / scrollHeight) * 100 : 0;
+      
+      progressBarRef.current.style.width = `${progress}%`;
+    };
+
+    // Throttle the scroll handler
     let ticking = false;
     const onScroll = () => {
-      if (ticking) return;
-      ticking = true;
-      requestAnimationFrame(() => {
-        const doc = document.documentElement;
-        const scrollTop = doc.scrollTop || document.body.scrollTop;
-        const scrollHeight = doc.scrollHeight - doc.clientHeight;
-        const progress = scrollHeight > 0 ? (scrollTop / scrollHeight) * 100 : 0;
-        setScrollProgress(progress);
-        ticking = false;
-      });
+      if (!ticking) {
+        window.requestAnimationFrame(() => {
+          updateProgress();
+          ticking = false;
+        });
+        ticking = true;
+      }
     };
+
     window.addEventListener('scroll', onScroll, { passive: true });
     window.addEventListener('resize', onScroll);
-    onScroll();
+    updateProgress();
+    
     return () => {
       window.removeEventListener('scroll', onScroll);
       window.removeEventListener('resize', onScroll);
@@ -85,11 +96,8 @@ const Navigation = () => {
         : 'bg-transparent'
     }`}>
       {/* Scroll progress bar */}
-      <div className="absolute top-0 left-0 right-0 h-0.5">
-        <div
-          className="h-full bg-gradient-to-r from-gradient-purple via-gradient-pink to-gradient-orange"
-          style={{ width: `${scrollProgress}%`, transition: 'width 120ms linear' }}
-        />
+      <div className={styles.progressContainer}>
+        <div ref={progressBarRef} className={styles.progressBar} />
       </div>
       <div className="max-w-6xl mx-auto px-4">
         <div className="flex items-center justify-between h-16">

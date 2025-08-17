@@ -1,0 +1,52 @@
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animationDelay1 {
+  animation-delay: 100ms;
+}
+
+.animationDelay2 {
+  animation-delay: 200ms;
+}
+
+.animationDelay3 {
+  animation-delay: 300ms;
+}
+
+.animationDelay4 {
+  animation-delay: 400ms;
+}
+
+.animationDelay5 {
+  animation-delay: 500ms;
+}
+
+.animationDelay6 {
+  animation-delay: 600ms;
+}
+
+.animationDelay7 {
+  animation-delay: 700ms;
+}
+
+.animationDelay8 {
+  animation-delay: 800ms;
+}
+
+.animationDelay9 {
+  animation-delay: 900ms;
+}
+
+.animationDelay10 {
+  animation-delay: 1000ms;
+}
+
+/* Add more delay classes if needed */
