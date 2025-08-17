@@ -365,6 +365,125 @@ All colors MUST be HSL.
     transform: scaleX(1) !important;
   }
   
+  /* Mobile Navigation Optimizations */
+  .mobile-menu-container {
+    will-change: opacity, transform;
+  }
+  
+  .mobile-underline {
+    position: static;
+    height: 3px;
+    width: 0;
+    background: linear-gradient(90deg, hsl(270 100% 70%), hsl(320 100% 70%));
+    transition: width 300ms ease-out;
+    border-radius: 2px;
+  }
+  
+  .nav-link:hover .mobile-underline,
+  .nav-link.nav-active .mobile-underline {
+    width: 100%;
+  }
+  
+  /* Touch-friendly mobile navigation */
+  @media (max-width: 1024px) {
+    .nav-link {
+      min-height: 56px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 1rem;
+      border-radius: 0.75rem;
+      transition: all 300ms ease;
+    }
+    
+    .nav-link:hover {
+      background-color: hsl(var(--muted) / 0.3);
+      transform: translateX(4px);
+    }
+    
+    .nav-link:active {
+      transform: scale(0.98);
+    }
+  }
+  
+  /* Mobile-first responsive breakpoints */
+  @media (max-width: 640px) {
+    .mobile-menu-container {
+      padding: 0 1rem;
+    }
+    
+    .nav-link {
+      font-size: 1.125rem;
+      padding: 1.25rem 1rem;
+    }
+  }
+  
+  /* Touch device optimizations */
+  @media (hover: none) and (pointer: coarse) {
+    .nav-link:hover {
+      transform: none;
+    }
+    
+    .nav-link:active {
+      transform: scale(0.98);
+      background-color: hsl(var(--muted) / 0.4);
+    }
+  }
+  
+  /* Landscape mobile optimization */
+  @media (max-height: 500px) and (orientation: landscape) {
+    .mobile-menu-container {
+      max-height: 80vh;
+      overflow-y: auto;
+    }
+    
+    .nav-link {
+      padding: 0.75rem 1rem;
+      min-height: 48px;
+    }
+  }
+  
+  /* High DPI display support for mobile */
+  @media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi) {
+    .mobile-menu-container {
+      border-width: 0.5px;
+    }
+  }
+  
+  /* Reduced motion support for mobile */
+  @media (prefers-reduced-motion: reduce) {
+    .mobile-menu-container,
+    .nav-link {
+      transition: none;
+    }
+    
+    .nav-link:hover {
+      transform: none;
+    }
+  }
+  
+  /* Focus states for mobile accessibility */
+  .nav-link:focus-visible {
+    outline: 2px solid hsl(var(--ring));
+    outline-offset: 2px;
+    border-radius: 0.75rem;
+  }
+  
+  /* Mobile menu backdrop blur optimization */
+  @supports (backdrop-filter: blur(1px)) {
+    .mobile-menu-container > div {
+      backdrop-filter: blur(24px);
+      -webkit-backdrop-filter: blur(24px);
+    }
+  }
+  
+  /* Fallback for browsers without backdrop-filter */
+  @supports not (backdrop-filter: blur(1px)) {
+    .mobile-menu-container > div {
+      background-color: hsl(var(--background) / 0.98);
+    }
+  }
+  
   /* Enhanced micro-interactions */
   .hover-lift {
     transition: transform 250ms cubic-bezier(0.22, 1, 0.36, 1),

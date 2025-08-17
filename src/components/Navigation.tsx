@@ -35,6 +35,28 @@ const Navigation = () => {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
+  // Close mobile menu when clicking outside
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      const target = event.target as Element;
+      if (isOpen && !target.closest('.mobile-menu-container')) {
+        setIsOpen(false);
+      }
+    };
+
+    if (isOpen) {
+      document.addEventListener('mousedown', handleClickOutside);
+      // Prevent body scroll when mobile menu is open
+      document.body.style.overflow = 'hidden';
+    } else {
+      document.body.style.overflow = 'unset';
+    }
+
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside);
+      document.body.style.overflow = 'unset';
+    };
+  }, [isOpen]);
 
   const navItems = [
     { label: "About", href: "#about" },
@@ -56,28 +78,28 @@ const Navigation = () => {
   return (
     <nav className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
       scrolled 
-        ? 'bg-background/80 backdrop-blur-md border-b border-border/20' 
+        ? 'bg-background/95 backdrop-blur-xl border-b border-border/30 shadow-lg' 
         : 'bg-transparent'
     }`}>
-      <div className="max-w-6xl mx-auto px-4">
-        <div className="flex items-center justify-between h-16">
+      <div className="max-w-6xl mx-auto px-4 sm:px-6">
+        <div className="flex items-center justify-between h-16 sm:h-20">
           {/* Logo */}
           <a 
             href="#" 
-            className="text-2xl font-bold gradient-text hover:scale-105 transition-transform duration-300"
+            className="text-2xl sm:text-3xl font-bold gradient-text hover:scale-105 transition-transform duration-300 touch-manipulation"
             onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
           >
-            NK
+          NK
           </a>
           
           {/* Desktop Navigation */}
-          <div className="hidden md:flex items-center space-x-6">
+          <div className="hidden lg:flex items-center space-x-8">
             {navItems.map((item) => (
               <button
                 key={item.label}
                 onClick={() => scrollToSection(item.href)}
                 data-nav-link={item.href}
-                className="text-secondary hover:text-foreground nav-link"
+                className="text-secondary hover:text-foreground nav-link px-2 py-1 transition-all duration-300"
               >
                 {item.label}
                 <div className="nav-underline"></div>
@@ -86,7 +108,7 @@ const Navigation = () => {
             
             <ThemeToggle />
             
-            <Button size="sm" className="gradient-button">
+            <Button size="sm" className="gradient-button px-6 py-2">
               <Download className="h-4 w-4 mr-2" />
               Resume
             </Button>
@@ -95,38 +117,56 @@ const Navigation = () => {
           {/* Mobile Menu Button */}
           <button
             onClick={() => setIsOpen(!isOpen)}
-            className="md:hidden w-10 h-10 rounded-lg bg-muted/50 flex items-center justify-center hover:bg-muted/70 transition-colors duration-300"
+            className="lg:hidden w-12 h-12 rounded-xl bg-muted/50 hover:bg-muted/70 active:bg-muted/90 flex items-center justify-center transition-all duration-300 touch-manipulation"
+            aria-label={isOpen ? "Close menu" : "Open menu"}
+            aria-expanded={isOpen}
           >
-            {isOpen ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
+            <div className={`transition-all duration-300 ${isOpen ? 'rotate-180' : ''}`}>
+              {isOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
+            </div>
           </button>
         </div>
         
         {/* Mobile Navigation */}
-        {isOpen && (
-          <div className="md:hidden absolute top-full left-0 right-0 bg-background/80 backdrop-blur-xl border-b border-border/30 shadow-xl">
-            <div className="px-4 py-6 space-y-4">
-              {navItems.map((item) => (
+        <div className={`lg:hidden mobile-menu-container transition-all duration-500 ease-in-out ${
+          isOpen 
+            ? 'opacity-100 translate-y-0' 
+            : 'opacity-0 -translate-y-4 pointer-events-none'
+        }`}>
+          <div className="absolute top-full left-0 right-0 bg-background/95 backdrop-blur-xl border-b border-border/30 shadow-2xl">
+            <div className="px-4 py-6 space-y-2">
+              {navItems.map((item, index) => (
                 <button
                   key={item.label}
                   onClick={() => scrollToSection(item.href)}
                   data-nav-link={item.href}
-                  className="block w-full text-left text-secondary hover:text-foreground py-2 nav-link"
+                  className="block w-full text-left text-secondary hover:text-foreground py-4 px-4 rounded-lg hover:bg-muted/30 transition-all duration-300 nav-link touch-manipulation"
+                  style={{ 
+                    animationDelay: `${index * 50}ms`,
+                    transform: isOpen ? 'translateX(0)' : 'translateX(-20px)',
+                    opacity: isOpen ? 1 : 0,
+                    transition: `all 300ms ease-out ${index * 50}ms`
+                  }}
                 >
-                  {item.label}
-                  <div className="nav-underline"></div>
+                  <div className="flex items-center justify-between">
+                    <span className="text-lg font-medium">{item.label}</span>
+                    <div className="nav-underline mobile-underline"></div>
+                  </div>
                 </button>
               ))}
               
-              <div className="flex items-center gap-4 mt-4">
-                <ThemeToggle />
-                <Button size="sm" className="gradient-button flex-1">
-                  <Download className="h-4 w-4 mr-2" />
+              <div className="flex flex-col gap-4 mt-6 pt-6 border-t border-border/20">
+                <div className="flex items-center justify-center">
+                  <ThemeToggle />
+                </div>
+                <Button size="lg" className="gradient-button w-full py-4 text-lg font-semibold">
+                  <Download className="h-5 w-5 mr-3" />
                   Download Resume
                 </Button>
               </div>
             </div>
           </div>
-        )}
+        </div>
       </div>
     </nav>
   );

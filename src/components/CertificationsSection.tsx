@@ -241,7 +241,7 @@ const CertificationsSection = () => {
           {certifications.map((cert, index) => (
             <Card 
               key={index} 
-              className="card-glow p-6 group cursor-pointer bg-card dark:bg-card/80 border-border cert-card opacity-0"
+              className="card-glow p-6 group cursor-pointer bg-card dark:bg-card/80 border-border cert-card"
               style={{ animationDelay: `${index * 0.1}s` }}
             >
               {/* Certificate Header */}
@@ -254,6 +254,7 @@ const CertificationsSection = () => {
                   target="_blank"
                   rel="noopener noreferrer"
                   aria-label="View all certifications on LinkedIn"
+                  className="flex items-center justify-center h-10 w-10 md:h-11 md:w-11"
                   onClick={(e) => e.stopPropagation()}
                 >
                   <ExternalLink className="h-4 w-4 text-secondary group-hover:text-accent transition-colors duration-300" />
@@ -298,9 +299,8 @@ const CertificationsSection = () => {
             </Card>
           ))}
         </div>
-        
         {/* Stats Section */}
-        <div className="mt-16 grid grid-cols-2 md:grid-cols-4 gap-8">
+        <div className="mt-20 grid grid-cols-2 md:grid-cols-4 gap-4">
           {[
             { number: 15, suffix: "+", label: "Certifications", color: "gradient-purple" },
             { number: 5, suffix: "", label: "Major Platforms", color: "gradient-pink" },

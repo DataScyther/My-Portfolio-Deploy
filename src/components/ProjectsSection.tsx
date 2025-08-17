@@ -74,7 +74,7 @@ const ProjectsSection = () => {
       ]
     },
     {
-      title: "4D Musical Spheres with Ripple Effects",
+      title: "4D Audio Visualizer with Ripple Effects",
       description: "Interactive 4D audio-visual experience featuring dynamic musical spheres with ripple effects, real-time audio analysis, and immersive 3D graphics using Web Audio API.",
       technologies: ["JavaScript", "Web Audio API", "Three.js", "HTML5 Canvas", "WebGL"],
       icon: <Music className="h-8 w-8" />,

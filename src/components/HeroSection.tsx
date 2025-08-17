@@ -73,8 +73,8 @@ const HeroSection = () => {
         {/* Main Heading */}
         <div className="mb-6" id="hero-title">
           <h1 className="text-2xl md:text-3xl font-light mb-2 text-secondary">
-            Hello, I'm 
-            <span className="gradient-text font-bold smooth-hover inline-block"> Nishant Kumar</span>
+            Hello, I'm{" "}
+            <span className="gradient-text font-bold inline-block">Nishant Kumar</span>
           </h1>
         </div>
         

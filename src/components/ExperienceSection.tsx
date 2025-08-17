@@ -23,21 +23,6 @@ const ExperienceSection = () => {
       color: "gradient-purple"
     },
     {
-      title: "Data Science & Analytics Intern",
-      company: "Future Interns",
-      location: "Remote",
-      duration: "Jun 2025 – Jul 2025",
-      type: "Internship",
-      description: "Applied advanced data science techniques to solve real-world business problems using machine learning and statistical analysis.",
-      achievements: [
-        "Developed predictive models for business forecasting",
-        "Performed comprehensive data analysis and visualization",
-        "Collaborated with cross-functional teams",
-        "Delivered actionable insights from complex datasets"
-      ],
-      color: "gradient-pink"
-    },
-    {
       title: "Data Science Intern",
       company: "Boston Consulting Group",
       location: "Remote",

@@ -47,7 +47,7 @@ export class ErrorBoundary extends Component<Props, State> {
               <p className="text-muted-foreground mb-4">
                 We're sorry, but something unexpected happened. Please try refreshing the page.
               </p>
-              {process.env.NODE_ENV === 'development' && this.state.error && (
+              {import.meta.env.DEV && this.state.error && (
                 <details className="text-left bg-muted p-3 rounded text-xs">
                   <summary className="cursor-pointer font-mono">Error Details</summary>
                   <pre className="mt-2 whitespace-pre-wrap break-words">

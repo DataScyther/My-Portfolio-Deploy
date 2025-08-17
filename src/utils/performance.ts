@@ -67,7 +67,7 @@ export function setupSmoothScroll() {
  * @param callback Function to call on each frame
  * @returns Function to cancel the animation frame loop
  */
-export function smoothRAFUpdate(callback: FrameRequestCallback): () => void {
+export function smoothRAFUpdate(callback: (timestamp: number) => void): () => void {
   let animationFrameId: number;
   
   const loop = () => {

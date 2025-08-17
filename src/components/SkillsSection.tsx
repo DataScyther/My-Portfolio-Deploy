@@ -59,7 +59,7 @@ const SkillsSection = () => {
     {
       icon: <Database className="h-8 w-8" />,
       title: "Databases",
-      skills: ["SQL", "MySQL", "PostgreSQL", "MongoDB",],
+      skills: ["SQL", "MySQL", "MongoDB",],
       color: "gradient-pink"
     },
     {
