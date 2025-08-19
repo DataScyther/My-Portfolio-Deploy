@@ -5,6 +5,7 @@ import { useScrollReveal } from "@/hooks/useScrollReveal";
 import { useMagneticHover } from "@/hooks/useInteractiveEffects";
 import { useEffect, useRef } from "react";
 import { useFrameLoop } from "@/utils/animation";
+import { downloadResume } from "@/utils/resume";
 
 const HeroSection = () => {
   const ref = useScrollReveal();
@@ -105,6 +106,7 @@ const HeroSection = () => {
             size="lg" 
             variant="outline" 
             className="text-lg px-8 py-6 rounded-full border-gradient-purple/30 hover:border-gradient-purple/60 hover:bg-gradient-purple/10"
+            onClick={downloadResume}
           >
             <Download className="mr-2 h-5 w-5" />
             Download Resume

@@ -1,30 +1,115 @@
-import { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef, useCallback } from "react";
 import { Button } from "@/components/ui/button";
 import { Menu, X, Download } from "lucide-react";
 import { ThemeToggle } from "@/components/ThemeToggle";
 import { useActiveSection } from "@/hooks/useScrollReveal";
+import { downloadResume } from "@/utils/resume";
 
 const Navigation = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
+  const [activeLink, setActiveLink] = useState<HTMLElement | null>(null);
+  const [underlineStyle, setUnderlineStyle] = useState({ width: 0, left: 0 });
+  const navRef = useRef<HTMLDivElement>(null);
   const { activeSection } = useActiveSection();
+  const resizeObserverRef = useRef<ResizeObserver | null>(null);
 
-  // Update navigation active states when activeSection changes
+  // Update active link and underline position
+  const updateActiveLink = useCallback(() => {
+    if (!navRef.current) return;
+    
+    const activeNavLink = navRef.current.querySelector(`[data-nav-link="#${activeSection}"]`) as HTMLElement;
+    if (!activeNavLink) return;
+    
+    // Update active link
+    if (activeLink) activeLink.classList.remove('nav-active');
+    activeNavLink.classList.add('nav-active');
+    setActiveLink(activeNavLink);
+    
+    // Update underline position with smooth transition
+    if (activeNavLink) {
+      const { width, left } = activeNavLink.getBoundingClientRect();
+      const navRect = navRef.current.getBoundingClientRect();
+      
+      // Add transition class for smooth animation
+      const underline = navRef.current.querySelector('.nav-underline') as HTMLElement;
+      if (underline) {
+        underline.style.transition = 'transform 500ms cubic-bezier(0.16, 1, 0.3, 1), width 500ms cubic-bezier(0.16, 1, 0.3, 1)';
+      }
+      
+      setUnderlineStyle({
+        width,
+        left: left - navRect.left
+      });
+    }
+  }, [activeSection, activeLink]);
+  
+  // Handle mouse enter/leave for hover effects
+  const handleMouseEnter = useCallback((e: React.MouseEvent<HTMLButtonElement>) => {
+    const target = e.currentTarget as HTMLElement;
+    const underline = document.querySelector('.nav-underline') as HTMLElement;
+    if (!underline) return;
+    
+    const { width, left } = target.getBoundingClientRect();
+    const navRect = navRef.current?.getBoundingClientRect();
+    if (!navRect) return;
+    
+    // Disable transition for hover effect
+    underline.style.transition = 'none';
+    
+    setUnderlineStyle({
+      width,
+      left: left - navRect.left
+    });
+  }, []);
+  
+  const handleMouseLeave = useCallback(() => {
+    if (!activeLink || !navRef.current) return;
+    
+    const { width, left } = activeLink.getBoundingClientRect();
+    const navRect = navRef.current.getBoundingClientRect();
+    
+    // Re-enable transition for smooth return
+    const underline = navRef.current.querySelector('.nav-underline') as HTMLElement;
+    if (underline) {
+      underline.style.transition = 'transform 300ms cubic-bezier(0.16, 1, 0.3, 1), width 300ms cubic-bezier(0.16, 1, 0.3, 1)';
+    }
+    
+    setUnderlineStyle({
+      width,
+      left: left - navRect.left
+    });
+  }, [activeLink]);
+  
+  // Handle resize and scroll events
   useEffect(() => {
-    const navLinks = document.querySelectorAll<HTMLElement>('[data-nav-link]');
-    navLinks.forEach((link) => {
-      const dataHref = link.getAttribute('data-nav-link');
-      if (!dataHref) return;
-      
-      // Remove active from all links first
-      link.classList.remove('nav-active');
-      
-      // Add active to the current section link
-      if (dataHref === `#${activeSection}`) {
-        link.classList.add('nav-active');
+    updateActiveLink();
+    
+    const handleResize = () => {
+      updateActiveLink();
+    };
+    
+    // Use ResizeObserver for better performance
+    resizeObserverRef.current = new ResizeObserver((entries) => {
+      for (const entry of entries) {
+        if (entry.target === navRef.current) {
+          updateActiveLink();
+        }
       }
     });
-  }, [activeSection]);
+    
+    if (navRef.current) {
+      resizeObserverRef.current.observe(navRef.current);
+    }
+    
+    window.addEventListener('resize', handleResize);
+    return () => {
+      window.removeEventListener('resize', handleResize);
+      if (resizeObserverRef.current) {
+        resizeObserverRef.current.disconnect();
+      }
+    };
+  }, [updateActiveLink]);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -37,9 +122,9 @@ const Navigation = () => {
 
   // Close mobile menu when clicking outside
   useEffect(() => {
-    const handleClickOutside = (event: MouseEvent) => {
+    const handleClickOutside = (event: globalThis.MouseEvent) => {
       const target = event.target as Element;
-      if (isOpen && !target.closest('.mobile-menu-container')) {
+      if (isOpen && navRef.current && !navRef.current.contains(target)) {
         setIsOpen(false);
       }
     };
@@ -75,13 +160,22 @@ const Navigation = () => {
     setIsOpen(false);
   };
 
+  // Toggle mobile menu
+  const toggleMenu = (e: React.MouseEvent<HTMLButtonElement>) => {
+    e.preventDefault();
+    setIsOpen(!isOpen);
+  };
+
   return (
     <div className="fixed top-4 left-1/2 -translate-x-1/2 z-50 w-full max-w-6xl px-4">
-      <nav className={`rounded-full transition-all duration-300 ${
-        scrolled 
-          ? 'bg-background/30 dark:bg-background/30 backdrop-blur-lg border border-border/20 shadow-xl' 
-          : 'bg-background/20 dark:bg-background/20 backdrop-blur-md border border-border/10'
-      }`}>
+      <nav 
+        ref={navRef}
+        className={`relative rounded-full transition-all duration-300 ${
+          scrolled 
+            ? 'bg-background/30 dark:bg-background/30 backdrop-blur-lg border border-border/20 shadow-xl' 
+            : 'bg-background/20 dark:bg-background/20 backdrop-blur-md border border-border/10'
+        }`}
+      >
         <div className="max-w-7xl mx-auto px-6">
           <div className="flex items-center justify-between h-16 sm:h-16">
             {/* Logo */}
@@ -95,21 +189,39 @@ const Navigation = () => {
             
             {/* Desktop Navigation */}
             <div className="hidden lg:flex items-center space-x-1">
-              {navItems.map((item) => (
-                <button
-                  key={item.label}
-                  onClick={() => scrollToSection(item.href)}
-                  data-nav-link={item.href}
-                  className="text-secondary hover:text-foreground nav-link px-4 py-2 transition-all duration-300 rounded-full hover:bg-muted/20"
-                >
-                  {item.label}
-                  <div className="nav-underline"></div>
-                </button>
-              ))}
+              <div className="relative flex items-center space-x-1">
+                <div className="relative flex">
+                  {navItems.map((item) => (
+                    <button
+                      key={item.label}
+                      onMouseEnter={handleMouseEnter}
+                      onMouseLeave={handleMouseLeave}
+                      onClick={() => scrollToSection(item.href)}
+                      data-nav-link={item.href}
+                      className="nav-item relative text-secondary hover:text-foreground px-4 py-2 transition-colors duration-300 rounded-full hover:bg-muted/10"
+                    >
+                      {item.label}
+                    </button>
+                  ))}
+                  <div className="nav-underline-container absolute bottom-0 left-0 w-full">
+                    <div 
+                      className="nav-underline" 
+                      style={{
+                        transform: `translateX(${underlineStyle.left}px)`,
+                        width: `${underlineStyle.width}px`
+                      }}
+                    />
+                  </div>
+                </div>
+              </div>
               
               <div className="flex items-center space-x-2 ml-2">
                 <ThemeToggle />
-                <Button size="sm" className="gradient-button px-6 py-2 rounded-full">
+                <Button 
+                  size="sm" 
+                  className="gradient-button px-6 py-2 rounded-full"
+                  onClick={downloadResume}
+                >
                   <Download className="h-4 w-4 mr-2" />
                   Resume
                 </Button>
@@ -118,7 +230,7 @@ const Navigation = () => {
             
             {/* Mobile Menu Button */}
             <button
-              onClick={() => setIsOpen(!isOpen)}
+              onClick={toggleMenu}
               className="lg:hidden w-12 h-12 rounded-full bg-muted/30 hover:bg-muted/50 active:bg-muted/70 flex items-center justify-center transition-all duration-300 touch-manipulation backdrop-blur-sm"
               aria-label={isOpen ? "Close menu" : "Open menu"}
               aria-expanded={isOpen}
@@ -161,7 +273,11 @@ const Navigation = () => {
                   <div className="flex items-center justify-center">
                     <ThemeToggle />
                   </div>
-                  <Button size="lg" className="gradient-button w-full py-4 text-lg font-semibold rounded-full">
+                  <Button 
+                    size="lg" 
+                    className="gradient-button w-full py-4 text-lg font-semibold rounded-full"
+                    onClick={downloadResume}
+                  >
                     <Download className="h-5 w-5 mr-3" />
                     Download Resume
                   </Button>

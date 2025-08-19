@@ -35,19 +35,19 @@ const SkillsSection = () => {
     {
       icon: <Code className="h-8 w-8" />,
       title: "Programming Languages",
-      skills: ["Python", "R", "SQL", "HTML", "CSS", "Java"],
+      skills: ["Python", "SQL", "HTML", "CSS", "JavaScript"],
       color: "gradient-purple"
     },
     {
       icon: <Brain className="h-8 w-8" />,
       title: "AI/ML Frameworks",
-      skills: ["TensorFlow", "PyTorch", "Scikit-learn", "Pandas", "NumPy"],
+      skills: ["Scikit-learn", "Pandas", "NumPy"],
       color: "gradient-pink"
     },
     {
       icon: <BarChart3 className="h-8 w-8" />,
       title: "Data Visualization",
-      skills: ["Tableau", "Power BI", "Matplotlib", "Seaborn", "Plotly"],
+      skills: ["Power BI", "Matplotlib", "Seaborn", "Plotly"],
       color: "gradient-orange"
     },
     {
@@ -59,13 +59,13 @@ const SkillsSection = () => {
     {
       icon: <Database className="h-8 w-8" />,
       title: "Databases",
-      skills: ["SQL", "MySQL", "MongoDB",],
+      skills: ["SQL", "MySQL", "MongoDB"],
       color: "gradient-pink"
     },
     {
       icon: <GitBranch className="h-8 w-8" />,
       title: "Tools & Technologies",
-      skills: ["Git" , "GitHub", "Jupyter", "VS Code", "Docker"],
+      skills: ["Git" , "GitHub", "Jupyter", "VS Code"],
       color: "gradient-orange"
     }
   ];
