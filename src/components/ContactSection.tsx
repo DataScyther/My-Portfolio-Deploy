@@ -6,9 +6,10 @@ import { Mail, Linkedin, Github, Youtube, Send, CheckCircle } from "lucide-react
 import { useFormValidation } from "@/hooks/useFormValidation";
 import { useScrollReveal } from "@/hooks/useScrollReveal";
 import { toast } from "sonner";
+import StatCard from "@/components/StatCard";
 
 const ContactSection = () => {
-  const ref = useScrollReveal();
+  const ref = useScrollReveal({ threshold: 0.1, duration: 700 });
   const { formData, errors, isSubmitting, handleChange, handleBlur, handleSubmit } = useFormValidation();
   
   const onSubmit = async () => {
@@ -67,10 +68,10 @@ const ContactSection = () => {
   };
 
   return (
-    <section id="contact" ref={ref} className="py-20 px-4 relative scroll-reveal">
+    <section id="contact" ref={ref} className="py-20 px-4 relative">
       <div className="max-w-6xl mx-auto">
         {/* Section Header */}
-        <div className="text-center mb-16">
+        <div className="text-center mb-16 slide-in-up" style={{ animationDelay: '0ms' }}>
           <h2 className="text-4xl md:text-5xl font-bold mb-4">
             Let's <span className="gradient-text">Connect</span>
           </h2>
@@ -82,7 +83,7 @@ const ContactSection = () => {
         
         <div className="grid lg:grid-cols-2 gap-12">
           {/* Contact Information */}
-          <div className="slide-in-left">
+          <div className="slide-in-left" style={{ animationDelay: '200ms' }}>
             <h3 className="text-2xl font-semibold mb-8">
               Get In <span className="gradient-text">Touch</span>
             </h3>
@@ -107,32 +108,48 @@ const ContactSection = () => {
               ))}
             </div>
             
-            {/* Quick Stats */}
+            {/* Animated Quick Stats */}
             <Card className="card-glow p-6">
               <h4 className="font-semibold mb-4">Quick Stats</h4>
-              <div className="grid grid-cols-2 gap-4 text-center">
-                <div>
-                  <div className="text-2xl font-bold gradient-text">3+</div>
-                  <div className="text-sm text-secondary">Years Content Creation</div>
-                </div>
-                <div>
-                  <div className="text-2xl font-bold gradient-text">5+</div>
-                  <div className="text-sm text-secondary">Internship Programs</div>
-                </div>
-                <div>
-                  <div className="text-2xl font-bold gradient-text">10+</div>
-                  <div className="text-sm text-secondary">Technical Skills</div>
-                </div>
-                <div>
-                  <div className="text-2xl font-bold gradient-text">15+</div>
-                  <div className="text-sm text-secondary">Certifications</div>
-                </div>
+              <div className="grid grid-cols-2 gap-4">
+                <StatCard
+                  number={3}
+                  suffix="+"
+                  label="Years Content Creation"
+                  color="gradient-purple"
+                  delay={0}
+                  className="scale-90"
+                />
+                <StatCard
+                  number={5}
+                  suffix="+"
+                  label="Internship Programs"
+                  color="gradient-pink"
+                  delay={1}
+                  className="scale-90"
+                />
+                <StatCard
+                  number={10}
+                  suffix="+"
+                  label="Technical Skills"
+                  color="gradient-orange"
+                  delay={2}
+                  className="scale-90"
+                />
+                <StatCard
+                  number={15}
+                  suffix="+"
+                  label="Certifications"
+                  color="gradient-blue"
+                  delay={3}
+                  className="scale-90"
+                />
               </div>
             </Card>
           </div>
           
           {/* Contact Form */}
-          <div className="slide-in-right">
+          <div className="slide-in-right" style={{ animationDelay: '400ms' }}>
             <Card className="card-glow p-8">
               <h3 className="text-2xl font-semibold mb-6">
                 Send Me a <span className="gradient-text">Message</span>
@@ -241,7 +258,7 @@ const ContactSection = () => {
         </div>
         
         {/* Call to Action */}
-        <div className="text-center mt-16 slide-in-up">
+        <div className="text-center mt-16 slide-in-up" style={{ animationDelay: '600ms' }}>
           <Card className="card-glow p-8 max-w-4xl mx-auto">
             <h3 className="text-2xl font-semibold mb-4">
               Ready to Build Something <span className="gradient-text">Amazing</span>?

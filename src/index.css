@@ -115,6 +115,86 @@ All colors MUST be HSL.
 
 @layer components {
   /* =========================================
+  Refined Slide-In-Up Animations - Pro Motion Smooth
+  ========================================= */
+  
+  /* Enhanced slide-in-up animation with refined timing */
+  .slide-in-up {
+    opacity: 0;
+    transform: translateY(30px) translateZ(0);
+    animation: slideInUpRefined 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards;
+    will-change: transform, opacity;
+  }
+  
+  @keyframes slideInUpRefined {
+    0% {
+      opacity: 0;
+      transform: translateY(30px) translateZ(0);
+    }
+    60% {
+      opacity: 0.8;
+      transform: translateY(-2px) translateZ(0);
+    }
+    100% {
+      opacity: 1;
+      transform: translateY(0) translateZ(0);
+    }
+  }
+  
+  /* Refined slide-in animations for different directions */
+  .slide-in-left {
+    opacity: 0;
+    transform: translateX(-40px) translateZ(0);
+    animation: slideInLeftRefined 0.7s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards;
+    will-change: transform, opacity;
+  }
+  
+  .slide-in-right {
+    opacity: 0;
+    transform: translateX(40px) translateZ(0);
+    animation: slideInRightRefined 0.7s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards;
+    will-change: transform, opacity;
+  }
+  
+  @keyframes slideInLeftRefined {
+    0% {
+      opacity: 0;
+      transform: translateX(-40px) translateZ(0);
+    }
+    60% {
+      opacity: 0.8;
+      transform: translateX(2px) translateZ(0);
+    }
+    100% {
+      opacity: 1;
+      transform: translateX(0) translateZ(0);
+    }
+  }
+  
+  @keyframes slideInRightRefined {
+    0% {
+      opacity: 0;
+      transform: translateX(40px) translateZ(0);
+    }
+    60% {
+      opacity: 0.8;
+      transform: translateX(-2px) translateZ(0);
+    }
+    100% {
+      opacity: 1;
+      transform: translateX(0) translateZ(0);
+    }
+  }
+  
+  /* Animation delays for staggered effects */
+  .delay-100 { animation-delay: 100ms; }
+  .delay-200 { animation-delay: 200ms; }
+  .delay-300 { animation-delay: 300ms; }
+  .delay-400 { animation-delay: 400ms; }
+  .delay-500 { animation-delay: 500ms; }
+  .delay-600 { animation-delay: 600ms; }
+  
+  /* =========================================
   120Hz+ ProMotion Animation Optimization
   ========================================= */
 
@@ -265,20 +345,8 @@ All colors MUST be HSL.
     }
   }
   
-  /* Slide In Animations (kept for other sections, but not used in Skills now) */
-  .slide-in-left {
-    animation: slide-in-left 0.8s ease-out;
-  }
-  
-  .slide-in-right {
-    animation: slide-in-right 0.8s ease-out;
-  }
-  
-  .slide-in-up {
-    animation: slide-in-up 0.8s ease-out;
-  }
-  
-  @keyframes slide-in-left {
+  /* Legacy slide-in animations - now replaced with refined versions above */
+  @keyframes slide-in-left-legacy {
     from {
       opacity: 0;
       transform: translateX(-100px);
@@ -289,7 +357,7 @@ All colors MUST be HSL.
     }
   }
   
-  @keyframes slide-in-right {
+  @keyframes slide-in-right-legacy {
     from {
       opacity: 0;
       transform: translateX(100px);
@@ -300,7 +368,7 @@ All colors MUST be HSL.
     }
   }
   
-  @keyframes slide-in-up {
+  @keyframes slide-in-up-legacy {
     from {
       opacity: 0;
       transform: translateY(50px);
@@ -329,6 +397,81 @@ All colors MUST be HSL.
   .scroll-reveal.visible {
     opacity: 1;
     transform: translateY(0);
+  }
+  
+  /* Pro Motion Smooth Animations - 120Hz+ Optimized */
+  @keyframes shimmer {
+    0% { 
+      transform: translateX(-120%) translateZ(0);
+      opacity: 0;
+    }
+    20% {
+      opacity: 1;
+    }
+    80% {
+      opacity: 1;
+    }
+    100% { 
+      transform: translateX(120%) translateZ(0);
+      opacity: 0;
+    }
+  }
+  
+  @keyframes progress-glow {
+    0%, 100% { 
+      filter: drop-shadow(0 0 3px hsl(270 100% 70% / 0.4)) brightness(1);
+      transform: scaleY(1) translateZ(0);
+    }
+    50% { 
+      filter: drop-shadow(0 0 8px hsl(270 100% 70% / 0.7)) brightness(1.1);
+      transform: scaleY(1.1) translateZ(0);
+    }
+  }
+  
+  @keyframes pro-motion-pulse {
+    0% { 
+      opacity: 0.8;
+      transform: scale(1) translateZ(0);
+    }
+    50% { 
+      opacity: 1;
+      transform: scale(1.05) translateZ(0);
+    }
+    100% { 
+      opacity: 0.8;
+      transform: scale(1) translateZ(0);
+    }
+  }
+  
+  /* Ultra-smooth progress bar transitions with pro motion curves */
+  .progress-bar-smooth {
+    transition: width 120ms cubic-bezier(0.25, 0.46, 0.45, 0.94),
+                opacity 180ms cubic-bezier(0.25, 0.46, 0.45, 0.94),
+                filter 200ms cubic-bezier(0.25, 0.46, 0.45, 0.94),
+                transform 100ms cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    will-change: width, opacity, filter;
+    backface-visibility: hidden;
+    perspective: 1000px;
+  }
+  
+  /* Pro motion enhancements for high refresh displays */
+  @media (min-resolution: 120dpi) {
+    .progress-bar-smooth {
+      transition: width 80ms cubic-bezier(0.25, 0.46, 0.45, 0.94),
+                  opacity 120ms cubic-bezier(0.25, 0.46, 0.45, 0.94),
+                  filter 140ms cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    }
+  }
+  
+  /* Reduced motion optimizations */
+  @media (prefers-reduced-motion: reduce) {
+    .progress-bar-smooth {
+      transition: none;
+    }
+    
+    @keyframes shimmer {
+      0%, 100% { transform: translateX(0) translateZ(0); }
+    }
   }
   
   /* Navigation active state */
@@ -484,16 +627,78 @@ All colors MUST be HSL.
     }
   }
   
-  /* Enhanced micro-interactions */
+  /* Global pro motion smoothness enhancements */
+  * {
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-rendering: optimizeLegibility;
+  }
+  
+  /* Pro motion scroll behavior */
+  html {
+    scroll-behavior: smooth;
+    -webkit-overflow-scrolling: touch;
+  }
+  
+  /* Enhanced component transitions for pro motion feel */
   .hover-lift {
-    transition: transform 250ms cubic-bezier(0.22, 1, 0.36, 1),
-                box-shadow 250ms cubic-bezier(0.22, 1, 0.36, 1);
-    will-change: transform;
+    transition: transform 200ms cubic-bezier(0.25, 0.46, 0.45, 0.94),
+                box-shadow 200ms cubic-bezier(0.25, 0.46, 0.45, 0.94),
+                opacity 150ms cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    will-change: transform, box-shadow;
+    backface-visibility: hidden;
   }
   
   .hover-lift:hover {
-    transform: translateY(-4px);
-    box-shadow: 0 20px 60px -20px hsl(270 100% 70% / 0.3);
+    transform: translateY(-3px) translateZ(0);
+    box-shadow: 0 20px 60px -20px hsl(270 100% 70% / 0.4);
+  }
+  
+  /* Card animations with pro motion smoothness */
+  .card-glow {
+    transition: transform 180ms cubic-bezier(0.25, 0.46, 0.45, 0.94),
+                box-shadow 180ms cubic-bezier(0.25, 0.46, 0.45, 0.94),
+                border-color 150ms cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    will-change: transform, box-shadow;
+    backface-visibility: hidden;
+  }
+  
+  .card-glow:hover {
+    transform: translateY(-2px) translateZ(0);
+    box-shadow: 0 25px 70px -25px hsl(270 100% 70% / 0.35);
+  }
+  
+  /* Count Animation Enhancements */
+  @keyframes countUp {
+    0% {
+      opacity: 0;
+      transform: translateY(10px) scale(0.9);
+    }
+    50% {
+      opacity: 0.7;
+      transform: translateY(-2px) scale(1.05);
+    }
+    100% {
+      opacity: 1;
+      transform: translateY(0) scale(1);
+    }
+  }
+  
+  @keyframes numberGlow {
+    0%, 100% {
+      filter: brightness(1);
+    }
+    50% {
+      filter: brightness(1.2);
+    }
+  }
+  
+  .count-animation {
+    animation: countUp 0.6s ease-out;
+  }
+  
+  .count-glow:hover {
+    animation: numberGlow 2s ease-in-out infinite;
   }
   
   

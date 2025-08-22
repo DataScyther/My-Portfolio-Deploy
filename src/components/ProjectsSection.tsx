@@ -2,11 +2,12 @@ import { ExternalLink, Github, BarChart3, Brain, Monitor, Music } from 'lucide-r
 import { Badge } from "@/components/ui/badge";
 import { Card } from "@/components/ui/card";
 import { Button } from "./ui/button";
+import { useScrollReveal } from "@/hooks/useScrollReveal";
 import { useEffect, useRef } from "react";
-import styles from "./ProjectsSection.module.css";
 
 const ProjectsSection = () => {
-  const ref = useRef<HTMLElement>(null);
+  const ref = useScrollReveal({ threshold: 0.1, duration: 700 });
+  const gridRef = useRef<HTMLDivElement>(null);
   
   const projects = [
     {
@@ -104,12 +105,34 @@ const ProjectsSection = () => {
     }
   };
 
-  // Make grid visible immediately on mount
+  // Staggered card animations
   useEffect(() => {
-    const grid = document.getElementById('projects-grid');
-    if (grid) {
-      grid.classList.remove('opacity-0');
+    const cards = gridRef.current?.querySelectorAll('.project-card');
+    if (!cards) return;
+    
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            const cardElements = Array.from(cards) as HTMLElement[];
+            cardElements.forEach((card, index) => {
+              setTimeout(() => {
+                card.style.opacity = '1';
+                card.style.transform = 'translateY(0)';
+              }, index * 150); // Staggered delay
+            });
+            observer.unobserve(entry.target);
+          }
+        });
+      },
+      { threshold: 0.2 }
+    );
+
+    if (gridRef.current) {
+      observer.observe(gridRef.current);
     }
+
+    return () => observer.disconnect();
   }, []);
 
   return (
@@ -126,11 +149,12 @@ const ProjectsSection = () => {
         </div>
         
         {/* Projects Grid */}
-        <div className="grid lg:grid-cols-2 gap-8" id="projects-grid">
+        <div className="grid lg:grid-cols-2 gap-8" ref={gridRef} id="projects-grid">
           {projects.map((project, index) => (
             <Card 
               key={index} 
-              className={`card-glow p-6 group cursor-pointer ${styles[`projectCard${index + 1}`]}`}
+              className="card-glow p-6 group cursor-pointer project-card opacity-0 transform translate-y-8 transition-all duration-700 ease-out"
+              style={{ transitionDelay: `${index * 150}ms` }}
               onClick={() => window.open(project.url, "_blank", "noopener,noreferrer")}
             >
               {/* Project Header */}

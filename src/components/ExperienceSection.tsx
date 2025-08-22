@@ -4,7 +4,7 @@ import { Building2, Calendar, MapPin } from "lucide-react";
 import { useScrollReveal } from "@/hooks/useScrollReveal";
 
 const ExperienceSection = () => {
-  const ref = useScrollReveal();
+  const ref = useScrollReveal({ threshold: 0.1, duration: 700 });
   
   const experiences = [
     {
@@ -83,10 +83,10 @@ const ExperienceSection = () => {
   };
 
   return (
-    <section id="experience" ref={ref} className="py-20 px-4 relative scroll-reveal">
+    <section id="experience" ref={ref} className="py-20 px-4 relative">
       <div className="max-w-6xl mx-auto">
         {/* Section Header */}
-        <div className="text-center mb-16">
+        <div className="text-center mb-16 slide-in-up" style={{ animationDelay: '0ms' }}>
           <h2 className="text-4xl md:text-5xl font-bold mb-4">
             Professional <span className="gradient-text">Experience</span>
           </h2>
@@ -100,8 +100,8 @@ const ExperienceSection = () => {
           {experiences.map((exp, index) => (
             <Card 
               key={index} 
-              className="card-glow p-6 slide-in-up"
-              style={{ animationDelay: `${index * 0.1}s` }}
+              className="card-glow p-6 slide-in-up hover-lift transition-all duration-700 ease-out"
+              style={{ animationDelay: `${(index + 1) * 150}ms` }}
             >
               <div className="flex flex-col lg:flex-row lg:items-start gap-6">
                 {/* Company Info */}

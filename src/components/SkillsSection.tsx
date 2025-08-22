@@ -2,11 +2,10 @@ import { Card } from "@/components/ui/card";
 import { Code, Database, Cloud, BarChart3, Brain, GitBranch } from "lucide-react";
 import { useScrollReveal } from "@/hooks/useScrollReveal";
 import { useEffect } from "react";
-import anime from "animejs";
 import styles from "./SkillsSection.module.css";
 
 const SkillsSection = () => {
-  const ref = useScrollReveal();
+  const ref = useScrollReveal({ threshold: 0.1, duration: 650 });
   
   useEffect(() => {
     const section = document.getElementById('skills');
@@ -15,18 +14,16 @@ const SkillsSection = () => {
       entries.forEach((entry) => {
         if (entry.isIntersecting) {
           const cards = section.querySelectorAll('.skill-card');
-          anime({
-            targets: cards,
-            opacity: [0, 1],
-            translateY: [16, 0],
-            delay: anime.stagger(80),
-            duration: 600,
-            easing: 'easeOutQuad',
+          cards.forEach((card, index) => {
+            setTimeout(() => {
+              (card as HTMLElement).style.opacity = '1';
+              (card as HTMLElement).style.transform = 'translateY(0)';
+            }, index * 100); // Refined staggered timing
           });
           observer.unobserve(entry.target as Element);
         }
       });
-    }, { threshold: 0.3 });
+    }, { threshold: 0.2 });
     observer.observe(section);
     return () => observer.disconnect();
   }, []);
@@ -84,10 +81,10 @@ const SkillsSection = () => {
   };
 
   return (
-    <section id="skills" ref={ref} className="py-20 px-4 relative scroll-reveal">
+    <section id="skills" ref={ref} className="py-20 px-4 relative">
       <div className="max-w-6xl mx-auto">
         {/* Section Header */}
-        <div className="text-center mb-16">
+        <div className="text-center mb-16 slide-in-up" style={{ animationDelay: '0ms' }}>
           <h2 className="text-4xl md:text-5xl font-bold mb-4">
             Technical <span className="gradient-text">Skills</span>
           </h2>
@@ -101,7 +98,8 @@ const SkillsSection = () => {
           {skillCategories.map((category, index) => (
             <Card 
               key={index} 
-              className="card-glow p-6 group hover-lift skill-card opacity-0"
+              className="card-glow p-6 group hover-lift skill-card opacity-0 transform translate-y-4 transition-all duration-700 ease-out"
+              style={{ transitionDelay: `${index * 100}ms` }}
             >
               <div className="flex items-center mb-4">
                 <div className={`p-3 rounded-lg ${getColorClass(category.color)} mr-4 group-hover:scale-110 transition-transform duration-300`}>
@@ -139,7 +137,7 @@ const SkillsSection = () => {
               { skill: "MLOps & Deployment", level: 80 },
               { skill: "Generative AI & LLMs", level: 87 }
             ].map((item, index) => (
-              <div key={index} className={`${styles.slideIn} delay-${index}00`}>
+              <div key={index} className={`${styles.slideIn} ${styles[`delay-${index === 0 ? '0' : index * 100}`]}`}>
                 <div className="flex justify-between items-center mb-2">
                   <span className="font-medium">{item.skill}</span>
                   <span className="text-sm font-mono text-secondary">{item.level}%</span>

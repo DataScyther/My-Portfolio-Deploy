@@ -3,7 +3,7 @@ import { GraduationCap, User, Target, TrendingUp } from "lucide-react";
 import { useScrollReveal } from "@/hooks/useScrollReveal";
 
 const AboutSection = () => {
-  const ref = useScrollReveal();
+  const ref = useScrollReveal({ threshold: 0.15, duration: 600 });
   
   const timeline = [
     {
@@ -27,10 +27,10 @@ const AboutSection = () => {
   ];
 
   return (
-    <section id="about" ref={ref} className="py-20 px-4 relative scroll-reveal">
+    <section id="about" ref={ref} className="py-20 px-4 relative">
       <div className="max-w-6xl mx-auto">
         {/* Section Header */}
-        <div className="text-center mb-16">
+        <div className="text-center mb-16 slide-in-up" style={{ animationDelay: '0ms' }}>
           <h2 className="text-4xl md:text-5xl font-bold mb-4">
             About <span className="gradient-text">Me</span>
           </h2>
@@ -41,7 +41,7 @@ const AboutSection = () => {
         
         <div className="grid lg:grid-cols-2 gap-12 items-center">
           {/* About Content */}
-          <div className="slide-in-left">
+          <div className="slide-in-left" style={{ animationDelay: '200ms' }}>
             <Card className="card-glow p-8">
               <div className="flex items-center mb-6">
                 <User className="h-6 w-6 text-gradient-purple mr-3" />
@@ -73,7 +73,7 @@ const AboutSection = () => {
           </div>
           
           {/* Timeline */}
-          <div className="slide-in-right">
+          <div className="slide-in-right" style={{ animationDelay: '400ms' }}>
             <h3 className="text-2xl font-semibold mb-8 text-center lg:text-left">
               Career & Education <span className="gradient-text">Timeline</span>
             </h3>

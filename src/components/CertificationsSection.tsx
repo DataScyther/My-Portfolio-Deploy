@@ -3,11 +3,10 @@ import { Badge } from "@/components/ui/badge";
 import { Award, ExternalLink, Brain, Code, Code2, BrainCircuit, Bot, BarChart3, Building2, GraduationCap, PieChart, Plane, CloudCog, AreaChart, LineChart, Sparkles } from "lucide-react";
 import { useScrollReveal } from "@/hooks/useScrollReveal";
 import { useEffect } from "react";
-import anime from "animejs";
-import styles from "./CertificationsSection.module.css";
+import StatCard from "@/components/StatCard";
 
 const CertificationsSection = () => {
-  const ref = useScrollReveal();
+  const ref = useScrollReveal({ threshold: 0.1, duration: 700 });
   const certifications = [
     {
       title: "Generative AI",
@@ -194,13 +193,11 @@ const CertificationsSection = () => {
       entries.forEach((entry) => {
         if (entry.isIntersecting) {
           const cards = grid.querySelectorAll('.cert-card');
-          anime({
-            targets: cards,
-            opacity: [0, 1],
-            translateY: [20, 0],
-            delay: anime.stagger(80),
-            duration: 650,
-            easing: 'easeOutQuad',
+          cards.forEach((card, index) => {
+            setTimeout(() => {
+              (card as HTMLElement).style.opacity = '1';
+              (card as HTMLElement).style.transform = 'translateY(0)';
+            }, index * 80); // Refined staggered timing
           });
           observer.unobserve(entry.target as Element);
         }
@@ -211,10 +208,10 @@ const CertificationsSection = () => {
   }, []);
 
   return (
-    <section id="certifications" ref={ref} className="py-20 px-4 relative scroll-reveal bg-background">
+    <section id="certifications" ref={ref} className="py-20 px-4 relative bg-background">
       <div className="max-w-6xl mx-auto">
         {/* Section Header */}
-        <div className="text-center mb-16">
+        <div className="text-center mb-16 slide-in-up" style={{ animationDelay: '0ms' }}>
           <h2 className="text-4xl md:text-5xl font-bold mb-4">
             <span className="gradient-text">Certifications</span> & Achievements
           </h2>
@@ -241,8 +238,8 @@ const CertificationsSection = () => {
           {certifications.map((cert, index) => (
             <Card 
               key={index} 
-              className="card-glow p-6 group cursor-pointer bg-card dark:bg-card/80 border-border cert-card"
-              style={{ animationDelay: `${index * 0.1}s` }}
+              className="card-glow p-6 group cursor-pointer bg-card dark:bg-card/80 border-border cert-card opacity-0 transform translate-y-6 transition-all duration-700 ease-out"
+              style={{ animationDelay: `${(index + 2) * 80}ms` }}
             >
               {/* Certificate Header */}
               <div className="flex items-start justify-between mb-4">
@@ -299,20 +296,23 @@ const CertificationsSection = () => {
             </Card>
           ))}
         </div>
-        {/* Stats Section */}
-        <div className="mt-20 grid grid-cols-2 md:grid-cols-4 gap-4">
+        {/* Animated Stats Section */}
+        <div className="mt-20 grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-8">
           {[
             { number: 15, suffix: "+", label: "Certifications", color: "gradient-purple" },
             { number: 5, suffix: "", label: "Major Platforms", color: "gradient-pink" },
             { number: 3, suffix: "+", label: "Years Learning", color: "gradient-orange" },
-            { number: 4, suffix: "", label: "Key Domains", color: "gradient-purple" }
+            { number: 4, suffix: "", label: "Key Domains", color: "gradient-blue" }
           ].map((stat, index) => (
-            <div key={index} className={`${styles.statItem} text-center`} data-index={index}>
-              <div className={`text-4xl font-bold mb-2 ${getColorClass(stat.color)}`} data-countup data-target={stat.number} data-suffix={stat.suffix}>
-                0
-              </div>
-              <div className="text-muted-foreground">{stat.label}</div>
-            </div>
+            <StatCard
+              key={index}
+              number={stat.number}
+              suffix={stat.suffix}
+              label={stat.label}
+              color={stat.color}
+              delay={index}
+              className="hover:transform hover:scale-105 transition-all duration-300"
+            />
           ))}
         </div>
       </div>

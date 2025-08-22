@@ -1,23 +1,65 @@
 import { useEffect, useRef } from 'react';
 
-export const useScrollReveal = () => {
+export const useScrollReveal = (options?: {
+  delay?: number;
+  duration?: number;
+  threshold?: number;
+  rootMargin?: string;
+}) => {
   const ref = useRef<HTMLElement>(null);
+  const {
+    delay = 0,
+    duration = 600,
+    threshold = 0.15,
+    rootMargin = '0px 0px -50px 0px'
+  } = options || {};
 
   useEffect(() => {
     const element = ref.current;
     if (!element) return;
 
+    // Add initial slide-in-up state
+    element.style.opacity = '0';
+    element.style.transform = 'translateY(30px)';
+    element.style.transition = `opacity ${duration}ms cubic-bezier(0.25, 0.46, 0.45, 0.94), transform ${duration}ms cubic-bezier(0.25, 0.46, 0.45, 0.94)`;
+    element.style.willChange = 'opacity, transform';
+
+    // Set up delay if specified
+    let timeoutId: ReturnType<typeof setTimeout>;
+    
     // Immediately reveal if already in viewport on mount (fixes blank page on load)
     const rect = element.getBoundingClientRect();
     if (rect.top < window.innerHeight && rect.bottom > 0) {
-      element.classList.add('visible');
+      if (delay > 0) {
+        timeoutId = setTimeout(() => {
+          element.style.opacity = '1';
+          element.style.transform = 'translateY(0)';
+          element.classList.add('visible');
+        }, delay);
+      } else {
+        element.style.opacity = '1';
+        element.style.transform = 'translateY(0)';
+        element.classList.add('visible');
+      }
     }
 
     const observer = new IntersectionObserver(
       (entries) => {
         entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            entry.target.classList.add('visible');
+          if (entry.isIntersecting && !entry.target.classList.contains('visible')) {
+            const target = entry.target as HTMLElement;
+            if (delay > 0) {
+              timeoutId = setTimeout(() => {
+                target.style.opacity = '1';
+                target.style.transform = 'translateY(0)';
+                target.classList.add('visible');
+              }, delay);
+            } else {
+              target.style.opacity = '1';
+              target.style.transform = 'translateY(0)';
+              target.classList.add('visible');
+            }
+            
             // Count-up animation for elements with data-countup
             const counters = entry.target.querySelectorAll<HTMLElement>('[data-countup]');
             counters.forEach((counter) => {
@@ -44,8 +86,8 @@ export const useScrollReveal = () => {
         });
       },
       {
-        threshold: 0.05,
-        rootMargin: '0px 0px -10% 0px'
+        threshold,
+        rootMargin
       }
     );
 
@@ -55,8 +97,11 @@ export const useScrollReveal = () => {
       if (element) {
         observer.unobserve(element);
       }
+      if (timeoutId) {
+        clearTimeout(timeoutId);
+      }
     };
-  }, []);
+  }, [delay, duration, threshold, rootMargin]);
 
   return ref;
 };

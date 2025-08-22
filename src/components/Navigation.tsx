@@ -4,6 +4,7 @@ import { Menu, X, Download } from "lucide-react";
 import { ThemeToggle } from "@/components/ThemeToggle";
 import { useActiveSection } from "@/hooks/useScrollReveal";
 import { downloadResume } from "@/utils/resume";
+import ProgressBar from "@/components/ProgressBar";
 
 const Navigation = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -31,10 +32,10 @@ const Navigation = () => {
       const { width, left } = activeNavLink.getBoundingClientRect();
       const navRect = navRef.current.getBoundingClientRect();
       
-      // Add transition class for smooth animation
+      // Add transition class for pro motion smoothness
       const underline = navRef.current.querySelector('.nav-underline') as HTMLElement;
       if (underline) {
-        underline.style.transition = 'transform 500ms cubic-bezier(0.16, 1, 0.3, 1), width 500ms cubic-bezier(0.16, 1, 0.3, 1)';
+        underline.style.transition = 'transform 300ms cubic-bezier(0.25, 0.46, 0.45, 0.94), width 300ms cubic-bezier(0.25, 0.46, 0.45, 0.94)';
       }
       
       setUnderlineStyle({
@@ -69,10 +70,10 @@ const Navigation = () => {
     const { width, left } = activeLink.getBoundingClientRect();
     const navRect = navRef.current.getBoundingClientRect();
     
-    // Re-enable transition for smooth return
+    // Re-enable pro motion transition for smooth return
     const underline = navRef.current.querySelector('.nav-underline') as HTMLElement;
     if (underline) {
-      underline.style.transition = 'transform 300ms cubic-bezier(0.16, 1, 0.3, 1), width 300ms cubic-bezier(0.16, 1, 0.3, 1)';
+      underline.style.transition = 'transform 200ms cubic-bezier(0.25, 0.46, 0.45, 0.94), width 200ms cubic-bezier(0.25, 0.46, 0.45, 0.94)';
     }
     
     setUnderlineStyle({
@@ -167,10 +168,21 @@ const Navigation = () => {
   };
 
   return (
-    <div className="fixed top-4 left-1/2 -translate-x-1/2 z-50 w-full max-w-6xl px-4">
+    <>
+      {/* Scroll Progress Bar - Clean and Buttery Smooth */}
+      <ProgressBar 
+        height="sm"
+        position="top"
+        glowEffect={true}
+        showVelocityIndicator={false}
+        showDirectionIndicator={false}
+        className="transition-opacity duration-200"
+      />
+      
+      <div className="fixed top-4 left-1/2 -translate-x-1/2 z-50 w-full max-w-6xl px-4">
       <nav 
         ref={navRef}
-        className={`relative rounded-full transition-all duration-300 ${
+        className={`relative rounded-full transition-all duration-200 ${
           scrolled 
             ? 'bg-background/30 dark:bg-background/30 backdrop-blur-lg border border-border/20 shadow-xl' 
             : 'bg-background/20 dark:bg-background/20 backdrop-blur-md border border-border/10'
@@ -198,7 +210,7 @@ const Navigation = () => {
                       onMouseLeave={handleMouseLeave}
                       onClick={() => scrollToSection(item.href)}
                       data-nav-link={item.href}
-                      className="nav-item relative text-secondary hover:text-foreground px-4 py-2 transition-colors duration-300 rounded-full hover:bg-muted/10"
+                      className="nav-item relative text-secondary hover:text-foreground px-4 py-2 transition-all duration-200 rounded-full hover:bg-muted/10 will-change-transform"
                     >
                       {item.label}
                     </button>
@@ -241,25 +253,25 @@ const Navigation = () => {
             </button>
           </div>
           
-          {/* Mobile Navigation */}
-          <div className={`lg:hidden mobile-menu-container transition-all duration-500 ease-in-out ${
+          {/* Mobile Navigation - Clean and Simple */}
+          <div className={`lg:hidden mobile-menu-container transition-all duration-300 ease-out will-change-transform ${
             isOpen 
               ? 'opacity-100 translate-y-2' 
               : 'opacity-0 -translate-y-4 pointer-events-none'
           }`}>
-            <div className="absolute top-full left-0 right-0 bg-background/90 dark:bg-background/90 backdrop-blur-xl rounded-2xl border border-border/20 shadow-2xl overflow-hidden mt-2">
+            <div className="absolute top-full left-0 right-0 bg-background/95 dark:bg-background/95 backdrop-blur-xl rounded-2xl border border-border/20 shadow-2xl overflow-hidden mt-2 will-change-transform">
               <div className="px-4 py-6 space-y-2">
                 {navItems.map((item, index) => (
                   <button
                     key={item.label}
                     onClick={() => scrollToSection(item.href)}
                     data-nav-link={item.href}
-                    className="block w-full text-left text-secondary hover:text-foreground py-4 px-6 hover:bg-muted/20 transition-all duration-300 nav-link touch-manipulation"
+                    className="block w-full text-left text-secondary hover:text-foreground py-4 px-6 hover:bg-muted/20 transition-all duration-200 nav-link touch-manipulation will-change-transform"
                     style={{ 
                       animationDelay: `${index * 50}ms`,
                       transform: isOpen ? 'translateX(0)' : 'translateX(-20px)',
                       opacity: isOpen ? 1 : 0,
-                      transition: `all 300ms ease-out ${index * 50}ms`
+                      transition: `all 200ms ease-out ${index * 30}ms`
                     }}
                   >
                     <div className="flex items-center justify-between">
@@ -288,6 +300,7 @@ const Navigation = () => {
         </div>
       </nav>
     </div>
+    </>
   );
 };
 
