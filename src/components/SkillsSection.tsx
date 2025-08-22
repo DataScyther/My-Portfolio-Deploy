@@ -132,9 +132,7 @@ const SkillsSection = () => {
             {[
               { skill: "Python & Data Science", level: 95 },
               { skill: "Machine Learning & AI", level: 90 },
-              { skill: "Cloud Computing (AWS/GCP)", level: 85 },
               { skill: "Data Visualization", level: 88 },
-              { skill: "MLOps & Deployment", level: 80 },
               { skill: "Generative AI & LLMs", level: 87 }
             ].map((item, index) => (
               <div key={index} className={`${styles.slideIn} ${styles[`delay-${index === 0 ? '0' : index * 100}`]}`}>
