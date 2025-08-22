@@ -6,7 +6,13 @@ import { useEffect } from "react";
 import StatCard from "@/components/StatCard";
 
 const CertificationsSection = () => {
-  const ref = useScrollReveal({ threshold: 0.1, duration: 700 });
+  // Mobile-optimized scroll reveal with lower threshold
+  const isMobile = typeof window !== 'undefined' && window.innerWidth < 768;
+  const ref = useScrollReveal({
+    threshold: isMobile ? 0.02 : 0.1,
+    duration: 700,
+    rootMargin: isMobile ? '0px 0px 0px 0px' : '0px 0px -20px 0px'
+  });
   const certifications = [
     {
       title: "Generative AI",
@@ -184,25 +190,32 @@ const CertificationsSection = () => {
 
   const categories = [...new Set(certifications.map(cert => cert.category))];
 
-  // Animate certifications on reveal
+  // Animate certifications on reveal with mobile optimization
   useEffect(() => {
     const section = document.getElementById('certifications');
     const grid = document.getElementById('certs-grid');
     if (!section || !grid) return;
+
+    const isMobile = window.innerWidth < 768;
     const observer = new IntersectionObserver((entries) => {
       entries.forEach((entry) => {
         if (entry.isIntersecting) {
           const cards = grid.querySelectorAll('.cert-card');
           cards.forEach((card, index) => {
+            // Faster animation timing for mobile
+            const delay = isMobile ? index * 50 : index * 80;
             setTimeout(() => {
               (card as HTMLElement).style.opacity = '1';
               (card as HTMLElement).style.transform = 'translateY(0)';
-            }, index * 80); // Refined staggered timing
+            }, delay);
           });
           observer.unobserve(entry.target as Element);
         }
       });
-    }, { threshold: 0.25 });
+    }, {
+      threshold: isMobile ? 0.05 : 0.25, // Much lower threshold for mobile
+      rootMargin: isMobile ? '0px 0px 0px 0px' : '0px 0px -20px 0px'
+    });
     observer.observe(section);
     return () => observer.disconnect();
   }, []);

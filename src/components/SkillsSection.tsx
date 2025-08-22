@@ -5,25 +5,37 @@ import { useEffect } from "react";
 import styles from "./SkillsSection.module.css";
 
 const SkillsSection = () => {
-  const ref = useScrollReveal({ threshold: 0.1, duration: 650 });
-  
+  const isMobile = typeof window !== 'undefined' && window.innerWidth < 768;
+  const ref = useScrollReveal({
+    threshold: isMobile ? 0.02 : 0.1,
+    duration: 650,
+    rootMargin: isMobile ? '0px 0px 0px 0px' : '0px 0px -20px 0px'
+  });
+
   useEffect(() => {
     const section = document.getElementById('skills');
     if (!section) return;
+
+    const isMobile = window.innerWidth < 768;
     const observer = new IntersectionObserver((entries) => {
       entries.forEach((entry) => {
         if (entry.isIntersecting) {
           const cards = section.querySelectorAll('.skill-card');
           cards.forEach((card, index) => {
+            // Faster animation timing for mobile
+            const delay = isMobile ? index * 60 : index * 100;
             setTimeout(() => {
               (card as HTMLElement).style.opacity = '1';
               (card as HTMLElement).style.transform = 'translateY(0)';
-            }, index * 100); // Refined staggered timing
+            }, delay);
           });
           observer.unobserve(entry.target as Element);
         }
       });
-    }, { threshold: 0.2 });
+    }, {
+      threshold: isMobile ? 0.05 : 0.2, // Much lower threshold for mobile
+      rootMargin: isMobile ? '0px 0px 0px 0px' : '0px 0px -20px 0px'
+    });
     observer.observe(section);
     return () => observer.disconnect();
   }, []);
