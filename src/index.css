@@ -162,6 +162,14 @@ All colors MUST be HSL.
     -webkit-user-select: none;
     user-select: none;
   }
+  
+  /* Landscape mode optimizations for all mobile sizes */
+  @media (orientation: landscape) and (max-height: 600px) {
+    .landscape-optimized {
+      padding-top: max(0.5rem, env(safe-area-inset-top));
+      padding-bottom: max(0.5rem, env(safe-area-inset-bottom));
+    }
+  }
 }
 
 
