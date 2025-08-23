@@ -13,13 +13,13 @@ const HeroSection = () => {
   const isMobile = useIsMobile();
   const [isLandscape, setIsLandscape] = useState(false);
   
-  // Mobile-optimized role animations
+  // Mobile-optimized role animations with enhanced responsiveness
   const roles = ["Future Data Scientist", "AI/ML Expert", "Cloud Enthusiast"];
   const { currentText } = useTypingAnimation(
     roles, 
-    isMobile ? 120 : 150, // Faster on mobile
-    isMobile ? 80 : 100,  // Shorter pauses on mobile
-    isMobile ? 700 : 900  // Quicker transitions on mobile
+    isMobile ? 100 : 150, // Even faster on mobile for better engagement
+    isMobile ? 60 : 100,  // Shorter pauses on mobile
+    isMobile ? 600 : 900  // Quicker transitions on mobile
   );
 
   // Detect orientation changes for mobile layout adjustments
@@ -124,22 +124,23 @@ const HeroSection = () => {
           {/* Add your avatar here */}
         </div>
         
-        {/* Mobile-Optimized Main Heading with Fluid Typography */}
+        {/* Mobile-Optimized Main Heading with Enhanced Fluid Typography */}
         <div className={`${isLandscape ? 'mb-3' : 'mb-4 sm:mb-6'}`} id="hero-title">
           <h1 className="
             text-lg xs:text-xl sm:text-2xl md:text-3xl lg:text-4xl
             font-light leading-tight
             text-secondary
             ${isLandscape ? 'mb-1' : 'mb-2'}
+            will-change-transform
           ">
             Hello, I'm{" "}
-            <span className="gradient-text font-bold inline-block text-xl xs:text-2xl sm:text-3xl md:text-4xl lg:text-5xl">
+            <span className="gradient-text font-bold inline-block text-xl xs:text-2xl sm:text-3xl md:text-4xl lg:text-5xl will-change-transform">
               Nishant Kumar
             </span>
           </h1>
         </div>
         
-        {/* Mobile-Optimized Animated Tagline with Fluid Heights */}
+        {/* Mobile-Optimized Animated Tagline with Enhanced Fluid Heights */}
         <div className={`
           flex flex-col items-center justify-center
           ${isLandscape 
@@ -151,22 +152,24 @@ const HeroSection = () => {
             text-2xl xs:text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl
             font-bold leading-tight
             ${isLandscape ? 'mb-2' : 'mb-3 sm:mb-4'}
+            will-change-transform
           ">
-            <span className="gradient-text inline-block min-h-[1.2em] break-words px-2">
+            <span className="gradient-text inline-block min-h-[1.2em] break-words px-2 will-change-transform">
               {currentText}
-              <span className="animate-pulse">|</span>
+              <span className="animate-pulse opacity-75">|</span>
             </span>
           </h2>
           <p className="
             text-sm xs:text-base sm:text-lg md:text-xl lg:text-2xl
             text-muted-foreground max-w-4xl mx-auto leading-relaxed px-4
             ${isLandscape ? 'text-xs' : ''}
+            will-change-transform transition-opacity duration-300
           ">
             Generative AI & Cloud (AWS | GCP) | Python • AI/ML • LLMs • MLOps
           </p>
         </div>
         
-        {/* Mobile-Optimized CTA Buttons with Touch-Friendly Design */}
+        {/* Mobile-Optimized CTA Buttons with Enhanced Touch-Friendly Design */}
         <div className={`
           flex flex-col gap-3 sm:gap-4 justify-center items-center
           ${isLandscape ? 'mb-8' : 'mb-12 sm:mb-16'}
@@ -182,11 +185,14 @@ const HeroSection = () => {
               min-h-[48px] touch-manipulation
               hover:scale-105 active:scale-95
               shadow-lg hover:shadow-xl
+              will-change-transform
+              focus:outline-none focus:ring-2 focus:ring-purple-500/50 focus:ring-offset-2
+              active:shadow-md active:translate-y-0.5
             "
             onClick={() => scrollToSection('projects')}
           >
             View Projects
-            <ArrowRight className="ml-2 h-4 w-4 sm:h-5 sm:w-5" />
+            <ArrowRight className="ml-2 h-4 w-4 sm:h-5 sm:w-5 transition-transform duration-200 group-hover:translate-x-1" />
           </Button>
           <Button 
             size={isMobile ? "default" : "lg"}
@@ -200,11 +206,13 @@ const HeroSection = () => {
               hover:bg-gradient-purple/10 transition-all duration-300
               hover:scale-105 active:scale-95
               shadow-md hover:shadow-lg
-              backdrop-blur-sm
+              backdrop-blur-sm will-change-transform
+              focus:outline-none focus:ring-2 focus:ring-purple-500/50 focus:ring-offset-2
+              active:shadow-sm active:translate-y-0.5
             "
             onClick={downloadResume}
           >
-            <Download className="mr-2 h-4 w-4 sm:h-5 sm:w-5" />
+            <Download className="mr-2 h-4 w-4 sm:h-5 sm:w-5 transition-transform duration-200 group-hover:-translate-y-0.5" />
             Download Resume
           </Button>
         </div>

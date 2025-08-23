@@ -5,11 +5,16 @@ import { Textarea } from "@/components/ui/textarea";
 import { Mail, Linkedin, Github, Youtube, Send, CheckCircle } from "lucide-react";
 import { useFormValidation } from "@/hooks/useFormValidation";
 import { useScrollReveal } from "@/hooks/useScrollReveal";
+import { useIsMobile } from "@/hooks/use-mobile";
 import { toast } from "sonner";
 import StatCard from "@/components/StatCard";
 
 const ContactSection = () => {
-  const ref = useScrollReveal({ threshold: 0.1, duration: 700 });
+  const isMobile = useIsMobile();
+  const ref = useScrollReveal({ 
+    threshold: isMobile ? 0.05 : 0.1, 
+    duration: isMobile ? 500 : 700 
+  });
   const { formData, errors, isSubmitting, handleChange, handleBlur, handleSubmit } = useFormValidation();
   
   const onSubmit = async () => {
@@ -68,57 +73,57 @@ const ContactSection = () => {
   };
 
   return (
-    <section id="contact" ref={ref} className="py-20 px-4 relative">
+    <section id="contact" ref={ref} className="py-16 sm:py-20 px-4 relative">
       <div className="max-w-6xl mx-auto">
-        {/* Section Header */}
-        <div className="text-center mb-16 slide-in-up" style={{ animationDelay: '0ms' }}>
-          <h2 className="text-4xl md:text-5xl font-bold mb-4">
+        {/* Section Header - Enhanced Mobile Typography */}
+        <div className="text-center mb-12 sm:mb-16 slide-in-up" style={{ animationDelay: '0ms' }}>
+          <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold mb-4 leading-tight">
             Let's <span className="gradient-text">Connect</span>
           </h2>
-          <p className="text-xl text-secondary max-w-3xl mx-auto">
+          <p className="text-lg sm:text-xl text-secondary max-w-3xl mx-auto leading-relaxed px-2">
             Ready to collaborate on exciting data science projects or discuss the latest in AI/ML? 
             I'd love to hear from you!
           </p>
         </div>
         
-        <div className="grid lg:grid-cols-2 gap-12">
-          {/* Contact Information */}
+        <div className="grid lg:grid-cols-2 gap-8 sm:gap-12">
+          {/* Contact Information - Enhanced Mobile Layout */}
           <div className="slide-in-left" style={{ animationDelay: '200ms' }}>
-            <h3 className="text-2xl font-semibold mb-8">
+            <h3 className="text-xl sm:text-2xl font-semibold mb-6 sm:mb-8">
               Get In <span className="gradient-text">Touch</span>
             </h3>
             
-            <div className="space-y-6 mb-8">
+            <div className="space-y-4 sm:space-y-6 mb-6 sm:mb-8">
               {contactInfo.map((contact, index) => (
                 <a
                   key={index}
                   href={contact.link}
                   target={contact.link.startsWith('http') ? '_blank' : '_self'}
                   rel="noopener noreferrer"
-                  className={`flex items-center p-4 rounded-lg border transition-all duration-300 hover:scale-105 ${getColorClass(contact.color)}`}
+                  className={`flex items-center p-4 rounded-lg border transition-all duration-300 hover:scale-105 active:scale-[0.98] will-change-transform touch-manipulation focus:outline-none focus:ring-2 focus:ring-purple-500/50 focus:ring-offset-2 ${getColorClass(contact.color)}`}
                 >
-                  <div className="mr-4">
+                  <div className="mr-4 flex-shrink-0">
                     {contact.icon}
                   </div>
-                  <div>
-                    <div className="font-semibold">{contact.label}</div>
-                    <div className="text-secondary text-sm">{contact.value}</div>
+                  <div className="min-w-0 flex-grow">
+                    <div className="font-semibold text-sm sm:text-base">{contact.label}</div>
+                    <div className="text-secondary text-xs sm:text-sm truncate">{contact.value}</div>
                   </div>
                 </a>
               ))}
             </div>
             
-            {/* Animated Quick Stats */}
-            <Card className="card-glow p-6">
-              <h4 className="font-semibold mb-4">Quick Stats</h4>
-              <div className="grid grid-cols-2 gap-4">
+            {/* Animated Quick Stats - Mobile Optimized */}
+            <Card className="card-glow p-4 sm:p-6 will-change-transform">
+              <h4 className="font-semibold mb-4 text-sm sm:text-base">Quick Stats</h4>
+              <div className="grid grid-cols-2 gap-3 sm:gap-4">
                 <StatCard
                   number={3}
                   suffix="+"
                   label="Years Content Creation"
                   color="gradient-purple"
                   delay={0}
-                  className="scale-90"
+                  className="scale-75 sm:scale-90"
                 />
                 <StatCard
                   number={5}
@@ -126,7 +131,7 @@ const ContactSection = () => {
                   label="Internship Programs"
                   color="gradient-pink"
                   delay={1}
-                  className="scale-90"
+                  className="scale-75 sm:scale-90"
                 />
                 <StatCard
                   number={10}
@@ -134,7 +139,7 @@ const ContactSection = () => {
                   label="Technical Skills"
                   color="gradient-orange"
                   delay={2}
-                  className="scale-90"
+                  className="scale-75 sm:scale-90"
                 />
                 <StatCard
                   number={15}
@@ -142,21 +147,21 @@ const ContactSection = () => {
                   label="Certifications"
                   color="gradient-blue"
                   delay={3}
-                  className="scale-90"
+                  className="scale-75 sm:scale-90"
                 />
               </div>
             </Card>
           </div>
           
-          {/* Contact Form */}
+          {/* Contact Form - Enhanced Mobile Experience */}
           <div className="slide-in-right" style={{ animationDelay: '400ms' }}>
-            <Card className="card-glow p-8">
-              <h3 className="text-2xl font-semibold mb-6">
+            <Card className="card-glow p-6 sm:p-8 will-change-transform">
+              <h3 className="text-xl sm:text-2xl font-semibold mb-6">
                 Send Me a <span className="gradient-text">Message</span>
               </h3>
               
               <form className="space-y-6" onSubmit={(e) => { e.preventDefault(); onSubmit(); }}>
-                <div className="grid md:grid-cols-2 gap-4">
+                <div className="grid gap-4 sm:grid-cols-2">
                   <div>
                     <label className="block text-sm font-medium mb-2">Name</label>
                     <Input 
@@ -164,7 +169,7 @@ const ContactSection = () => {
                       onChange={(e) => handleChange('name', e.target.value)}
                       onBlur={() => handleBlur('name')}
                       placeholder="Your Name" 
-                      className={`bg-muted/20 border-border focus:border-accent/50 transition-colors duration-300 ${
+                      className={`bg-muted/20 border-border focus:border-accent/50 transition-colors duration-300 min-h-[48px] touch-manipulation focus:outline-none focus:ring-2 focus:ring-purple-500/50 focus:ring-offset-2 ${
                         errors.name ? 'border-destructive' : ''
                       }`}
                     />
@@ -180,7 +185,7 @@ const ContactSection = () => {
                       onChange={(e) => handleChange('email', e.target.value)}
                       onBlur={() => handleBlur('email')}
                       placeholder="your.email@example.com" 
-                      className={`bg-muted/20 border-border focus:border-accent/50 transition-colors duration-300 ${
+                      className={`bg-muted/20 border-border focus:border-accent/50 transition-colors duration-300 min-h-[48px] touch-manipulation focus:outline-none focus:ring-2 focus:ring-purple-500/50 focus:ring-offset-2 ${
                         errors.email ? 'border-destructive' : ''
                       }`}
                     />
@@ -197,7 +202,7 @@ const ContactSection = () => {
                     onChange={(e) => handleChange('subject', e.target.value)}
                     onBlur={() => handleBlur('subject')}
                     placeholder="What would you like to discuss?" 
-                    className={`bg-muted/20 border-border focus:border-accent/50 transition-colors duration-300 ${
+                    className={`bg-muted/20 border-border focus:border-accent/50 transition-colors duration-300 min-h-[48px] touch-manipulation focus:outline-none focus:ring-2 focus:ring-purple-500/50 focus:ring-offset-2 ${
                       errors.subject ? 'border-destructive' : ''
                     }`}
                   />
@@ -214,7 +219,7 @@ const ContactSection = () => {
                     onBlur={() => handleBlur('message')}
                     placeholder="Tell me about your project, collaboration ideas, or just say hello!"
                     rows={5}
-                    className={`bg-muted/20 border-border focus:border-accent/50 transition-colors duration-300 resize-none ${
+                    className={`bg-muted/20 border-border focus:border-accent/50 transition-colors duration-300 resize-none touch-manipulation focus:outline-none focus:ring-2 focus:ring-purple-500/50 focus:ring-offset-2 ${
                       errors.message ? 'border-destructive' : ''
                     }`}
                   />
@@ -226,7 +231,7 @@ const ContactSection = () => {
                 <Button 
                   type="submit"
                   disabled={isSubmitting}
-                  className="w-full gradient-button text-lg py-6"
+                  className="w-full gradient-button text-lg py-6 min-h-[56px] touch-manipulation will-change-transform hover:scale-[1.02] active:scale-[0.98] transition-transform duration-200 focus:outline-none focus:ring-2 focus:ring-purple-500/50 focus:ring-offset-2 disabled:opacity-50 disabled:cursor-not-allowed"
                 >
                   {isSubmitting ? (
                     <>
@@ -235,7 +240,7 @@ const ContactSection = () => {
                     </>
                   ) : (
                     <>
-                      <Send className="mr-2 h-5 w-5" />
+                      <Send className="mr-2 h-5 w-5 transition-transform duration-200 group-hover:translate-x-1" />
                       Send Message
                     </>
                   )}
@@ -247,7 +252,7 @@ const ContactSection = () => {
                   Prefer direct contact? Email me at{" "}
                   <a 
                     href="mailto:ishantkumaryts@gmail.com" 
-                    className="gradient-text hover:underline"
+                    className="gradient-text hover:underline focus:outline-none focus:ring-2 focus:ring-purple-500/50 focus:ring-offset-2 rounded touch-manipulation"
                   >
                     ishantkumaryts@gmail.com
                   </a>
@@ -257,24 +262,24 @@ const ContactSection = () => {
           </div>
         </div>
         
-        {/* Call to Action */}
-        <div className="text-center mt-16 slide-in-up" style={{ animationDelay: '600ms' }}>
-          <Card className="card-glow p-8 max-w-4xl mx-auto">
-            <h3 className="text-2xl font-semibold mb-4">
+        {/* Call to Action - Enhanced Mobile Layout */}
+        <div className="text-center mt-12 sm:mt-16 slide-in-up" style={{ animationDelay: '600ms' }}>
+          <Card className="card-glow p-6 sm:p-8 max-w-4xl mx-auto will-change-transform">
+            <h3 className="text-xl sm:text-2xl font-semibold mb-4">
               Ready to Build Something <span className="gradient-text">Amazing</span>?
             </h3>
-            <p className="text-secondary mb-6 max-w-2xl mx-auto">
+            <p className="text-secondary mb-6 max-w-2xl mx-auto text-sm sm:text-base leading-relaxed">
               Whether you have a data science project in mind, need help with AI/ML implementation, 
               or want to collaborate on innovative solutions, I'm here to help bring your ideas to life.
             </p>
-            <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <Button asChild className="gradient-button px-8">
+            <div className="flex flex-col gap-4 justify-center sm:flex-row">
+              <Button asChild className="gradient-button px-6 sm:px-8 py-3 min-h-[48px] touch-manipulation will-change-transform hover:scale-[1.02] active:scale-[0.98] transition-transform duration-200 focus:outline-none focus:ring-2 focus:ring-purple-500/50 focus:ring-offset-2">
                 <a href="mailto:ishantkumaryts@gmail.com">
                   <Mail className="mr-2 h-5 w-5" />
                   Start a Conversation
                 </a>
               </Button>
-              <Button asChild variant="outline" className="border-accent/20 hover:border-accent/40 px-8">
+              <Button asChild variant="outline" className="border-accent/20 hover:border-accent/40 px-6 sm:px-8 py-3 min-h-[48px] touch-manipulation will-change-transform hover:scale-[1.02] active:scale-[0.98] transition-transform duration-200 focus:outline-none focus:ring-2 focus:ring-purple-500/50 focus:ring-offset-2">
                 <a href="https://github.com/DataScyther" target="_blank" rel="noopener noreferrer">
                   <Github className="mr-2 h-5 w-5" />
                   View My Work

@@ -4,6 +4,7 @@ import { Menu, X, Download } from "lucide-react";
 import { ThemeToggle } from "@/components/ThemeToggle";
 import { useActiveSection } from "@/hooks/useScrollReveal";
 import { downloadResume } from "@/utils/resume";
+import { useIsMobile } from "@/hooks/use-mobile";
 import ProgressBar from "@/components/ProgressBar";
 
 const Navigation = () => {
@@ -11,9 +12,11 @@ const Navigation = () => {
   const [scrolled, setScrolled] = useState(false);
   const [activeLink, setActiveLink] = useState<HTMLElement | null>(null);
   const [underlineStyle, setUnderlineStyle] = useState({ width: 0, left: 0 });
+  const [isMobileMenuAnimating, setIsMobileMenuAnimating] = useState(false);
   const navRef = useRef<HTMLDivElement>(null);
   const { activeSection } = useActiveSection();
   const resizeObserverRef = useRef<ResizeObserver | null>(null);
+  const isMobile = useIsMobile();
 
   // Update active link and underline position
   const updateActiveLink = useCallback(() => {
@@ -161,10 +164,21 @@ const Navigation = () => {
     setIsOpen(false);
   };
 
-  // Toggle mobile menu
+  // Mobile menu optimization for smooth animations
   const toggleMenu = (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
+    
+    if (isMobileMenuAnimating) return; // Prevent rapid toggling
+    
+    setIsMobileMenuAnimating(true);
     setIsOpen(!isOpen);
+    
+    // Add haptic feedback for mobile devices
+    if (navigator.vibrate && isMobile) {
+      navigator.vibrate(50);
+    }
+    
+    setTimeout(() => setIsMobileMenuAnimating(false), 300);
   };
 
   return (
@@ -240,23 +254,24 @@ const Navigation = () => {
               </div>
             </div>
             
-            {/* Mobile Menu Button */}
+            {/* Mobile Menu Button - Enhanced for Touch */}
             <button
               onClick={toggleMenu}
-              className="lg:hidden w-12 h-12 rounded-full bg-muted/30 hover:bg-muted/50 active:bg-muted/70 flex items-center justify-center transition-all duration-300 touch-manipulation backdrop-blur-sm"
+              disabled={isMobileMenuAnimating}
+              className="lg:hidden w-12 h-12 rounded-full bg-muted/30 hover:bg-muted/50 active:bg-muted/70 flex items-center justify-center transition-all duration-300 touch-manipulation backdrop-blur-sm will-change-transform focus:outline-none focus:ring-2 focus:ring-purple-500/50 focus:ring-offset-2 active:scale-95 disabled:opacity-50"
               aria-label={isOpen ? "Close menu" : "Open menu"}
               aria-expanded={isOpen}
             >
-              <div className={`transition-all duration-300 ${isOpen ? 'rotate-180' : ''}`}>
+              <div className={`transition-all duration-300 will-change-transform ${isOpen ? 'rotate-180' : ''}`}>
                 {isOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
               </div>
             </button>
           </div>
           
-          {/* Mobile Navigation - Clean and Simple */}
+          {/* Mobile Navigation - Enhanced with Better Performance */}
           <div className={`lg:hidden mobile-menu-container transition-all duration-300 ease-out will-change-transform ${
             isOpen 
-              ? 'opacity-100 translate-y-2' 
+              ? 'opacity-100 translate-y-2 pointer-events-auto' 
               : 'opacity-0 -translate-y-4 pointer-events-none'
           }`}>
             <div className="absolute top-full left-0 right-0 bg-background/95 dark:bg-background/95 backdrop-blur-xl rounded-2xl border border-border/20 shadow-2xl overflow-hidden mt-2 will-change-transform">
@@ -266,7 +281,7 @@ const Navigation = () => {
                     key={item.label}
                     onClick={() => scrollToSection(item.href)}
                     data-nav-link={item.href}
-                    className="block w-full text-left text-secondary hover:text-foreground py-4 px-6 hover:bg-muted/20 transition-all duration-200 nav-link touch-manipulation will-change-transform"
+                    className="block w-full text-left text-secondary hover:text-foreground py-4 px-6 hover:bg-muted/20 active:bg-muted/30 transition-all duration-200 nav-link touch-manipulation will-change-transform rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-500/50 focus:ring-offset-2 active:scale-[0.98]"
                     style={{ 
                       animationDelay: `${index * 50}ms`,
                       transform: isOpen ? 'translateX(0)' : 'translateX(-20px)',
@@ -287,10 +302,10 @@ const Navigation = () => {
                   </div>
                   <Button 
                     size="lg" 
-                    className="gradient-button w-full py-4 text-lg font-semibold rounded-full"
+                    className="gradient-button w-full py-4 text-lg font-semibold rounded-full will-change-transform hover:scale-[1.02] active:scale-[0.98] transition-transform duration-200 focus:outline-none focus:ring-2 focus:ring-purple-500/50 focus:ring-offset-2"
                     onClick={downloadResume}
                   >
-                    <Download className="h-5 w-5 mr-3" />
+                    <Download className="h-5 w-5 mr-3 transition-transform duration-200 group-hover:-translate-y-0.5" />
                     Download Resume
                   </Button>
                 </div>

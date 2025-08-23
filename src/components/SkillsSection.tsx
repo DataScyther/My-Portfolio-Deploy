@@ -1,14 +1,15 @@
+import React, { useEffect } from "react";
 import { Card } from "@/components/ui/card";
 import { Code, Database, Cloud, BarChart3, Brain, GitBranch } from "lucide-react";
 import { useScrollReveal } from "@/hooks/useScrollReveal";
-import { useEffect } from "react";
+import { useIsMobile } from "@/hooks/use-mobile";
 import styles from "./SkillsSection.module.css";
 
 const SkillsSection = () => {
-  const isMobile = typeof window !== 'undefined' && window.innerWidth < 768;
+  const isMobile = useIsMobile();
   const ref = useScrollReveal({
-    threshold: isMobile ? 0.02 : 0.1,
-    duration: 650,
+    threshold: isMobile ? 0.05 : 0.1,
+    duration: isMobile ? 500 : 650,
     rootMargin: isMobile ? '0px 0px 0px 0px' : '0px 0px -20px 0px'
   });
 
@@ -93,38 +94,40 @@ const SkillsSection = () => {
   };
 
   return (
-    <section id="skills" ref={ref} className="py-20 px-4 relative">
+    <section id="skills" ref={ref} className="py-16 sm:py-20 px-4 relative">
       <div className="max-w-6xl mx-auto">
-        {/* Section Header */}
-        <div className="text-center mb-16 slide-in-up" style={{ animationDelay: '0ms' }}>
-          <h2 className="text-4xl md:text-5xl font-bold mb-4">
+        {/* Section Header - Enhanced Mobile Typography */}
+        <div className="text-center mb-12 sm:mb-16 slide-in-up" style={{ animationDelay: '0ms' }}>
+          <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold mb-4 leading-tight">
             Technical <span className="gradient-text">Skills</span>
           </h2>
-          <p className="text-xl text-secondary max-w-3xl mx-auto">
+          <p className="text-lg sm:text-xl text-secondary max-w-3xl mx-auto leading-relaxed px-2">
             A comprehensive toolkit for building intelligent solutions and data-driven applications
           </p>
         </div>
         
-        {/* Skills Grid */}
-        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+        {/* Skills Grid - Enhanced for Mobile */}
+        <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8">
           {skillCategories.map((category, index) => (
             <Card 
               key={index} 
-              className="card-glow p-6 group hover-lift skill-card opacity-0 transform translate-y-4 transition-all duration-700 ease-out"
+              className="card-glow p-5 sm:p-6 group hover-lift skill-card opacity-0 transform translate-y-4 transition-all duration-700 ease-out will-change-transform hover:scale-[1.02] active:scale-[0.98]"
               style={{ transitionDelay: `${index * 100}ms` }}
             >
               <div className="flex items-center mb-4">
-                <div className={`p-3 rounded-lg ${getColorClass(category.color)} mr-4 group-hover:scale-110 transition-transform duration-300`}>
-                  {category.icon}
+                <div className={`p-3 rounded-lg ${getColorClass(category.color)} mr-3 sm:mr-4 group-hover:scale-110 transition-transform duration-300 will-change-transform flex-shrink-0`}>
+                  <div className="h-6 w-6 sm:h-8 sm:w-8">
+                    {React.cloneElement(category.icon, { className: "h-full w-full" })}
+                  </div>
                 </div>
-                <h3 className="text-xl font-semibold">{category.title}</h3>
+                <h3 className="text-lg sm:text-xl font-semibold leading-tight">{category.title}</h3>
               </div>
               
               <div className="flex flex-wrap gap-2">
                 {category.skills.map((skill, skillIndex) => (
                   <span
                     key={skillIndex}
-                    className="px-3 py-1 text-sm rounded-full bg-muted/50 border border-border hover:border-accent/30 transition-colors duration-300 cursor-default"
+                    className="px-3 py-1.5 text-sm rounded-full bg-muted/50 border border-border hover:border-accent/30 transition-all duration-300 cursor-default will-change-transform hover:scale-105 active:scale-95 touch-manipulation"
                   >
                     {skill}
                   </span>
@@ -134,22 +137,22 @@ const SkillsSection = () => {
           ))}
         </div>
         
-        {/* Proficiency Bars */}
-        <div className="mt-16">
-          <h3 className="text-2xl font-semibold text-center mb-12">
+        {/* Proficiency Bars - Enhanced Mobile Layout */}
+        <div className="mt-12 sm:mt-16">
+          <h3 className="text-xl sm:text-2xl font-semibold text-center mb-8 sm:mb-12">
             Core <span className="gradient-text">Proficiencies</span>
           </h3>
           
-          <div className="grid md:grid-cols-2 gap-8 max-w-4xl mx-auto">
+          <div className="grid gap-6 sm:gap-8 max-w-4xl mx-auto sm:grid-cols-2">
             {[
               { skill: "Python & Data Science", level: 95 },
               { skill: "Machine Learning & AI", level: 90 },
               { skill: "Data Visualization", level: 88 },
               { skill: "Generative AI & LLMs", level: 87 }
             ].map((item, index) => (
-              <div key={index} className={`${styles.slideIn} ${styles[`delay-${index === 0 ? '0' : index * 100}`]}`}>
-                <div className="flex justify-between items-center mb-2">
-                  <span className="font-medium">{item.skill}</span>
+              <div key={index} className={`${styles.slideIn} ${styles[`delay-${index === 0 ? '0' : index * 100}`]} will-change-transform`}>
+                <div className="flex justify-between items-center mb-3">
+                  <span className="font-medium text-sm sm:text-base">{item.skill}</span>
                   <span className="text-sm font-mono text-secondary">{item.level}%</span>
                 </div>
                 <div className={styles.progressContainer}>

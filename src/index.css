@@ -161,6 +161,46 @@ All colors MUST be HSL.
     -webkit-touch-callout: none;
     -webkit-user-select: none;
     user-select: none;
+    -webkit-tap-highlight-color: transparent;
+  }
+  
+  /* Mobile performance optimization classes */
+  .will-change-transform {
+    will-change: transform;
+  }
+  
+  .will-change-auto {
+    will-change: auto;
+  }
+  
+  /* Enhanced focus states for mobile accessibility */
+  .focus-visible:focus-visible {
+    outline: 2px solid hsl(var(--ring));
+    outline-offset: 2px;
+  }
+  
+  /* Smooth fade-in effect optimized for mobile */
+  .smooth-fade-in {
+    opacity: 0;
+    transform: translateZ(0);
+    animation: smoothFadeIn 0.6s ease-out forwards;
+  }
+  
+  @keyframes smoothFadeIn {
+    from {
+      opacity: 0;
+      transform: translateY(10px) translateZ(0);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0) translateZ(0);
+    }
+  }
+  
+  /* Smooth transform optimization */
+  .smooth-transform {
+    transition: transform var(--duration-mobile) var(--ease-mobile);
+    will-change: transform;
   }
   
   /* Landscape mode optimizations for all mobile sizes */
@@ -168,6 +208,49 @@ All colors MUST be HSL.
     .landscape-optimized {
       padding-top: max(0.5rem, env(safe-area-inset-top));
       padding-bottom: max(0.5rem, env(safe-area-inset-bottom));
+    }
+    
+    /* Reduce vertical spacing in landscape */
+    .py-16 {
+      padding-top: 3rem;
+      padding-bottom: 3rem;
+    }
+    
+    .py-20 {
+      padding-top: 4rem;
+      padding-bottom: 4rem;
+    }
+  }
+  
+  /* Enhanced mobile breakpoint utilities */
+  @media (max-width: 768px) {
+    /* Disable expensive animations on low-end devices */
+    @media (prefers-reduced-motion: reduce) {
+      * {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+      }
+    }
+    
+    /* Mobile-specific optimizations */
+    .mobile-optimized {
+      backface-visibility: hidden;
+      perspective: 1000px;
+      transform: translateZ(0);
+    }
+    
+    /* Reduce shadow complexity on mobile */
+    .card-glow {
+      box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+    }
+    
+    /* Optimize gradient backgrounds for mobile */
+    .gradient-text {
+      background: linear-gradient(135deg, hsl(var(--gradient-purple-mobile)), hsl(var(--gradient-pink-mobile)));
+      -webkit-background-clip: text;
+      background-clip: text;
+      -webkit-text-fill-color: transparent;
     }
   }
 }
