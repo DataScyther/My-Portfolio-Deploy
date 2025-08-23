@@ -254,8 +254,6 @@ All colors MUST be HSL.
     }
   }
 }
-
-
 @layer components {
   /* =========================================
   Refined Slide-In-Up Animations - Pro Motion Smooth
@@ -1534,10 +1532,4 @@ All colors MUST be HSL.
   .count-glow:hover {
     animation: numberGlow 2s ease-in-out infinite;
   }
-  
-  
-  
-  
-  
- 
 }
