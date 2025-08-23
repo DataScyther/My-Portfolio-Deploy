@@ -7,16 +7,22 @@ export const useScrollReveal = (options?: {
   rootMargin?: string;
 }) => {
   const ref = useRef<HTMLElement>(null);
+
+  // Mobile-optimized defaults
+  const isMobile = typeof window !== 'undefined' && window.innerWidth < 768;
   const {
     delay = 0,
     duration = 600,
-    threshold = 0.15,
-    rootMargin = '0px 0px -50px 0px'
+    threshold = isMobile ? 0.05 : 0.15, // Much lower threshold for mobile
+    rootMargin = isMobile ? '0px 0px -20px 0px' : '0px 0px -50px 0px' // Smaller margin for mobile
   } = options || {};
 
   useEffect(() => {
     const element = ref.current;
     if (!element) return;
+
+    // Mobile-specific initialization
+    const isMobileDevice = window.innerWidth < 768;
 
     // Add initial slide-in-up state
     element.style.opacity = '0';
@@ -26,10 +32,14 @@ export const useScrollReveal = (options?: {
 
     // Set up delay if specified
     let timeoutId: ReturnType<typeof setTimeout>;
-    
+
     // Immediately reveal if already in viewport on mount (fixes blank page on load)
+    // Use more generous viewport check for mobile
     const rect = element.getBoundingClientRect();
-    if (rect.top < window.innerHeight && rect.bottom > 0) {
+    const viewportHeight = window.innerHeight;
+    const triggerPoint = isMobileDevice ? viewportHeight * 0.9 : viewportHeight;
+
+    if (rect.top < triggerPoint && rect.bottom > 0) {
       if (delay > 0) {
         timeoutId = setTimeout(() => {
           element.style.opacity = '1';
@@ -41,6 +51,18 @@ export const useScrollReveal = (options?: {
         element.style.transform = 'translateY(0)';
         element.classList.add('visible');
       }
+    }
+
+    // Fallback timer for mobile devices to ensure content appears
+    let fallbackTimer: ReturnType<typeof setTimeout>;
+    if (isMobileDevice) {
+      fallbackTimer = setTimeout(() => {
+        if (!element.classList.contains('visible')) {
+          element.style.opacity = '1';
+          element.style.transform = 'translateY(0)';
+          element.classList.add('visible');
+        }
+      }, 2000); // Show content after 2 seconds if intersection observer hasn't triggered
     }
 
     const observer = new IntersectionObserver(
@@ -99,6 +121,9 @@ export const useScrollReveal = (options?: {
       }
       if (timeoutId) {
         clearTimeout(timeoutId);
+      }
+      if (fallbackTimer) {
+        clearTimeout(fallbackTimer);
       }
     };
   }, [delay, duration, threshold, rootMargin]);

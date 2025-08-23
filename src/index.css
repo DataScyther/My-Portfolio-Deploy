@@ -1118,12 +1118,25 @@ All colors MUST be HSL.
       padding-top: max(1rem, env(safe-area-inset-top));
       padding-bottom: max(1rem, env(safe-area-inset-bottom));
     }
-    
+
     .nav-link {
       font-size: 1.125rem;
       padding: 1.25rem 1rem;
       /* Increase touch target for better accessibility */
       min-height: 60px;
+    }
+
+    /* Ensure content is visible on mobile even if animations fail */
+    .cert-card,
+    .skill-card,
+    .project-card {
+      opacity: 1 !important;
+      transform: translateY(0) !important;
+    }
+
+    /* Reduce animation delays on mobile for faster content appearance */
+    .slide-in-up {
+      animation-duration: 0.4s !important;
     }
   }
   
@@ -1133,7 +1146,7 @@ All colors MUST be HSL.
       transform: none;
       background-color: transparent;
     }
-    
+
     .nav-link:active {
       transform: scale(0.98) translateZ(0);
       background-color: hsl(var(--muted) / 0.4);
@@ -1152,6 +1165,21 @@ All colors MUST be HSL.
     .card-glow:active,
     .gradient-button:active {
       transform: scale(0.98) translateZ(0);
+    }
+
+    /* Ensure all animated cards are visible on touch devices */
+    .cert-card,
+    .skill-card,
+    .project-card {
+      opacity: 1 !important;
+      transform: translateY(0) !important;
+      transition: none !important;
+    }
+
+    /* Disable complex animations on touch devices for better performance */
+    .card-glow:hover {
+      transform: none;
+      box-shadow: 0 10px 30px -10px hsl(270 100% 70% / 0.1);
     }
   }
   
@@ -1249,6 +1277,44 @@ All colors MUST be HSL.
       
       /* Add subtle shadow for depth */
       box-shadow: 0 10px 40px -10px hsl(var(--foreground) / 0.1);
+    }
+  }
+
+  /* Mobile section visibility improvements */
+  @media (max-width: 768px) {
+    /* Ensure sections have proper spacing and are not hidden */
+    section {
+      min-height: auto;
+      padding: 2rem 1rem;
+      position: relative;
+      z-index: 1;
+    }
+
+    /* Force visibility of key sections on mobile */
+    #certifications,
+    #skills,
+    #projects,
+    #experience {
+      opacity: 1;
+      visibility: visible;
+      display: block;
+    }
+
+    /* Reduce animation complexity on mobile */
+    .scroll-reveal {
+      opacity: 1 !important;
+      transform: translateY(0) !important;
+      transition: none !important;
+    }
+
+    /* Ensure grid layouts work properly on mobile */
+    .grid {
+      gap: 1rem;
+    }
+
+    /* Mobile-optimized card spacing */
+    .card-glow {
+      margin-bottom: 1rem;
     }
   }
   
