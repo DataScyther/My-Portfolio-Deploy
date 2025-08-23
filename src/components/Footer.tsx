@@ -16,7 +16,7 @@ const Footer = () => {
     },
     {
       icon: <Youtube className="h-5 w-5" />,
-      href: "#",
+      href: "https://www.youtube.com/@Mighty-TechShorts",
       label: "YouTube"
     },
     {
@@ -101,7 +101,9 @@ const Footer = () => {
               <div>
                 <div className="font-medium">YouTube Channel</div>
                 <a 
-                  href="#"
+                  href="https://www.youtube.com/@Mighty-TechShorts"
+                  target="_blank"
+                  rel="noopener noreferrer"
                   className="hover:text-foreground transition-colors duration-300"
                 >
                   Mighty-TechShorts
