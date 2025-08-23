@@ -42,7 +42,7 @@ const ContactSection = () => {
       icon: <Youtube className="h-6 w-6" />,
       label: "YouTube",
       value: "Mighty-TechShorts",
-      link: "#",
+      link: "https://www.youtube.com/@Mighty-TechShorts",
       color: "gradient-orange"
     },
     {

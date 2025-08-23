@@ -193,7 +193,7 @@ const Navigation = () => {
             {/* Logo */}
             <a 
               href="#" 
-              className="text-2xl sm:text-3xl font-bold gradient-text hover:scale-105 transition-transform duration-300 touch-manipulation ml-2"
+              className="text-2xl sm:text-3xl font-bold gradient-text hover:scale-105 transition-transform duration-800 touch-manipulation ml-2"
               onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
             >
               NK

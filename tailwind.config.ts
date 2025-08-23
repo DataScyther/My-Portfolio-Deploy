@@ -13,10 +13,30 @@ export default {
 	theme: {
 		container: {
 			center: true,
-			padding: '2rem',
+			padding: {
+				DEFAULT: '1rem',
+				sm: '1.5rem',
+				lg: '2rem',
+				xl: '2rem',
+				'2xl': '2rem',
+			},
 			screens: {
 				'2xl': '1400px'
 			}
+		},
+		screens: {
+			'xs': '475px',
+			'sm': '640px',
+			'md': '768px',
+			'lg': '1024px',
+			'xl': '1280px',
+			'2xl': '1536px',
+			// Mobile-first landscape
+			'landscape': {'raw': '(orientation: landscape) and (max-height: 600px)'},
+			// Touch device detection
+			'touch': {'raw': '(hover: none) and (pointer: coarse)'},
+			// High DPI displays
+			'retina': {'raw': '(-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi)'},
 		},
 		extend: {
 				fontFamily: {
