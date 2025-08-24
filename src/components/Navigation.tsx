@@ -193,7 +193,7 @@ const Navigation = () => {
         className="transition-opacity duration-200"
       />
       
-      <div className="fixed top-2 left-1/2 -translate-x-1/2 z-50 w-full max-w-6xl px-2 sm:px-4">
+      <div className="fixed top-1 sm:top-2 left-1/2 -translate-x-1/2 z-50 w-full max-w-6xl px-2 sm:px-4">
       <nav 
         ref={navRef}
         className={`relative rounded-full transition-all duration-200 ${
@@ -203,11 +203,11 @@ const Navigation = () => {
         }`}
       >
         <div className="max-w-7xl mx-auto px-3 sm:px-6">
-          <div className="flex items-center justify-between h-12 sm:h-16">
-            {/* Logo - Optimized for Mobile */}
-            <a 
-              href="#" 
-              className="text-xl sm:text-2xl md:text-3xl font-bold gradient-text hover:scale-105 transition-transform duration-800 touch-manipulation ml-1 sm:ml-2"
+          <div className="flex items-end justify-between h-11 sm:h-12 md:h-16">
+            {/* Logo - Perfect Bottom Baseline Alignment */}
+            <a
+              href="#"
+              className="text-xl sm:text-2xl md:text-3xl font-bold gradient-text hover:scale-105 transition-transform duration-800 touch-manipulation ml-1 sm:ml-2 flex items-end pb-2 leading-none"
               onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
             >
               NK
@@ -216,7 +216,7 @@ const Navigation = () => {
             {/* Desktop Navigation */}
             <div className="hidden lg:flex items-center space-x-1">
               <div className="relative flex items-center space-x-1">
-                <div className="relative flex">
+                <div className="relative flex items-center">
                   {navItems.map((item) => (
                     <button
                       key={item.label}
@@ -224,14 +224,14 @@ const Navigation = () => {
                       onMouseLeave={handleMouseLeave}
                       onClick={() => scrollToSection(item.href)}
                       data-nav-link={item.href}
-                      className="nav-item relative text-secondary hover:text-foreground px-4 py-2 transition-all duration-200 rounded-full hover:bg-muted/10 will-change-transform"
+                      className="nav-item relative text-secondary hover:text-foreground px-4 py-2 transition-all duration-200 rounded-full hover:bg-muted/10 will-change-transform flex items-center leading-none"
                     >
                       {item.label}
                     </button>
                   ))}
                   <div className="nav-underline-container absolute bottom-0 left-0 w-full">
-                    <div 
-                      className="nav-underline" 
+                    <div
+                      className="nav-underline"
                       style={{
                         transform: `translateX(${underlineStyle.left}px)`,
                         width: `${underlineStyle.width}px`
@@ -243,8 +243,8 @@ const Navigation = () => {
               
               <div className="flex items-center space-x-1 sm:space-x-2">
                 <ThemeToggle />
-                <Button 
-                  size="sm" 
+                <Button
+                  size="sm"
                   className="gradient-button px-4 sm:px-6 py-2 rounded-full text-sm"
                   onClick={downloadResume}
                 >
@@ -254,11 +254,11 @@ const Navigation = () => {
               </div>
             </div>
             
-            {/* Mobile Menu Button - Compact Design */}
+            {/* Mobile Menu Button - Perfect Bottom Baseline Alignment */}
             <button
               onClick={toggleMenu}
               disabled={isMobileMenuAnimating}
-              className="lg:hidden w-10 h-10 rounded-full bg-muted/30 hover:bg-muted/50 active:bg-muted/70 flex items-center justify-center transition-all duration-300 touch-manipulation backdrop-blur-sm will-change-transform focus:outline-none focus:ring-2 focus:ring-purple-500/50 focus:ring-offset-1 active:scale-95 disabled:opacity-50"
+              className="lg:hidden w-10 h-10 rounded-full bg-muted/30 hover:bg-muted/50 active:bg-muted/70 flex items-end justify-center transition-all duration-300 touch-manipulation backdrop-blur-sm will-change-transform focus:outline-none focus:ring-2 focus:ring-purple-500/50 focus:ring-offset-1 active:scale-95 disabled:opacity-50 mb-2"
               aria-label={isOpen ? "Close menu" : "Open menu"}
               aria-expanded={isOpen}
             >

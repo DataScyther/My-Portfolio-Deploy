@@ -84,7 +84,12 @@ const HeroSection = () => {
       ref={ref} 
       className={`
         relative px-4 scroll-reveal overflow-hidden
-        py-16 sm:py-20
+        ${isLandscape 
+          ? 'pt-14 pb-8' // Landscape: reduced top padding for tight spacing
+          : isMobile 
+            ? 'pt-16 pb-12' // Portrait mobile: proper nav clearance
+            : 'py-16 sm:py-20' // Desktop: standard padding
+        }
         ${isMobile ? 'pt-safe-area-inset-top pb-safe-area-inset-bottom min-h-[90vh]' : 'min-h-[85vh]'}
         flex items-center justify-center
       `}
@@ -116,56 +121,55 @@ const HeroSection = () => {
         </>
       )}
       
-      <div ref={heroRef} className="relative z-10 max-w-6xl mx-auto text-center w-full">
+      <div ref={heroRef} className={`relative z-10 max-w-6xl mx-auto text-center w-full ${
+        isLandscape
+          ? 'mt-8' // Landscape: optimized spacing
+          : isMobile
+            ? 'mt-10' // Portrait mobile: proper nav clearance
+            : 'mt-0' // Desktop: no additional margin needed
+      }`}>
         {/* Hero entrance animation */}
         <div id="hero-anim-anchor" className="opacity-0" />
         
         {/* Hero Content Container - Perfectly Centered with Enhanced Mobile Spacing */}
-        <div className="flex flex-col items-center justify-center space-y-8 sm:space-y-8">
+        <div className="flex flex-col items-center justify-center space-y-6 sm:space-y-8">
           {/* Avatar - Mobile optimized sizing */}
-          <div className={`${isLandscape ? 'mb-2' : 'mb-4 sm:mb-4'} smooth-transform`}>
+          <div className="mb-4 sm:mb-6 smooth-transform">
             {/* Add your avatar here */}
           </div>
           
           {/* Mobile-Optimized Main Heading with Enhanced Fluid Typography */}
           <div className="text-center" id="hero-title">
             <h1 className="
-              text-xl xs:text-2xl sm:text-2xl md:text-3xl lg:text-4xl
+              text-fluid-xl sm:text-fluid-2xl md:text-fluid-3xl
               font-light leading-tight
               text-secondary
               mb-3
               will-change-transform
             ">
               Hello, I'm{" "}
-              <span className="gradient-text font-bold inline-block text-2xl xs:text-3xl sm:text-3xl md:text-4xl lg:text-5xl will-change-transform">
+              <span className="gradient-text font-bold inline-block text-fluid-2xl sm:text-fluid-3xl md:text-fluid-4xl will-change-transform">
                 Nishant Kumar
               </span>
             </h1>
           </div>
           
           {/* Mobile-Optimized Animated Tagline with Enhanced Fluid Heights */}
-          <div className={`
-            flex flex-col items-center justify-center text-center
-            ${isLandscape 
-              ? 'min-h-[140px]' 
-              : 'min-h-[200px] xs:min-h-[220px] sm:min-h-[200px] md:min-h-[140px]'
-            }
-          `} id="hero-tagline">
+          <div className="flex flex-col items-center justify-center text-center min-h-[180px] sm:min-h-[200px] md:min-h-[140px]" id="hero-tagline">
             <h2 className="
-              text-3xl xs:text-4xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl
+              text-fluid-3xl sm:text-fluid-4xl md:text-fluid-5xl
               font-bold leading-tight
-              mb-4 sm:mb-4
+              mb-4
               will-change-transform
             ">
-              <span className="gradient-text inline-block min-h-[1.2em] break-words px-2 xs:px-2 will-change-transform">
+              <span className="gradient-text inline-block min-h-[1.2em] break-words px-2 will-change-transform">
                 {currentText}
                 <span className="animate-pulse opacity-75">|</span>
               </span>
             </h2>
             <p className="
-              text-base xs:text-lg sm:text-lg md:text-xl lg:text-2xl
-              text-muted-foreground max-w-4xl mx-auto leading-relaxed px-3 xs:px-4
-              ${isLandscape ? 'text-sm' : ''}
+              text-fluid-base sm:text-fluid-lg md:text-fluid-xl
+              text-muted-foreground max-w-4xl mx-auto leading-relaxed px-4
               will-change-transform transition-opacity duration-300
             ">
               Generative AI & Cloud (AWS | GCP) | Python • AI/ML • LLMs • MLOps
@@ -173,17 +177,14 @@ const HeroSection = () => {
           </div>
           
           {/* Mobile-Optimized CTA Buttons with Enhanced Touch-Friendly Design */}
-          <div className={`
-            flex flex-col gap-4 sm:gap-4 justify-center items-center
-            ${isMobile ? 'w-full' : 'sm:flex-row'}
-          `} id="hero-ctas">
-          <Button 
-            size={isMobile ? "lg" : "lg"}
+          <div className="flex flex-col sm:flex-row gap-4 justify-center items-center w-full" id="hero-ctas">
+          <Button
+            size="lg"
             className="
               gradient-button transition-all duration-300
-              text-lg sm:text-lg font-semibold
-              px-8 py-4 sm:px-8 sm:py-4
-              rounded-full w-full max-w-sm sm:w-auto
+              text-fluid-lg font-semibold
+              px-8 py-4
+              rounded-full w-full sm:w-auto
               min-h-[52px] touch-manipulation
               hover:scale-105 active:scale-95
               shadow-lg hover:shadow-xl
@@ -194,17 +195,17 @@ const HeroSection = () => {
             onClick={() => scrollToSection('projects')}
           >
             View Projects
-            <ArrowRight className="ml-2 h-5 w-5 sm:h-5 sm:w-5 transition-transform duration-200 group-hover:translate-x-1" />
+            <ArrowRight className="ml-2 h-5 w-5 transition-transform duration-200 group-hover:translate-x-1" />
           </Button>
-          <Button 
-            size={isMobile ? "lg" : "lg"}
-            variant="outline" 
+          <Button
+            size="lg"
+            variant="outline"
             className="
-              text-lg sm:text-lg font-semibold
-              px-8 py-4 sm:px-8 sm:py-4
-              rounded-full w-full max-w-sm sm:w-auto
+              text-fluid-lg font-semibold
+              px-8 py-4
+              rounded-full w-full sm:w-auto
               min-h-[52px] touch-manipulation
-              border-gradient-purple/30 hover:border-gradient-purple/60 
+              border-gradient-purple/30 hover:border-gradient-purple/60
               hover:bg-gradient-purple/10 transition-all duration-300
               hover:scale-105 active:scale-95
               shadow-md hover:shadow-lg
@@ -214,7 +215,7 @@ const HeroSection = () => {
             "
             onClick={downloadResume}
           >
-            <Download className="mr-2 h-5 w-5 sm:h-5 sm:w-5 transition-transform duration-200 group-hover:-translate-y-0.5" />
+            <Download className="mr-2 h-5 w-5 transition-transform duration-200 group-hover:-translate-y-0.5" />
             Download Resume
           </Button>
           </div>
