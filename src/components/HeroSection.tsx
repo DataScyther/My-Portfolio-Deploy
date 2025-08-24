@@ -84,8 +84,8 @@ const HeroSection = () => {
       ref={ref} 
       className={`
         relative flex items-center justify-center px-4 scroll-reveal overflow-hidden
-        ${isLandscape ? 'min-h-[100svh] py-8' : 'min-h-[100svh] sm:min-h-screen'}
-        ${isMobile ? 'pt-safe-area-inset-top pb-safe-area-inset-bottom' : ''}
+        py-16 sm:py-20 md:py-24
+        ${isMobile ? 'pt-safe-area-inset-top pb-safe-area-inset-bottom min-h-[80vh]' : 'min-h-[85vh]'}
       `}
     >
       {/* Mobile-Optimized Background Effects */}
@@ -120,12 +120,12 @@ const HeroSection = () => {
         <div id="hero-anim-anchor" className="opacity-0" />
         
         {/* Avatar - Mobile optimized sizing */}
-        <div className={`${isLandscape ? 'mb-4' : 'mb-6 sm:mb-8'} smooth-transform`}>
+        <div className={`${isLandscape ? 'mb-3' : 'mb-4 sm:mb-6'} smooth-transform`}>
           {/* Add your avatar here */}
         </div>
         
         {/* Mobile-Optimized Main Heading with Enhanced Fluid Typography */}
-        <div className={`${isLandscape ? 'mb-3' : 'mb-4 sm:mb-6'}`} id="hero-title">
+        <div className={`${isLandscape ? 'mb-2' : 'mb-3 sm:mb-4'}`} id="hero-title">
           <h1 className="
             text-lg xs:text-xl sm:text-2xl md:text-3xl lg:text-4xl
             font-light leading-tight
@@ -144,25 +144,25 @@ const HeroSection = () => {
         <div className={`
           flex flex-col items-center justify-center
           ${isLandscape 
-            ? 'h-[120px] mb-4' 
-            : 'h-[180px] xs:h-[200px] sm:h-[200px] md:h-[150px] mb-6 sm:mb-8'
+            ? 'h-[120px] mb-3' 
+            : 'h-[160px] xs:h-[180px] sm:h-[200px] md:h-[140px] mb-4 sm:mb-6'
           }
         `} id="hero-tagline">
           <h2 className="
             text-2xl xs:text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl
             font-bold leading-tight
-            ${isLandscape ? 'mb-2' : 'mb-3 sm:mb-4'}
+            ${isLandscape ? 'mb-1' : 'mb-2 sm:mb-3'}
             will-change-transform
           ">
-            <span className="gradient-text inline-block min-h-[1.2em] break-words px-2 will-change-transform">
+            <span className="gradient-text inline-block min-h-[1.2em] break-words px-1 xs:px-2 will-change-transform">
               {currentText}
               <span className="animate-pulse opacity-75">|</span>
             </span>
           </h2>
           <p className="
             text-sm xs:text-base sm:text-lg md:text-xl lg:text-2xl
-            text-muted-foreground max-w-4xl mx-auto leading-relaxed px-4
-            ${isLandscape ? 'text-xs' : ''}
+            text-muted-foreground max-w-4xl mx-auto leading-relaxed px-2 xs:px-4
+            ${isLandscape ? 'text-sm' : ''}
             will-change-transform transition-opacity duration-300
           ">
             Generative AI & Cloud (AWS | GCP) | Python • AI/ML • LLMs • MLOps
@@ -172,7 +172,7 @@ const HeroSection = () => {
         {/* Mobile-Optimized CTA Buttons with Enhanced Touch-Friendly Design */}
         <div className={`
           flex flex-col gap-3 sm:gap-4 justify-center items-center
-          ${isLandscape ? 'mb-8' : 'mb-12 sm:mb-16'}
+          ${isLandscape ? 'mb-6' : 'mb-8 sm:mb-12'}
           ${isMobile ? '' : 'sm:flex-row'}
         `} id="hero-ctas">
           <Button 
@@ -180,7 +180,7 @@ const HeroSection = () => {
             className="
               gradient-button transition-all duration-300
               text-base sm:text-lg font-semibold
-              px-6 py-3 sm:px-8 sm:py-6
+              px-6 py-3 sm:px-8 sm:py-4
               rounded-full w-full max-w-xs sm:w-auto
               min-h-[48px] touch-manipulation
               hover:scale-105 active:scale-95
@@ -199,7 +199,7 @@ const HeroSection = () => {
             variant="outline" 
             className="
               text-base sm:text-lg font-semibold
-              px-6 py-3 sm:px-8 sm:py-6
+              px-6 py-3 sm:px-8 sm:py-4
               rounded-full w-full max-w-xs sm:w-auto
               min-h-[48px] touch-manipulation
               border-gradient-purple/30 hover:border-gradient-purple/60 

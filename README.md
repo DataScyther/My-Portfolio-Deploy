@@ -38,7 +38,7 @@ npm run preview
 
 ## 📁 Project Structure
 
-```
+```text
 src/
 ├── components/          # React components
 │   ├── ui/             # Reusable UI components
@@ -70,4 +70,4 @@ Visit the live portfolio: [Deployed on Vercel](https://your-vercel-url.vercel.ap
 
 ---
 
-*Last updated: $(Get-Date -Format "yyyy-MM-dd") - CSS syntax fixes, mobile optimizations, and performance enhancements*
+Last updated: $(Get-Date -Format "yyyy-MM-dd") - CSS syntax fixes, mobile optimizations, and performance enhancements
