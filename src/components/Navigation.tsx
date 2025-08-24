@@ -193,7 +193,7 @@ const Navigation = () => {
         className="transition-opacity duration-200"
       />
       
-      <div className="fixed top-4 left-1/2 -translate-x-1/2 z-50 w-full max-w-6xl px-4">
+      <div className="fixed top-2 left-1/2 -translate-x-1/2 z-50 w-full max-w-6xl px-2 sm:px-4">
       <nav 
         ref={navRef}
         className={`relative rounded-full transition-all duration-200 ${
@@ -202,12 +202,12 @@ const Navigation = () => {
             : 'bg-background/20 dark:bg-background/20 backdrop-blur-md border border-border/10'
         }`}
       >
-        <div className="max-w-7xl mx-auto px-6">
-          <div className="flex items-center justify-between h-16 sm:h-16">
-            {/* Logo */}
+        <div className="max-w-7xl mx-auto px-3 sm:px-6">
+          <div className="flex items-center justify-between h-12 sm:h-16">
+            {/* Logo - Optimized for Mobile */}
             <a 
               href="#" 
-              className="text-2xl sm:text-3xl font-bold gradient-text hover:scale-105 transition-transform duration-800 touch-manipulation ml-2"
+              className="text-xl sm:text-2xl md:text-3xl font-bold gradient-text hover:scale-105 transition-transform duration-800 touch-manipulation ml-1 sm:ml-2"
               onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
             >
               NK
@@ -241,47 +241,47 @@ const Navigation = () => {
                 </div>
               </div>
               
-              <div className="flex items-center space-x-2 ml-2">
+              <div className="flex items-center space-x-1 sm:space-x-2">
                 <ThemeToggle />
                 <Button 
                   size="sm" 
-                  className="gradient-button px-6 py-2 rounded-full"
+                  className="gradient-button px-4 sm:px-6 py-2 rounded-full text-sm"
                   onClick={downloadResume}
                 >
-                  <Download className="h-4 w-4 mr-2" />
+                  <Download className="h-3 w-3 sm:h-4 sm:w-4 mr-1 sm:mr-2" />
                   Resume
                 </Button>
               </div>
             </div>
             
-            {/* Mobile Menu Button - Enhanced for Touch */}
+            {/* Mobile Menu Button - Compact Design */}
             <button
               onClick={toggleMenu}
               disabled={isMobileMenuAnimating}
-              className="lg:hidden w-12 h-12 rounded-full bg-muted/30 hover:bg-muted/50 active:bg-muted/70 flex items-center justify-center transition-all duration-300 touch-manipulation backdrop-blur-sm will-change-transform focus:outline-none focus:ring-2 focus:ring-purple-500/50 focus:ring-offset-2 active:scale-95 disabled:opacity-50"
+              className="lg:hidden w-10 h-10 rounded-full bg-muted/30 hover:bg-muted/50 active:bg-muted/70 flex items-center justify-center transition-all duration-300 touch-manipulation backdrop-blur-sm will-change-transform focus:outline-none focus:ring-2 focus:ring-purple-500/50 focus:ring-offset-1 active:scale-95 disabled:opacity-50"
               aria-label={isOpen ? "Close menu" : "Open menu"}
               aria-expanded={isOpen}
             >
               <div className={`transition-all duration-300 will-change-transform ${isOpen ? 'rotate-180' : ''}`}>
-                {isOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
+                {isOpen ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
               </div>
             </button>
           </div>
           
-          {/* Mobile Navigation - Enhanced with Better Performance */}
+          {/* Mobile Navigation - Compact and Efficient */}
           <div className={`lg:hidden mobile-menu-container transition-all duration-300 ease-out will-change-transform ${
             isOpen 
-              ? 'opacity-100 translate-y-2 pointer-events-auto' 
-              : 'opacity-0 -translate-y-4 pointer-events-none'
+              ? 'opacity-100 translate-y-1 pointer-events-auto' 
+              : 'opacity-0 -translate-y-2 pointer-events-none'
           }`}>
-            <div className="absolute top-full left-0 right-0 bg-background/95 dark:bg-background/95 backdrop-blur-xl rounded-2xl border border-border/20 shadow-2xl overflow-hidden mt-2 will-change-transform">
-              <div className="px-4 py-6 space-y-2">
+            <div className="absolute top-full left-0 right-0 bg-background/95 dark:bg-background/95 backdrop-blur-xl rounded-xl border border-border/20 shadow-2xl overflow-hidden mt-1 will-change-transform">
+              <div className="px-3 py-4 space-y-1">
                 {navItems.map((item, index) => (
                   <button
                     key={item.label}
                     onClick={() => scrollToSection(item.href)}
                     data-nav-link={item.href}
-                    className="block w-full text-left text-secondary hover:text-foreground py-4 px-6 hover:bg-muted/20 active:bg-muted/30 transition-all duration-200 nav-link touch-manipulation will-change-transform rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-500/50 focus:ring-offset-2 active:scale-[0.98]"
+                    className="block w-full text-left text-secondary hover:text-foreground py-3 px-4 hover:bg-muted/20 active:bg-muted/30 transition-all duration-200 nav-link touch-manipulation will-change-transform rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-500/50 focus:ring-offset-1 active:scale-[0.98]"
                     style={{ 
                       animationDelay: `${index * 50}ms`,
                       transform: isOpen ? 'translateX(0)' : 'translateX(-20px)',
@@ -290,22 +290,22 @@ const Navigation = () => {
                     }}
                   >
                     <div className="flex items-center justify-between">
-                      <span className="text-lg font-medium">{item.label}</span>
+                      <span className="text-base font-medium">{item.label}</span>
                       <div className="nav-underline mobile-underline"></div>
                     </div>
                   </button>
                 ))}
                 
-                <div className="flex flex-col gap-4 mt-4 pt-4 border-t border-border/20 mx-6 pb-2">
+                <div className="flex flex-col gap-3 mt-3 pt-3 border-t border-border/20 mx-4 pb-1">
                   <div className="flex items-center justify-center">
                     <ThemeToggle />
                   </div>
                   <Button 
-                    size="lg" 
-                    className="gradient-button w-full py-4 text-lg font-semibold rounded-full will-change-transform hover:scale-[1.02] active:scale-[0.98] transition-transform duration-200 focus:outline-none focus:ring-2 focus:ring-purple-500/50 focus:ring-offset-2"
+                    size="default" 
+                    className="gradient-button w-full py-3 text-base font-semibold rounded-full will-change-transform hover:scale-[1.02] active:scale-[0.98] transition-transform duration-200 focus:outline-none focus:ring-2 focus:ring-purple-500/50 focus:ring-offset-1"
                     onClick={downloadResume}
                   >
-                    <Download className="h-5 w-5 mr-3 transition-transform duration-200 group-hover:-translate-y-0.5" />
+                    <Download className="h-4 w-4 mr-2 transition-transform duration-200 group-hover:-translate-y-0.5" />
                     Download Resume
                   </Button>
                 </div>
